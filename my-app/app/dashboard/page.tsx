@@ -4,7 +4,7 @@ import Card from "../../components/ui/Card";
 import { useSearchStore } from "../../store/searchStore";
 
 
-const Dashboard = () => {
+const Dashboard = () =>  {
 
   const { search } = useSearchStore();
 
