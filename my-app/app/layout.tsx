@@ -26,14 +26,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={``}>
-        <div className="flex">
-          <Sidebar />
-          <div className="flex-1 flex flex-col">
-            <Navbar />
-            <main className="p-6">{children}</main>
-          </div>
-        </div>
+      <body>
+       {children}
       </body>
     </html>
   );
