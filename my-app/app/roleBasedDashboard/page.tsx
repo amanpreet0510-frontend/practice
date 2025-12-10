@@ -1,18 +1,27 @@
-import React from 'react'
-import RolebasedDashboard from '../../components/dashboard/RolebasedDashboard';
+"use client";
+import React, { useState } from "react";
+import AdminDashboard from "../roleBasedDashboard/adminDashboard";
+import HrDashboard from "../roleBasedDashboard/hrDashboard";
+import { useUserStore } from "@/store/userStore";
+import EmployeeDashboard from "../roleBasedDashboard/employeeDashboard";
 
-
-const DashboardPage = () => {
+const RolebasedDashboard = () => {
+  const user = useUserStore((state) => state.user);
   
+if (!user) {
+    return <div>Loading...</div>; // or redirect to login
+  }
 
-
-    return (
+      if(user.role==='admin') return <AdminDashboard />
+      if(user.role==="hr") return <HrDashboard />
+      if(user.role==="employee") return <EmployeeDashboard />
+  return (
     <>
     <div>
-      <RolebasedDashboard />
-    </div>      
+    no dashboard
+      </div>
     </>
-  )
-}
+  );
+};
 
-export default DashboardPage;
+export default RolebasedDashboard;

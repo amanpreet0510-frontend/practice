@@ -5,7 +5,7 @@ const HrDashboard = () => {
     <>
     <div className=''>
      <div>
-      
+      Hr dashboard
      </div>
     </div>
     </>

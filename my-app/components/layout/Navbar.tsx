@@ -1,8 +1,11 @@
+'use client';
 import React from "react";
 import Image from "next/image";
 import { MenuItem } from "@/types/menu.types";
 import Search from "../ui/Search";
 import {Button} from '../ui/button'
+import { supabase } from "@/lib/supabaseClient"; 
+import { useRouter } from "next/navigation";
 
 const menu: MenuItem[] = [
   {
@@ -12,7 +15,17 @@ const menu: MenuItem[] = [
   },
 ];
 
-const navbar = () => {
+
+
+const Navbar = () => {
+ const router = useRouter();
+
+const handleLogout = async () => {
+
+    await supabase.auth.signOut();
+    router.replace("/login");
+    router.refresh();
+  }
   return (
     <>
       <nav className="container w-full">
@@ -31,13 +44,15 @@ const navbar = () => {
                     src={item.image}
                   />
                 </li>
+                 <button onClick={handleLogout} className="bg-blue-300 w-20 text-xl font-bold h-10 mt-10">LogOut</button>
               </div>
             </React.Fragment>
           ))}
+          
         </ul>
       </nav>
     </>
   );
 };
 
-export default navbar;
+export default Navbar;

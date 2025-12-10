@@ -32,6 +32,8 @@ export default function SignupPage() {
       {
         id: data.user?.id,
         email,
+        name,
+        role,
       },
     ]);
 
@@ -39,10 +41,14 @@ export default function SignupPage() {
       const user: User = {
         id: data.user.id,
         email,
+        name,
+        role,
       };
 
+    
+
       setUser(user);
-      router.push("/login"); 
+      router.replace("/login"); 
     }
   };
 

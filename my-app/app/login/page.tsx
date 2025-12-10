@@ -10,6 +10,7 @@ export default function LoginPage() {
   const router = useRouter();
   const setUser = useUserStore((state) => state.setUser);
 
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -25,23 +26,17 @@ export default function LoginPage() {
       password,
     });
 
-    if (error) {
-      alert(error.message);
-      return;
-    }
-
-    if (data.user) {
-      const user: User = {
-        id: data.user.id,
-        email: data.user.email ?? "",
-        // name: "",
-        // role: "employee",
-      };
-
-      setUser(user);
-      router.push("/dashboard");
-    }
-    console.log('first', data.user)
+    if (error) return alert(error.message);
+    
+    const user: User = {
+      id: data.user.id,
+      email: data.user.email ?? "",
+      name: data.user.user_metadata?.name ?? "",
+      role: (data.user.user_metadata?.role ?? "employee").toLowerCase(),
+    };
+    
+    setUser(user);
+    router.replace("/roleBasedDashboard");
   };
 
   const handleGoogleSignIn = async () => {
@@ -52,6 +47,7 @@ export default function LoginPage() {
       console.error("Google login error:", error.message);
     }
   };
+
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100">
       <form
@@ -60,7 +56,6 @@ export default function LoginPage() {
       >
         <h1 className="text-2xl font-semibold mb-4 text-center">Login</h1>
 
-        
         <label className="block mb-2 text-sm font-medium">Email</label>
         <input
           type="email"
@@ -70,7 +65,6 @@ export default function LoginPage() {
           onChange={(e) => setEmail(e.target.value)}
         />
 
-        
         <label className="block mb-2 text-sm font-medium">Password</label>
         <input
           type="password"

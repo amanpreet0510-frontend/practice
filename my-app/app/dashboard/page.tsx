@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React,{useEffect} from "react";
 import Card from "../../components/ui/Card";
 import { useSearchStore } from "../../store/searchStore";
 
@@ -7,6 +7,7 @@ import { useSearchStore } from "../../store/searchStore";
 const Dashboard = () =>  {
 
   const { search } = useSearchStore();
+  
 
   const users = [
     {
@@ -72,6 +73,8 @@ const Dashboard = () =>  {
 };
 
 export default Dashboard;
+
+
 
 
 

@@ -30,76 +30,76 @@
 //     </div>
 //   );
 // }
-"use client";
-import { useState, useEffect } from "react";
+// "use client";
+// import { useState, useEffect } from "react";
 
-function throttle(fn, delay) {
-  let last = 0;
+// function throttle(fn, delay) {
+//   let last = 0;
 
-  return (...args) => {
-    const now = Date.now();
+//   return (...args) => {
+//     const now = Date.now();
 
-    if (now - last >= delay) {
-      last = now;
-      fn(...args);
-    }
-  };
-}
+//     if (now - last >= delay) {
+//       last = now;
+//       fn(...args);
+//     }
+//   };
+// }
 
-export default function ThrottleSearch() {
-  const [query, setQuery] = useState("");
-  const [users, setUsers] = useState([]);
-  const [filtered, setFiltered] = useState([]);
-
- 
-  useEffect(() => {
-    async function fetchUsers() {
-      const res = await fetch("https://fakestoreapi.com/users");
-      const data = await res.json();
-      setUsers(data);
-    }
-    fetchUsers();
-  }, []);
+// export default function ThrottleSearch() {
+//   const [query, setQuery] = useState("");
+//   const [users, setUsers] = useState([]);
+//   const [filtered, setFiltered] = useState([]);
 
  
-  const searchAPI = (value) => {
-    const result = users.filter((u) =>
-      u.username.toLowerCase().includes(value.toLowerCase())
-    );
-    setFiltered(result);
-    console.log("API SEARCH triggered with:", value) ;
-  };
+//   useEffect(() => {
+//     async function fetchUsers() {
+//       const res = await fetch("https://fakestoreapi.com/users");
+//       const data = await res.json();
+//       setUsers(data);
+//     }
+//     fetchUsers();
+//   }, []);
 
  
-  const throttledSearch = throttle(searchAPI, 1000);
+//   const searchAPI = (value) => {
+//     const result = users.filter((u) =>
+//       u.username.toLowerCase().includes(value.toLowerCase())
+//     );
+//     setFiltered(result);
+//     console.log("API SEARCH triggered with:", value) ;
+//   };
 
-  useEffect(() => {
-    if (query.trim() !== "") {
-      throttledSearch(query);
-    } else {
-      setFiltered([]);
-    }
-  }, [query]);
+ 
+//   const throttledSearch = throttle(searchAPI, 1000);
 
-  return (
-    <div style={{ padding: "20px" }}>
-      <h2>Throttle Search Example</h2>
+//   useEffect(() => {
+//     if (query.trim() !== "") {
+//       throttledSearch(query);
+//     } else {
+//       setFiltered([]);
+//     }
+//   }, [query]);
 
-      <input
-        type="text"
-        placeholder="Search users…"
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        className="border p-2"
-      />
+//   return (
+//     <div style={{ padding: "20px" }}>
+//       <h2>Throttle Search Example</h2>
 
-      <ul style={{ marginTop: "15px" }}>
-        {filtered.map((user) => (
-          <li key={user.id}>{user.username}</li>
-        ))}
-      </ul>
-    </div>
-  );
-}
+//       <input
+//         type="text"
+//         placeholder="Search users…"
+//         value={query}
+//         onChange={(e) => setQuery(e.target.value)}
+//         className="border p-2"
+//       />
+
+//       <ul style={{ marginTop: "15px" }}>
+//         {filtered.map((user) => (
+//           <li key={user.id}>{user.username}</li>
+//         ))}
+//       </ul>
+//     </div>
+//   );
+// }
 
 

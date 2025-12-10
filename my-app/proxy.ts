@@ -34,18 +34,13 @@ export async function proxy(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser()
   
+
   // Protect dashboard routes
-  if (request.nextUrl.pathname.startsWith('/dashboard') && !user) {
+  if (request.nextUrl.pathname.startsWith('/roleBasedDashboard') && !user) {
     return NextResponse.redirect(new URL('/login', request.url))
   }
-  // Handle auth code redirect
-  const code = request.nextUrl.searchParams.get('code')
-  if (code && !request.nextUrl.pathname.startsWith('/callback')) {
-    const redirectUrl = new URL('/callback', request.url)
-    redirectUrl.searchParams.set('code', code)
-    return NextResponse.redirect(redirectUrl)
-  }
-  return response
+
+  return response;
 }
 export const config = {
   matcher: [
