@@ -10,7 +10,6 @@ export default function LoginPage() {
   const router = useRouter();
   const setUser = useUserStore((state) => state.setUser);
 
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -27,16 +26,34 @@ export default function LoginPage() {
     });
 
     if (error) return alert(error.message);
-    
+
+    if (!data.user) return;
+
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("name, role, email, first_time")
+      .eq("id", data.user.id)
+      .single();
+      console.log('profile', profile)
+
+    if (!profile) return console.error("No profile found for this user");
+
     const user: User = {
       id: data.user.id,
-      email: data.user.email ?? "",
-      name: data.user.user_metadata?.name ?? "",
-      role: (data.user.user_metadata?.role ?? "employee").toLowerCase(),
+      email: profile.email ?? data.user.email ?? "",
+      name: profile.name ?? "",
+      role: profile.role ?? "",
+      first_time:profile.first_time ?? ""
     };
-    
+console.log('user', user)
     setUser(user);
-    router.replace("/roleBasedDashboard");
+    if(profile?.first_time){
+       router.replace("/createProfile");
+    }
+    else{
+      router.replace("/roleBasedDashboard");
+    }
+    //router.replace("/roleBasedDashboard");
   };
 
   const handleGoogleSignIn = async () => {

@@ -34,6 +34,7 @@ export default function SignupPage() {
         email,
         name,
         role,
+        first_time:false
       },
     ]);
 
@@ -43,8 +44,9 @@ export default function SignupPage() {
         email,
         name,
         role,
+        first_time:false
       };
-
+console.log('data.user', data.user)
     
 
       setUser(user);
@@ -90,7 +92,7 @@ export default function SignupPage() {
       <Button type="submit" className="w-full mt-2">
         Create Account
       </Button>
-      <Button type="submit" className="w-full mt-2">
+      <Button  onClick={() => router.push("/login")} className="w-full mt-2">
         Login
       </Button>
     </form>

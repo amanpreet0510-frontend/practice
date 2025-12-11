@@ -7,9 +7,9 @@ import EmployeeDashboard from "../roleBasedDashboard/employeeDashboard";
 
 const RolebasedDashboard = () => {
   const user = useUserStore((state) => state.user);
-  
+ 
 if (!user) {
-    return <div>Loading...</div>; // or redirect to login
+    return <div>Loading...</div>; 
   }
 
       if(user.role==='admin') return <AdminDashboard />
