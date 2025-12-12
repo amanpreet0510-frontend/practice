@@ -4,4 +4,5 @@ export interface User {
   name: string;
   role: string;
   first_time: boolean,
+  image:string | null
 }

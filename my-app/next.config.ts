@@ -2,17 +2,27 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ["cdn-icons-png.flaticon.com"],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn-icons-png.flaticon.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cqqfhgxcaukqtzcyxlhu.supabase.co',
+        pathname: '/storage/v1/object/public/**',
+      },
+    ],
   },
   async headers() {
     return [
       {
-        // Apply these headers to the /login page
+        
         source: "/login",
         headers: [
           {
             key: "Cache-Control",
-            value: "no-store", // prevents caching of login page
+            value: "no-store",
           },
           {
             key: "Pragma",

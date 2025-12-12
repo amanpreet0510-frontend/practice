@@ -34,7 +34,7 @@ export default function SignupPage() {
         email,
         name,
         role,
-        first_time:false
+        first_time:true
       },
     ]);
 
@@ -44,7 +44,7 @@ export default function SignupPage() {
         email,
         name,
         role,
-        first_time:false
+        first_time:true
       };
 console.log('data.user', data.user)
     

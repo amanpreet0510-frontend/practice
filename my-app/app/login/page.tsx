@@ -31,7 +31,7 @@ export default function LoginPage() {
 
     const { data: profile } = await supabase
       .from("profiles")
-      .select("name, role, email, first_time")
+      .select("name, role, email, first_time,image")
       .eq("id", data.user.id)
       .single();
       console.log('profile', profile)
@@ -43,9 +43,10 @@ export default function LoginPage() {
       email: profile.email ?? data.user.email ?? "",
       name: profile.name ?? "",
       role: profile.role ?? "",
-      first_time:profile.first_time ?? ""
+      first_time:profile.first_time ?? "",
+      image:profile.image || null
     };
-console.log('user', user)
+console.log('profile.image', profile.image)
     setUser(user);
     if(profile?.first_time){
        router.replace("/createProfile");
