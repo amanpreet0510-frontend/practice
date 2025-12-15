@@ -50,7 +50,7 @@ console.log('data.user', data.user)
     
 
       setUser(user);
-      router.replace("/login"); 
+      router.replace("/login");
     }
   };
 

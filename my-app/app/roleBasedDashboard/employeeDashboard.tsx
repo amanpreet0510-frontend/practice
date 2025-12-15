@@ -5,9 +5,14 @@ import { User } from "../../types/user.types";
 import Card1 from "@/components/ui/Card1";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import Image from "next/image";
+import LeaveCard from "@/components/ui/leaveCard";
 
 const EmployeeDashboard = () => {
+ 
   const user = useUserStore((state) => state.user);
+  
+
+
   console.log("user", user);
 
   return (
@@ -23,21 +28,7 @@ const EmployeeDashboard = () => {
           className="rounded-2xl p-5 bg-white"
         />
       </div>
-       <Card className="mt-5">
-          
-        </Card>
-      {/* <div className=" ">
-        <div>
-          <h1 className="text-2xl font-bold bg-blue-300 p-10 flex justify-center">Welcome {user?.name}</h1>
-         </div>
-        <Card className="mt-5">
-          <div className="items-center"> 
-          <CardTitle className="text-2xl p-20 font-black">{user?.name}</CardTitle>
-          <Image alt="user" height={50} width={50} src={user?.image ?? ""}/>
-          <CardContent className="text-2xl p-20 font-black" >{user?.role}</CardContent>
-          </div>
-        </Card>
-      </div> */}
+        <LeaveCard/>
     </>
   );
 };

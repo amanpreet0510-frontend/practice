@@ -45,6 +45,7 @@ const handleLogout = async () => {
                   />
                 </li>
                  <button onClick={handleLogout} className="bg-blue-300 w-20 text-xl font-bold h-10 mt-10">LogOut</button>
+                 <p className="bg-blue-300 w-10 text-xl font-bold h-10 mt-10"><Image alt="prop" height={30} width={40} src='/notification.png'/></p>
               </div>
             </React.Fragment>
           ))}
