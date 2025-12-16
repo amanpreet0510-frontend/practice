@@ -4,7 +4,7 @@ export interface LeaveBalance {
   remaining: number;
 }
 
-export interface LeaveRequest {
+export interface LeaveApproval {
   id: string;
   user_id: string;
   leave_type: string;
@@ -14,3 +14,4 @@ export interface LeaveRequest {
   status: "pending" | "approved" | "rejected";
   created_at: string;
 }
+

@@ -20,11 +20,6 @@ export const useLeaveStore = create<LeaveStore>((set) => ({
 
   fetchLeaveBalance: async (userId: string) => {
     
-   
-    // if (!userId) {
-    //   console.warn("fetchLeaveBalance skipped: userId is undefined");
-    //   return;
-    // }
 
     set({ loading: true, error: null });
 
