@@ -9,6 +9,9 @@ const LeaveCard = () => {
   const { leaves, totalRemaining, loading, fetchLeaveBalance } =
     useLeaveStore();
   const user = useUserStore((state) => state.user);
+  console.log('user', user)
+console.log('leaves', leaves);
+
 
   useEffect(() => {
     if (user?.id) {

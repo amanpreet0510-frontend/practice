@@ -30,8 +30,7 @@ export const useLeaveApprovalStore = create<LeaveApprovalStore>((set) => ({
       .eq("status", "pending")
       .order("created_at", { ascending: false });
 
-      console.log('data', data)
-      console.log('error', error)
+      
 
     if (error) {
       set({ error: error.message, loading: false });

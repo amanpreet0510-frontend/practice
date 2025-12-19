@@ -4,11 +4,16 @@ import { supabase } from "../../lib/supabaseClient";
 import { User } from "../../types/user.types";
 import  Card  from '@/components/ui/Card1';
 import { useLeaveApprovalStore } from '@/store/leaveApproval';
+import AssignTask from '@/components/ui/AssignTask';
+import LeaveCard from '@/components/ui/leaveCard';
+
+
 
 
 const HRDashboard = () => {
 
   const {requests,fetchPendingLeaves,updateLeaveStatus}=useLeaveApprovalStore();
+
 
 useEffect(()=>{
   fetchPendingLeaves()
@@ -62,6 +67,7 @@ useEffect(()=>{
           ))}
         </tbody>
       </table>
+      <AssignTask />
     </div>
     </>
   )

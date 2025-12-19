@@ -8,3 +8,10 @@ export interface tasks {
   status: "pending" | "approved" | "rejected";
   created_at: string;
 }
+
+export interface AssignTaskPayload {
+  title: string;
+  description: string;
+  employeeId: string;
+  dueDate: string;
+}

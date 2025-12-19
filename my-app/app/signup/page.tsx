@@ -28,30 +28,48 @@ export default function SignupPage() {
     if (error) return alert(error.message);
 
    
-    await supabase.from("profiles").insert([
-      {
-        id: data.user?.id,
-        email,
-        name,
-        role,
-        first_time:true
-      },
-    ]);
-
-    if (data.user) {
-      const user: User = {
-        id: data.user.id,
-        email,
-        name,
-        role,
-        first_time:true
-      };
-console.log('data.user', data.user)
     
+    if (!data.user) return;
+
+   const { error: updateError } = await supabase
+  .from("profiles")
+  .update({
+    name,
+    role,        
+  })
+  .eq("id", data.user.id);
+
+if (updateError) {
+  console.error(updateError);
+  return;
+}
+
+
+ const { data: profile, error: fetchError } = await supabase
+  .from("profiles")
+  .select("id, email, name, role, first_time, image")
+  .eq("id", data.user.id)
+  .single();
+
+if (fetchError || !profile) {
+  console.error(fetchError);
+  return;
+}
+
+
+  const user: User = {
+  id: profile.id,
+  email: profile.email,
+  name: profile.name,
+  role: profile.role,
+  first_time: profile.first_time,
+  image: profile.image,
+};
+
 
       setUser(user);
       router.replace("/login");
-    }
+    
   };
 
   return (

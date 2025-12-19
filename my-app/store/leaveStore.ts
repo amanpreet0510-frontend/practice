@@ -23,12 +23,13 @@ export const useLeaveStore = create<LeaveStore>((set) => ({
 
     set({ loading: true, error: null });
 
+
+
     const { data, error, status } = await supabase
       .from("leave_balances")
       .select("leave_type, remaining")
       .eq("user_id", userId);
-
-        
+    
 
     if (error) {
       set({

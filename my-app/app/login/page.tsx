@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useUserStore } from "@/store/userStore";
 import { useRouter } from "next/navigation";
 import { supabase } from "../../lib/supabaseClient";
@@ -9,6 +9,8 @@ import { User } from "../../types/user.types";
 export default function LoginPage() {
   const router = useRouter();
   const setUser = useUserStore((state) => state.setUser);
+  const {user,fetchUser}=useUserStore();
+
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,12 +31,12 @@ export default function LoginPage() {
 
     if (!data.user) return;
 
-    const { data: profile } = await supabase
+    const { data: profile,error:profileError } = await supabase
       .from("profiles")
       .select("name, role, email, first_time,image")
       .eq("id", data.user.id)
       .single();
-      console.log('profile', profile)
+     
 
     if (!profile) return console.error("No profile found for this user");
 
@@ -46,7 +48,7 @@ export default function LoginPage() {
       first_time:profile.first_time ?? "",
       image:profile.image || null
     };
-console.log('profile.image', profile.image)
+
     setUser(user);
     if(profile?.first_time){
        router.replace("/createProfile");

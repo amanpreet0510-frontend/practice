@@ -13,6 +13,7 @@ import { User } from "../../types/user.types";
 const CreateProfile = () => {
   const router = useRouter();
   const user = useUserStore((state) => state.user);
+  const setUser = useUserStore((state) => state.setUser);
   console.log("user", user);
 
   const [name, setName] = useState("");
@@ -27,9 +28,9 @@ const CreateProfile = () => {
     if (image) {
       const storagePath = `${user.id}/avatar.png`;
 
-    const { data, error } = await supabase.storage
-    .from("profile_pictures")
-    .upload(storagePath, image, { upsert: true });
+      const { data, error } = await supabase.storage
+        .from("profile_pictures")
+        .upload(storagePath, image, { upsert: true });
 
       if (error) {
         alert(error.message);
@@ -37,13 +38,13 @@ const CreateProfile = () => {
         return;
       }
 
+      console.log("data", data);
       publicUrl = supabase.storage
-    .from("profile_pictures")
-    .getPublicUrl(storagePath).data.publicUrl;
+        .from("profile_pictures")
+        .getPublicUrl(storagePath).data.publicUrl;
     }
 
-    
-    const {error: updateError } = await supabase
+    const { error: updateError } = await supabase
       .from("profiles")
       .update({
         name,
@@ -57,8 +58,13 @@ const CreateProfile = () => {
       setLoading(false);
       return;
     }
+    setUser({
+      ...user,
+      name,
+      image: publicUrl,
+      first_time: false,
+    });
 
-    
     router.replace("/roleBasedDashboard");
 
     setLoading(false);
