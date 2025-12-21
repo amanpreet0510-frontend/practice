@@ -2,7 +2,7 @@
 
 import { usecalenderStore } from "@/store/calenderStore";
 import { useEffect } from "react";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function CalendarPage() {
@@ -13,10 +13,10 @@ export default function CalendarPage() {
   }, [fetchEvents]);
 
   return (
-    <div className="">
-      <Card className="w-full min-w-[800px]">
+    <div className="w-full p-6">
+      <Card className="">
         <CardHeader>
-          <CardTitle>Public Holidays & Events</CardTitle>
+          <CardTitle className="text-4xl font-bold">Public Holidays & Events</CardTitle>
         </CardHeader>
         <CardContent>
           {loading && <p className="text-gray-500">Loading events...</p>}

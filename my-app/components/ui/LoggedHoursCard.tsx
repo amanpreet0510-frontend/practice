@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { usetimeLogStore } from "../../store/timelogStore";
-import { Card } from "./card";
+import { Card } from "@/components/ui/Card";
 
 export default function LoggedHoursCard() {
   const [hours, setHours] = useState<number>(0);
@@ -15,7 +15,8 @@ export default function LoggedHoursCard() {
 
   return (
     <>
-    <Card className="w-full p-10 bg-blue-50 max-h-[300px]">
+    <Card className="p-5 bg-white  my-6 w-full max-w-md mx-auto">
+<h1  className="text-5xl font-bold p-10">Today's Attendance</h1>
     <div className="flex justify-around gap-5 ">
       <input
         type="number"

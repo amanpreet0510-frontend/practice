@@ -1,59 +1,78 @@
-// store/leaveStore.ts
 import { create } from "zustand";
 import { supabase } from "@/lib/supabaseClient";
-import type { LeaveBalance } from "@/types/leaves.types";
+import { LeaveBalance } from "@/types/leaves.types";
 
 interface LeaveStore {
   leaves: LeaveBalance[];
   totalRemaining: number;
   loading: boolean;
-  error: string | null;
   fetchLeaveBalance: (userId: string) => Promise<void>;
-  resetLeaveStore: () => void;
 }
 
 export const useLeaveStore = create<LeaveStore>((set) => ({
   leaves: [],
   totalRemaining: 0,
   loading: false,
-  error: null,
 
   fetchLeaveBalance: async (userId: string) => {
-    
+  set({ loading: true, error: null });
 
-    set({ loading: true, error: null });
+  // 1️⃣ FETCH POLICIES
+  const { data: policies, error: policyError } = await supabase
+    .from("leave_policies")
+    .select("leave_type, yearly_quota");
 
+  if (policyError) {
+    set({ loading: false, error: policyError.message });
+    return;
+  }
 
+  // 2️⃣ FETCH USED LEAVES
+  const { data: usedLeaves } = await supabase
+    .from("leave_requests")
+    .select("leave_type, days")
+    .eq("user_id", userId)
+    .eq("status", "approved");
 
-    const { data, error, status } = await supabase
-      .from("leave_balances")
-      .select("leave_type, remaining")
-      .eq("user_id", userId);
-    
+  // 3️⃣ INIT MAP PROPERLY
+  const map: Record<
+    string,
+    { leave_type: string; total: number; used: number; remaining: number }
+  > = {};
 
-    if (error) {
-      set({
-        loading: false,
-        error: error.message,
-      });
-      return;
-    }
+  policies?.forEach((p) => {
+    const quota = Number(p.yearly_quota); // ✅ SAFE
 
-    const totalRemaining =
-      data?.reduce((sum, leave) => sum + leave.remaining, 0) ?? 0;
+    map[p.leave_type] = {
+      leave_type: p.leave_type,
+      total: quota,
+      used: 0,
+      remaining: quota,
+    };
+  });
 
-    set({
-      leaves: data ?? [],
-      totalRemaining,
-      loading: false,
-    });
-  },
+  // 4️⃣ SUBTRACT USED LEAVES
+  usedLeaves?.forEach((u) => {
+    if (!map[u.leave_type]) return;
 
-  resetLeaveStore: () =>
-    set({
-      leaves: [],
-      totalRemaining: 0,
-      loading: false,
-      error: null,
-    }),
-}));
+    const days = Number(u.days);
+
+    map[u.leave_type].used += days;
+    map[u.leave_type].remaining -= days;
+  });
+
+  // 5️⃣ FINAL ARRAY
+  const leaves = Object.values(map);
+
+  const totalRemaining = leaves.reduce(
+    (sum, l) => sum + l.remaining,
+    0
+  );
+
+  set({
+    leaves,
+    totalRemaining,
+    loading: false,
+  });
+}
+}))

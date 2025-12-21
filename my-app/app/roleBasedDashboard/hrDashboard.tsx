@@ -5,9 +5,8 @@ import { User } from "../../types/user.types";
 import  Card  from '@/components/ui/Card1';
 import { useLeaveApprovalStore } from '@/store/leaveApproval';
 import AssignTask from '@/components/ui/AssignTask';
-import LeaveCard from '@/components/ui/leaveCard';
-
-
+import LeaveCard from '@/components/ui/ApplyleaveCard';
+import HrLeaveApprovalCard from '../../components/ui/HrLeaveApprovalCard';
 
 
 const HRDashboard = () => {
@@ -68,6 +67,7 @@ useEffect(()=>{
         </tbody>
       </table>
       <AssignTask />
+      <HrLeaveApprovalCard/>
     </div>
     </>
   )

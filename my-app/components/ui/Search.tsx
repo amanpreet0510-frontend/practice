@@ -13,7 +13,7 @@ const Search = () => {
   return (
     <>
       <input
-        className="rounded-4xl bg-[#CBDCEB] max-h-max w-100 p-3 mt-10 placeholder:text-gray-600 placeholder:font-extrabold"
+        className="rounded-4xl bg-[#F4FFC3] max-h-max w-[50%] p-3 mt-10 placeholder:text-[#BBC863] placeholder:font-extrabold"
         placeholder="  search......"
         value={search}
         onChange={(e)=>setSearch(e.target.value)}
