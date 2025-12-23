@@ -9,7 +9,7 @@ export default function LeaveDetailsCard() {
   const yearlyUsed = leaves.reduce((sum, l) => sum + l.used, 0);
 
   return (
-    <div className="border rounded-2xl p-6 bg-white w-120 max-w-md mx-auto">
+    <div className="border rounded-2xl p-6 bg-white w-120">
       <h2 className="text-2xl font-bold mb-4">Leave Details</h2>
 
       {loading ? (

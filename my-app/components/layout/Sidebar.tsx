@@ -1,3 +1,4 @@
+'use client';
 import React from "react";
 import Link from "next/link";
 import { MenuItem } from "@/types/menu.types";
@@ -7,23 +8,27 @@ import { supabase } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";    
 
 const menu: MenuItem[] = [
-  { label: "Dashboard", href: "/", image: '' },
-  { label: "Attendance", href: "/", image: '' },
-  { label: "Leave Request", href: "/roleBasedDashboard", image: '' },
+  { label: "Dashboard", href: "/roleBasedDashboard", image: '' },
+  { label: "Attendance", href: "/roleBasedDashboard", image: '' },
+  { label: "Leave Request", href: "/leaveRequest", image: '' },
+  { label: "Tasks", href: "/tasks", image: '' },
   { label: "Settings", href: "/roleBasedDashboard", image: '' },
 ];
 
-const handleLogout = async () => {
-const router = useRouter();
-    await supabase.auth.signOut();
-    router.replace("/login");
-    router.refresh();
-  }
 
-const sidebar = () => {
+
+const Sidebar = () => {
+
+  const handleLogout = async () => {
+    const router = useRouter();
+        await supabase.auth.signOut();
+        router.replace("/login");
+        router.refresh();
+      }
+
   return (
     <>
-      <aside className="bg-[#BBC863] w-100 p-5 sticky top-0 h-fit">
+      <aside className="bg-[#BBC863] w-100 p-5 sticky top-0 h-screen">
         <div className="flex justify-center items-center pt-10 gap-3">
           <Image alt="logo" height={50} width={80} src={logo} className="bg-[#F4FFC3] rounded-[100%] p-1" />
           <h1 className="text-5xl font-extrabold text-[#F4FFC3]">WorkFlow</h1>
@@ -32,18 +37,17 @@ const sidebar = () => {
           {menu.map((item, id) => (
             <React.Fragment key={id}>
               <Link href={item.href}>
-                <li className="mt-15 text-2xl font-extrabold w-max items-center text-2xl text-[#F4FFC3] hover:text-black hover:scale-110 transition-all duration-300">
+                <li className="mt-15 font-extrabold w-max items-center text-2xl text-[#F4FFC3] hover:text-black hover:scale-110 transition-all duration-300">
                   {item.label}
                 </li>
               </Link>
             </React.Fragment>
           ))}
         </ul>
-        <button onClick={handleLogout} className="text-[#F4FFC3]  text-xl font-bold mt-10 p-5 border-transparent w-full
-       border border-2  shadow-md">LogOut</button>
+        <button onClick={handleLogout} className="text-[#F4FFC3]  text-xl font-bold mt-35 border-transparent w-full p-5 shadow-md">LogOut</button>
       </aside>
     </>
   );
 };
 
-export default sidebar;
+export default Sidebar;
