@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 
 const menu: MenuItem[] = [
   { label: "Dashboard", href: "/roleBasedDashboard", image: '' },
-  { label: "Attendance", href: "/roleBasedDashboard", image: '' },
+  { label: "Attendance", href: "/attendance", image: '' },
   { label: "Leave Request", href: "/leaveRequest", image: '' },
   { label: "Tasks", href: "/tasks", image: '' },
   { label: "Settings", href: "/roleBasedDashboard", image: '' },

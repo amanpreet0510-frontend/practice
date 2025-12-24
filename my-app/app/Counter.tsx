@@ -1,29 +1,30 @@
-"use client";
-import React, { useState } from "react";
+'use client'
+import React from 'react'
+import type { RootState } from '@/store'
+import { useSelector, useDispatch } from 'react-redux'
+import { decrement, increment ,incrementByAmount} from '@/app/CreateSlice'
 
-interface State {
-  count: number;
-}
-
-const Counter = () => {
-  const [state, setState] = useState<State>({ count: 0 });
-
-  const add = () => {
-    setState({ count: state.count + 1 });
-  };
-  const reset=()=>{
-    setState({count:0})
-  }
+export function Counter() {
+  const count = useSelector((state: RootState) => state.counter.value)
+  const dispatch = useDispatch()
 
   return (
-    <>
-      <div className="bg-blue-300 flex justify-around">
-        <span className="text-red-500 font-extrabold bg-black w-100 text-center p-10">{state.count}</span>
-        <button onClick={add} className="text-white text-center bg-black font-extrabold p-10 w-80">+</button>
-        <button onClick={reset} className="bg-black text-white font-extrabold p-10 w-100">Reset</button>
+    <div>
+      <div>
+        <button
+          aria-label="Increment value"
+          onClick={() => dispatch(incrementByAmount(2))}
+        >
+          Increment123
+        </button>
+        <span>{count}</span>
+        <button
+          aria-label="Decrement value"
+          onClick={() => dispatch(decrement())}
+        >
+          Decrement
+        </button>
       </div>
-    </>
-  );
-};
-
-export default Counter;
+    </div>
+  )
+}

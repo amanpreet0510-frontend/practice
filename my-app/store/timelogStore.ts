@@ -29,6 +29,8 @@ export const usetimeLogStore=create<TimeLogState>((set) => ({
     userId = user.id;
   }
 
+
+
   const { data, error } = await supabase
     .from("employee_logged_hours")
     .select("hours")

@@ -17,15 +17,11 @@ import {
   import { useUserStore } from "@/store/userStore";
 
 
-  
-
-
 const TaskCard = () => {
 
     const { user } = useUserStore();
-    const { tasks, fetchTasks, updateTaskStatus, setStatusFilter } =
-    useTaskStore();
-    const statusFilter = useTaskStore((state) => state.statusFilter);
+    const { tasks, fetchTasks} =useTaskStore();
+
     useEffect(() => {
         if (user?.id) {
           fetchTasks();
@@ -33,40 +29,27 @@ const TaskCard = () => {
       }, [user?.id, fetchTasks]);
 
 
-     const pendingTask=(tasks=>tasks.task_status==="pending").length
-
-    const completedTask=(tasks=>tasks.task_status==="completed").length
-
-
-console.log('pendingTask', pendingTask)
-console.log('completedTask', completedTask)
-
-    // const{pendingTask,completedTask}=((tasks)=>{
-
-    //     return tasks.reduce((acc,curr)=>if(acc==='pending'){
-    //         pendingTask++
-    //     }
-    // else if(acc==='completed'){
-    //     completedTask++
-    // }
-    // )
-    // }
-    // )
-
-
+      const pendingTask = tasks.filter(
+        task => task.task_status === "pending"
+      ).length;
+      
+      const completedTask = tasks.filter(
+        task => task.task_status === "completed"
+      ).length;
+      
   return (
    <>
    <Card className='p-10'>
     <div className='flex justify-between w-50  gap-5'>
     <span><h3>Pending Tasks</h3>
-    0</span>
+    {pendingTask}</span>
     <ClipboardList className='bg-blue-300 p-2 h-15 w-15 rounded-2xl'/>
     </div>
    </Card>
    <Card className='p-10'>
    <div className='flex justify-between gap-5'>
    <span><h3>Completed Tasks</h3>
-   0</span>
+   {completedTask}</span>
    <CheckCircle2 className='bg-green-200 p-2 h-15 w-15 rounded-2xl'/>
    </div>
    </Card>
@@ -74,4 +57,4 @@ console.log('completedTask', completedTask)
   )
 }
 
-export default TaskCard
+export default TaskCard;
