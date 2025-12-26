@@ -17,7 +17,7 @@ export const useLeaveStore = create<LeaveStore>((set) => ({
   fetchLeaveBalance: async (userId: string) => {
   set({ loading: true, error: null });
 
-  // 1️⃣ FETCH POLICIES
+  
   const { data: policies, error: policyError } = await supabase
     .from("leave_policies")
     .select("leave_type, yearly_quota");
@@ -27,21 +27,21 @@ export const useLeaveStore = create<LeaveStore>((set) => ({
     return;
   }
 
-  // 2️⃣ FETCH USED LEAVES
+ 
   const { data: usedLeaves } = await supabase
     .from("leave_requests")
     .select("leave_type, days")
     .eq("user_id", userId)
     .eq("status", "approved");
 
-  // 3️⃣ INIT MAP PROPERLY
+ 
   const map: Record<
     string,
     { leave_type: string; total: number; used: number; remaining: number }
   > = {};
 
   policies?.forEach((p) => {
-    const quota = Number(p.yearly_quota); // ✅ SAFE
+    const quota = Number(p.yearly_quota); 
 
     map[p.leave_type] = {
       leave_type: p.leave_type,
@@ -51,7 +51,7 @@ export const useLeaveStore = create<LeaveStore>((set) => ({
     };
   });
 
-  // 4️⃣ SUBTRACT USED LEAVES
+ 
   usedLeaves?.forEach((u) => {
     if (!map[u.leave_type]) return;
 
@@ -61,7 +61,7 @@ export const useLeaveStore = create<LeaveStore>((set) => ({
     map[u.leave_type].remaining -= days;
   });
 
-  // 5️⃣ FINAL ARRAY
+
   const leaves = Object.values(map);
 
   const totalRemaining = leaves.reduce(

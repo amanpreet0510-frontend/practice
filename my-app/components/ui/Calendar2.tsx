@@ -2,7 +2,7 @@
 
 import { usecalenderStore } from "@/store/calenderStore";
 import { useEffect } from "react";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 export default function CalendarPage() {

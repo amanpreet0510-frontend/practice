@@ -1,3 +1,4 @@
+'use client';
 import React, { useEffect } from 'react'
 import { useUserStore } from "@/store/userStore";
 import { supabase } from "../../lib/supabaseClient";
@@ -7,16 +8,15 @@ import { useLeaveApprovalStore } from '@/store/leaveApproval';
 import AssignTask from '@/components/ui/AssignTask';
 import LeaveCard from '@/components/ui/ApplyleaveCard';
 import HrLeaveApprovalCard from '../../components/ui/HrLeaveApprovalCard';
-
+import HrReadTask from '@/components/ui/hrReadTask';
 
 const HRDashboard = () => {
 
   const {requests,fetchPendingLeaves,updateLeaveStatus}=useLeaveApprovalStore();
 
-
 useEffect(()=>{
   fetchPendingLeaves()
-},[fetchPendingLeaves])
+},[fetchPendingLeaves]);
 
   return (
     <>
@@ -68,6 +68,7 @@ useEffect(()=>{
       </table>
       <AssignTask />
       <HrLeaveApprovalCard/>
+      <HrReadTask/>
     </div>
     </>
   )

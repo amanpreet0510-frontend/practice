@@ -1,7 +1,10 @@
+//import { TaskStatus } from './hrTaskStore';
+//import  {TaskStatus}  from '@/types/task.types';
 import { create } from "zustand";
 import { supabase } from "@/lib/supabaseClient";
-import type { tasks } from "@/types/task.types";
-//import type { AssignTaskPayload } from "@/types/task.types";
+import type { Task } from "@/types/task.types";
+
+export type TaskStatus = "pending" | "in_progress" | "completed" | "cancelled";
 
 export interface AssignTaskPayload {
   title: string;
@@ -10,110 +13,119 @@ export interface AssignTaskPayload {
   dueDate: string;
 }
 
-
-interface taskStore {
-  tasks: tasks[];
+interface TaskStore {
+  tasks: Task[];
   loading: boolean;
   error: string | null;
-  fetchTasks: () => Promise<void>;
+  task_status: TaskStatus | "all";
+  statusFilter:'all'|TaskStatus;
 
+  setStatusFilter:(status: TaskStatus | "all") => Promise<void>;
 
-  assignTaskToEmployee: (
-    payload: AssignTaskPayload
-  ) => Promise<void>;
-
-  assignTaskToAll: (
-    title:string,
-    description:string,
-    dueDate:number,
-    priority:string,
-  )=> Promise<void>;
-
+  fetchTasks: (status?: TaskStatus | "all") => Promise<void>;
+  updateTaskStatus: (id: string, status: TaskStatus) => Promise<void>;
+  assignTaskToEmployee?: (payload: AssignTaskPayload) => Promise<void>;
 }
 
-export const usetaskStore = create<taskStore>((set) => ({
+export const useTaskStore = create<TaskStore>((set) => ({
   tasks: [],
   loading: false,
   error: null,
-
- fetchTasks: async () => { 
-
-
-const { data, error, status } = await supabase
-      .from("tasks")
-      .select("*")
-      .order("due_date", { ascending: false });
- 
- if (error) {
-      set({
-        loading: false,
-        error: error.message,
-      });
-      return;
-    }
-
-    set({ tasks: data ?? [], loading: false });
+  task_status: "all",
+  statusFilter:'all',
 
 
- 
-},
-  assignTaskToEmployee: async ({
-    title,
-    description,
-    employeeId,
-    dueDate
-  }:AssignTaskPayload) => {
-    const { data } = await supabase.auth.getUser();
-
-    const userId = data?.user?.id;
-
-    if (!userId) throw new Error("User not authenticated");
-
-    
-    const { error } = await supabase.from("tasks").insert({
-      title,
-      description,
-      assigned_to: employeeId,
-      assigned_by: userId,
-      due_date: dueDate,
-      status: "pending",
+  setStatusFilter: async(status) => {
+    set({
+      statusFilter: status,
+      loading: true,
+      error: null,
     });
-
-    // if (error) throw error;
-    if (error) {
-  console.error("Supabase insert error:", error);
-  console.error("Message:", error.message);
-  console.error("Details:", error.details);
-  console.error("Hint:", error.hint);
-  console.error("Code:", error.code);
-  throw error;
-}
   },
-
- assignTaskToAll: async (
-    title:string,
-    description:string,
-    dueDate:number,
-    priority = "medium",
-  ) => {
+  
+  fetchTasks: async (status) => {
     set({ loading: true, error: null });
 
-    const { error } = await supabase.rpc(
-      "assign_task_to_all_employees",
-      {
-        task_title: title,
-        task_description: description,
-        task_due_date: dueDate,
-        task_priority: priority,
+    try {
+      let query = supabase.from("tasks").select("*").order("created_at", {
+        ascending: false,
+      });
+
+      if (status && status !== "all") {
+        query = query.eq("task_status", status); 
       }
-    );
 
-    if (error) {
-      set({ error: error.message, loading: false });
-      return;
+      const { data, error } = await query;
+
+      if (error) throw error;
+
+      set({ tasks: data || [], loading: false, task_status: status || "all" });
+    } catch (err: any) {
+      set({ error: err.message, loading: false });
+      console.error("fetchTasks error:", err);
     }
+  },
 
-    set({ loading: false });
-  }
+ 
+  updateTaskStatus: async (id, status) => {
+    set({ loading: true, error: null });
 
-}))
+    try {
+      const { data, error } = await supabase
+        .from("tasks")
+        .update({ task_status: status }) 
+        .eq("id", id)
+        .select();
+
+       console.log('Updated data', status)
+
+      if (error) throw error;
+
+     
+      set((state) => ({
+        tasks: state.tasks.map((task) =>
+          task.id === id ? { ...task,task_status: status } : task
+        ),
+        loading: false,
+      }));
+
+      ;
+    } catch (err: any) {
+      set({ error: err.message, loading: false });
+      console.error("updateTaskStatus error:", err);
+    }
+  },
+
+  
+  assignTaskToEmployee: async ({ title, description, employeeId, dueDate }) => {
+    set({ loading: true, error: null });
+    try {
+      const { data: userData } = await supabase.auth.getUser();
+      const userId = userData?.user?.id;
+
+      if (!userId) throw new Error("User not authenticated");
+
+      const { data, error } = await supabase.from("tasks").insert({
+        title,
+        description,
+        assigned_to: employeeId,
+        assigned_by: userId,
+        due_date: dueDate,
+        task_status: "", 
+      });
+
+      if (error) throw error;
+
+     
+      set((state) => ({
+        tasks: [...state.tasks, ...(data || [])],
+        loading: false,
+      }));
+
+      console.log("Task assigned:", data);
+    } catch (err: any) {
+      set({ error: err.message, loading: false });
+      console.error("assignTaskToEmployee error:", err);
+    }
+  },
+}));

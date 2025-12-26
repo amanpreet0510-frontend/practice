@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { usetaskStore } from "../../store/taskStore";
+import { useTaskStore } from "../../store/taskStore";
 import { useUserStore } from "@/store/userStore";
 import { Key } from "lucide-react";
 
 
 
 const AssignTask = () => {
-  const { assignTaskToEmployee } = usetaskStore();
+  const { assignTaskToEmployee } = useTaskStore();
   const user = useUserStore((state) => state.user);
   const { users,fetchUser } = useUserStore();
 
@@ -15,7 +15,7 @@ useEffect(()=>{
   fetchUser()
 },[fetchUser])
 
-console.log('users',users)
+
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
