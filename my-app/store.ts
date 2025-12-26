@@ -1,11 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 //import counterNumber from '@/app/CreateSlice';
-import AttendanceReducer from '@/lib/attendanceSlice';
+import attendanceReducer from '@/lib/attendanceSlice';
+
 
 export const store = configureStore({
   reducer: {
     //counter: counterNumber,
-    attendance: AttendanceReducer
+    attendance: attendanceReducer
   },
 })
 

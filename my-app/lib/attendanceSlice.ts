@@ -1,14 +1,13 @@
-import { Payload } from './../node_modules/recharts/types/component/DefaultTooltipContent.d';
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
-export interface attendanceState {
+export interface attendance {
   activeSessionId:string|null;
   isWorking:boolean
   loginTime:number|null
 }
 
-const initialState: attendanceState = {
+const initialState: attendance = {
     activeSessionId:'',
     isWorking:false,
     loginTime:null,

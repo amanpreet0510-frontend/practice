@@ -24,11 +24,18 @@ export const useUserStore = create<UserState>()(
           .from("profiles")
           .select("*");
 
+          
+
         set({
           users: data ?? [],
         });
+
+        
+
       },
     }),
+
+
 
     {
       name: "user-storage",

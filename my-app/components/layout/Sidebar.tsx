@@ -18,9 +18,11 @@ const menu: MenuItem[] = [
 
 
 const Sidebar = () => {
+  const router = useRouter();
 
+  
   const handleLogout = async () => {
-    const router = useRouter();
+   
         await supabase.auth.signOut();
         router.replace("/login");
         router.refresh();
@@ -28,7 +30,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <aside className="bg-[#BBC863] w-100 p-5 sticky top-0 h-screen">
+      <aside className="bg-[#BBC863] w-100 p-5 sticky top-0 ">
         <div className="flex justify-center items-center pt-10 gap-3">
           <Image alt="logo" height={50} width={80} src={logo} className="bg-[#F4FFC3] rounded-[100%] p-1" />
           <h1 className="text-5xl font-extrabold text-[#F4FFC3]">WorkFlow</h1>
