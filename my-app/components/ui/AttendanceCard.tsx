@@ -1,12 +1,12 @@
-'use client';
-import React,{useEffect, useState, useCallback} from "react";
+"use client";
+import React, { useEffect, useState, useCallback } from "react";
 import { Card, CardContent, CardHeader } from "./card";
 import { Button } from "./button";
 import { Calendar, Clock } from "lucide-react";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "@/store";
 import { supabase } from "@/lib/supabaseClient";
-import { getLoginHourWithUser} from "@/supabaseApi/supabaseApi";
+import { getLoginHourWithUser } from "@/supabaseApi/supabaseApi";
 import { loginTime, logoutTime } from "@/lib/attendanceSlice";
 
 interface AttendanceSession {
@@ -16,7 +16,7 @@ interface AttendanceSession {
   logout_time: string | null;
 }
 
- export const AttenadanceCard =  () => {
+export const AttenadanceCard = () => {
   const dispatch = useDispatch();
   const currentDate = new Date();
   const options: Intl.DateTimeFormatOptions = {
@@ -30,27 +30,27 @@ interface AttendanceSession {
   const loginTimehour = useSelector(
     (state: RootState) => state.attendance.loginTime
   );
-  
-    console.log("Attendance state:", loginTimehour);
-  
-const[sessions,setSessions]=useState<AttendanceSession[]>([])
-const[loading,setLoading]=useState(false)
-const[currentSession,setCurrentSession]=useState<AttendanceSession | null>(null)
 
+  console.log("Attendance state:", loginTimehour);
+
+  const [sessions, setSessions] = useState<AttendanceSession[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [currentSession, setCurrentSession] =
+    useState<AttendanceSession | null>(null);
 
   const fetchData = useCallback(async () => {
     setLoading(true);
-    const { data: profile, error:err1 } = await supabase.auth.getUser();
+    const { data: profile, error: err1 } = await supabase.auth.getUser();
     if (err1 || !profile?.user?.id) {
       console.error("Error getting user:", err1);
       setLoading(false);
       return;
     }
 
-    console.log('User ID:', profile?.user?.id);
-    
+    console.log("User ID:", profile?.user?.id);
+
     const response = await getLoginHourWithUser(profile.user.id);
-    
+
     console.log("Full response:", response);
     console.log("Response data:", response?.data);
     console.log("Response error:", response?.error);
@@ -65,19 +65,23 @@ const[currentSession,setCurrentSession]=useState<AttendanceSession | null>(null)
     } else if (LoginhourData && Array.isArray(LoginhourData)) {
       setSessions(LoginhourData);
       // Check if there's an active session (no logout_time)
-      const activeSession = LoginhourData.find(session => !session.logout_time);
+      const activeSession = LoginhourData.find(
+        (session) => !session.logout_time
+      );
       if (activeSession) {
         setCurrentSession(activeSession);
-        dispatch(loginTime({
-          sessionId: activeSession.id,
-          loginId: new Date(activeSession.login_time).getTime()
-        } as { sessionId: string; loginId: number }));
+        dispatch(
+          loginTime({
+            sessionId: activeSession.id,
+            loginId: new Date(activeSession.login_time).getTime(),
+          } as { sessionId: string; loginId: number })
+        );
       } else {
         setCurrentSession(null);
       }
-      console.log('Sessions set successfully:', LoginhourData);
+      console.log("Sessions set successfully:", LoginhourData);
     } else {
-      console.log('No attendance data found or data is empty');
+      console.log("No attendance data found or data is empty");
       setSessions([]);
       setCurrentSession(null);
     }
@@ -87,8 +91,7 @@ const[currentSession,setCurrentSession]=useState<AttendanceSession | null>(null)
   useEffect(() => {
     fetchData();
   }, [fetchData]);
- 
- 
+
   const handleLogin = async () => {
     setLoading(true);
     try {
@@ -125,10 +128,12 @@ const[currentSession,setCurrentSession]=useState<AttendanceSession | null>(null)
         alert("Error: " + err2.message);
       } else {
         console.log("Login successful:", newSession);
-        dispatch(loginTime({
-          sessionId: newSession.id,
-          loginId: Date.now()
-        }));
+        dispatch(
+          loginTime({
+            sessionId: newSession.id,
+            loginId: Date.now(),
+          })
+        );
         // Refresh data
         await fetchData();
       }
@@ -158,10 +163,12 @@ const[currentSession,setCurrentSession]=useState<AttendanceSession | null>(null)
         alert("Error: " + err.message);
       } else {
         console.log("Logout successful");
-        dispatch(logoutTime({
-          sessionId: currentSession.id,
-          loginId: Date.now()
-        }));
+        dispatch(
+          logoutTime({
+            sessionId: currentSession.id,
+            loginId: Date.now(),
+          })
+        );
         // Refresh data
         await fetchData();
       }
@@ -173,8 +180,7 @@ const[currentSession,setCurrentSession]=useState<AttendanceSession | null>(null)
     }
   };
 
- console.log('sessions', sessions)
-
+  console.log("sessions", sessions);
 
   return (
     <>
@@ -190,7 +196,8 @@ const[currentSession,setCurrentSession]=useState<AttendanceSession | null>(null)
             {currentSession ? (
               <div className="p-6">
                 <p className="text-xl font-semibold text-green-600">
-                  Checked in at: {new Date(currentSession.login_time).toLocaleTimeString()}
+                  Checked in at:{" "}
+                  {new Date(currentSession.login_time).toLocaleTimeString()}
                 </p>
                 <p className="text-sm text-gray-500 mt-2">
                   Status: Currently Working
@@ -204,7 +211,7 @@ const[currentSession,setCurrentSession]=useState<AttendanceSession | null>(null)
           </div>
           <div>
             {currentSession ? (
-              <Button 
+              <Button
                 onClick={handleLogout}
                 disabled={loading}
                 className="bg-red-500 hover:bg-red-600 m-10 h-15 w-100"
@@ -228,7 +235,7 @@ const[currentSession,setCurrentSession]=useState<AttendanceSession | null>(null)
                 </svg>
               </Button>
             ) : (
-              <Button 
+              <Button
                 onClick={handleLogin}
                 disabled={loading}
                 className="bg-[#BBC863] hover:bg-[#A8B550] m-10 h-15 w-100"
@@ -297,27 +304,35 @@ const[currentSession,setCurrentSession]=useState<AttendanceSession | null>(null)
           {sessions.length > 0 ? (
             <div className="p-5">
               {sessions.map((session) => (
-                <div key={session.id} className="flex justify-around text-sm p-3 border-b hover:bg-gray-50">
-                  <span>{new Date(session.login_time).toLocaleDateString()}</span>
-                  <span>{new Date(session.login_time).toLocaleTimeString()}</span>
+                <div
+                  key={session.id}
+                  className="flex justify-around text-sm p-3 border-b hover:bg-gray-50"
+                >
+                  <span>
+                    {new Date(session.login_time).toLocaleDateString()}
+                  </span>
+                  <span>
+                    {new Date(session.login_time).toLocaleTimeString()}
+                  </span>
                   <span>
                     {session.logout_time
                       ? new Date(session.logout_time).toLocaleTimeString()
                       : "Still Working"}
                   </span>
                   <span>
-                    {
-                    session.logout_time
-                      ? `${Math.floor(
-                          (new Date(session.logout_time).getTime() -
-                            new Date(session.login_time).getTime()) /
-                            (1000 * 60 * 60)
-                        )} hours`
+                    {session.logout_time
+                      ? (() => {
+                          const d =
+                            Date.parse(session.logout_time) -
+                            Date.parse(session.login_time);
+                          return `${Math.floor(d / 3600000)}h ${Math.floor(
+                            (d % 3600000) / 60000
+                          )}m ${Math.floor((d % 60000) / 1000)}s`;
+                        })()
                       : "In Progress"}
                   </span>
                 </div>
-              ))
-              }
+              ))}
             </div>
           ) : (
             <div className="text-center py-8 text-muted-foreground">
