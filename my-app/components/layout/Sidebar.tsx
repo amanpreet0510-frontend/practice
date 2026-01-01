@@ -12,7 +12,7 @@ const menu: MenuItem[] = [
   { label: "Attendance", href: "/attendance", image: '' },
   { label: "Leave Request", href: "/leaveRequest", image: '' },
   { label: "Tasks", href: "/tasks", image: '' },
-  { label: "Settings", href: "/roleBasedDashboard", image: '' },
+  { label: "Settings", href: "/settings", image: '' },
 ];
 
 

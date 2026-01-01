@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
-import { Card,CardHeader,CardTitle,CardContent } from "@/components/ui/card";
+import { Card,CardHeader,CardTitle,CardContent } from "@/components/ui/Card";
 import { useUserStore } from "@/store/userStore";
 
 export default function AdminDashboard() {

@@ -10,13 +10,16 @@ import { useUserStore } from "@/store/userStore";
 import { useLeaveStore } from "@/store/leaveStore";
 import { useEffect } from "react";
 
+import { useAppSelector } from '@/app/hooks'
 
 
 
 
 const Navbar = () => {
+
+  const user = useAppSelector(state => state.profile.data)
  
-  const user = useUserStore((s) => s.user);
+  //const user = useUserStore((s) => s.user);
    const { fetchLeaveBalance } = useLeaveStore();
  
    useEffect(() => {
