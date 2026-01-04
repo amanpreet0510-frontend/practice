@@ -33,7 +33,7 @@ export default function LoginPage() {
 
     const { data: profile,error:profileError } = await supabase
       .from("profiles")
-      .select("name, role, email, first_time,image")
+      .select("name, role, email, first_time,image,mobile")
       .eq("id", data.user.id)
       .single();
      
@@ -46,7 +46,8 @@ export default function LoginPage() {
       name: profile.name ?? "",
       role: profile.role ?? "",
       first_time:profile.first_time ?? "",
-      image:profile.image || null
+      image:profile.image || null,
+      mobile:profile.mobile || null
     };
 
     setUser(user);

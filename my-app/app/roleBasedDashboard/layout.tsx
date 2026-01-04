@@ -19,7 +19,7 @@ export default function DashboardLayout({
 
   return (
     <div className="flex ">
-      <Sidebar />
+      <Sidebar/>
       <div className="flex flex-col flex-1">
         <Navbar />
         <main className="p-4">{children}</main>

@@ -1,15 +1,19 @@
-import React,{useState} from 'react';
+// import React,{useState} from 'react';
 
 
-const Notification = () => {
+// const Notification = () => {
 
-const[notification,setNotifications]=useState("")
+// const[notification,setNotifications]=useState("")
 
-  return (
-    <>
+//   return (
+//     <>
     
-    </>
-  )
-}
+//     </>
+//   )
+// }
 
-export default Notification;
+// export default Notification;
+
+export default function DashboardPage() {
+  return null
+}

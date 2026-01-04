@@ -12,7 +12,7 @@ const TaskPage = () => {
     "in_progress",
     "completed",
     "cancelled",
-  ];
+  ] as const;
 
   const { user } = useUserStore();
   const { tasks, fetchTasks, updateTaskStatus, setStatusFilter } =

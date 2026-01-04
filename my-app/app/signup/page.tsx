@@ -47,7 +47,7 @@ if (updateError) {
 
  const { data: profile, error: fetchError } = await supabase
   .from("profiles")
-  .select("id, email, name, role, first_time, image")
+  .select("id, email, name, role, first_time, image,mobile")
   .eq("id", data.user.id)
   .single();
 
@@ -64,6 +64,7 @@ if (fetchError || !profile) {
   role: profile.role,
   first_time: profile.first_time,
   image: profile.image,
+  mobile:profile.mobile
 };
 
 

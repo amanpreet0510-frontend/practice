@@ -74,7 +74,10 @@
 
 // export default Dashboard;
 
-
+export default function DashboardPage() {
+    return null
+  }
+  
 
 
 
