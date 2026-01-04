@@ -62,7 +62,7 @@ export default function AdminDashboard() {
     });
 
     // 4️⃣ Save last 5 invited users
-    setRecentInvites(users.slice(0, 5));
+    //setRecentInvites(users.slice(0, 5));
 
     setLoading(false);
   };
@@ -135,8 +135,8 @@ export default function AdminDashboard() {
           <CardTitle>Recently Invited Users</CardTitle>
         </CardHeader>
         <CardContent>
-          <ul className="space-y-3">
-            {recentInvites.map((u: any) => (
+          {/* <ul className="space-y-3">
+            {recentInvites.map((u:any) => (
               <li
                 key={u.id}
                 className="p-3 border rounded-lg flex justify-between items-center"
@@ -151,7 +151,7 @@ export default function AdminDashboard() {
                 </span>
               </li>
             ))}
-          </ul>
+          </ul> */}
         </CardContent>
       </Card>
     </div>
