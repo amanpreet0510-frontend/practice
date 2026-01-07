@@ -1,7 +1,26 @@
 import { create } from "zustand";
 import { supabase } from "@/lib/supabaseClient";
+import { LeaveRequest } from "@/types/leaves.types";
 
-export const useLeaveRequestStore = create((set) => ({
+interface ApplyLeavePayload {
+  leave_type: string;
+  start_date: string;
+  end_date: string;
+  days: number;
+}
+
+interface LeaveRequestStore {
+  requests: LeaveRequest[];
+  loading: boolean;
+  fetchMyLeaveRequests: (userId: string) => Promise<void>;
+  applyLeave: (
+    payload: ApplyLeavePayload,
+    userId: string
+  ) => Promise<void>;
+}
+
+
+export const useLeaveRequestStore = create<LeaveRequestStore>((set) => ({
   requests: [],
   loading: false,
 
@@ -12,10 +31,10 @@ export const useLeaveRequestStore = create((set) => ({
       .eq("user_id", userId)
       .order("created_at", { ascending: false });
 
-    set({ requests: data });
+    set({ requests: data ?? [] });
   },
 
-  applyLeave: async (payload: any, userId: string) => {
+  applyLeave: async (payload: ApplyLeavePayload, userId: string) => {
     set({ loading: true });
 
     await supabase.from("leave_requests").insert({

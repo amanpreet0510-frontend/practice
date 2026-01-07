@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { useTaskStore } from "../../store/taskStore";
 import { useUserStore } from "@/store/userStore";
-import { Card, CardHeader } from "@/components/ui/Card";
+import { Card, CardHeader } from "@/components/ui/card";
 import Link from "next/link";
 import Image from "next/image";
 import {ArrowRight} from 'lucide-react';

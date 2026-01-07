@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { fetchProfile, updateProfile } from "@/slices/profileSlice";
-import { Card, CardContent } from "@/components/ui/Card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -56,17 +56,18 @@ export default function ProfileSettings() {
           View and manage your profile information
         </p>
       </div>
-      <div className="m-15">
-        <div className="w-full bg-[#BBC863] max-w-sm h-50 rounded-t-2xl  p-5">
+      <div className="flex justify-around">
+      <div className="m-15 w-full max-w-md">
+        <div className="bg-[#BBC863]  h-50 rounded-t-2xl  p-5">
           <Image
             src={form.image ? form.image : "/avatar.png"}
             alt="Profile Image"
             width={150}
             height={150}
-            className="grid grid-cols-1 top-[25%] left-[34%] mt-25 z-index-100 absolute border-2 border-white  bg-blue-500 w-full max-w-[150px] h-40 items-center justify-center rounded-[100%]"
+            className=" z-index-100 absolute border-2 border-white  bg-blue-500 w-full max-w-[150px] h-40 items-center justify-center rounded-[100%]"
           />
         </div>
-        <div className="w-full max-w-sm h-100 rounded-b-2xl bg-gray-100 p-5">
+        <div className="w-full h-100 rounded-b-2xl bg-gray-100 p-5">
           <div className="flex flex-col items-center justify-center h-50">
             <h1 className="text-4xl font-bold">{form.name}</h1>
             <p className="text-gray-500">{user.mobile}</p>
@@ -166,7 +167,7 @@ export default function ProfileSettings() {
           </Card>
         </div>
       )}
-      <div className="bg-white rounded-2xl shadow-md p-6 w-full max-w-xl">
+      <div className="bg-white rounded-2xl shadow-md p-6 w-full max-w-lg h-min">
         <div className="flex items-center gap-4 mb-6">
           <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-blue-100">
             <Mail className="text-blue-600" />
@@ -197,6 +198,7 @@ export default function ProfileSettings() {
             <p className="font-medium">{"N/A"}</p>
           </div>
         </div>
+      </div>
       </div>
     </>
   );

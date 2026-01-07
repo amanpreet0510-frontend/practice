@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import { useHrTaskStore } from "@/store/hrTaskStore";
-import { Card } from "@/components/ui/Card";
+import { Card } from "@/components/ui/card";
 import {
   Table,
   TableBody,
@@ -40,7 +40,7 @@ const HrReadTask = () => {
               <TableRow key={id}>
                 <TableCell className="font-medium">{item.title}</TableCell>
                 <TableCell>{item.description}</TableCell>
-                <TableCell>{item.employee_name}</TableCell>
+                <TableCell>{item.assigned_to}</TableCell>
                 <TableCell>{item.task_status}</TableCell>
                 <TableCell>{item.priority}</TableCell>
               </TableRow>

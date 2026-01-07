@@ -12,8 +12,22 @@ import LoggedHoursCard from "@/components/ui/LoggedHoursCard";
 import ApplyLeaveCard from "@/components/ui/ApplyleaveCard";
 import LeaveDetailsCard from "@/components/ui/LeaveDetailsCard";
 import TaskCard from "@/components/ui/TaskCard";
+import { useSelector, useDispatch } from "react-redux";
+//import formatSessionDuration from "@/lib/time"
+
+interface AttendanceSession {
+  id: string;
+  user_id: string;
+  login_time: string;
+  logout_time: string | null;
+}
+
 
 const EmployeeLeaveDashboard = () => {
+
+
+  const [sessions, setSessions] = useState<AttendanceSession[]>([]);
+
   const user = useUserStore((s) => s.user);
   const { fetchLeaveBalance } = useLeaveStore();
 
@@ -31,7 +45,9 @@ const EmployeeLeaveDashboard = () => {
           <LeaveDetailsCard />
         </div>
         <div className="flex">
-          <LoggedHoursCard />
+          {/* <LoggedHoursCard /> */}
+        
+
           <Task />
           </div>
           <Calendar2 />

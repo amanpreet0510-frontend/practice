@@ -6,6 +6,7 @@ interface LeaveStore {
   leaves: LeaveBalance[];
   totalRemaining: number;
   loading: boolean;
+  error: string | null;
   fetchLeaveBalance: (userId: string) => Promise<void>;
 }
 
@@ -13,6 +14,7 @@ export const useLeaveStore = create<LeaveStore>((set) => ({
   leaves: [],
   totalRemaining: 0,
   loading: false,
+  error: null,
 
   fetchLeaveBalance: async (userId: string) => {
   set({ loading: true, error: null });

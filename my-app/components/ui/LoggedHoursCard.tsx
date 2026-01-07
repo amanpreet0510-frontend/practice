@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { usetimeLogStore } from "../../store/timelogStore";
-import { Card } from "@/components/ui/Card";
+import { Card } from "@/components/ui/card";
 
 export default function LoggedHoursCard() {
   const [hours, setHours] = useState<number>(0);
