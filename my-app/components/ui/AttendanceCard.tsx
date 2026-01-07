@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState, useCallback } from "react";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/Card";
 import { Button } from "./button";
 import { Calendar, Clock } from "lucide-react";
 import { useSelector, useDispatch } from "react-redux";

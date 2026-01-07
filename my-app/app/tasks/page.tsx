@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
-import { Card } from "@/components/ui/card";
+import { Card } from "@/components/ui/Card";
 import { useTaskStore } from "../../store/taskStore";
 import { useUserStore } from "@/store/userStore";
 import { TaskStatus } from "@/types/task.types";

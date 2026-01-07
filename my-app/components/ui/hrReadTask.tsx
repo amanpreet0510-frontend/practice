@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import { useHrTaskStore } from "@/store/hrTaskStore";
-import { Card } from "@/components/ui/card";
+import { Card } from "@/components/ui/Card";
 import {
   Table,
   TableBody,

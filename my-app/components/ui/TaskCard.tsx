@@ -1,6 +1,6 @@
 'use client';
 import React,{useEffect, useReducer} from 'react';
-import { Card, CardHeader } from "@/components/ui/card";
+import { Card, CardHeader } from "@/components/ui/Card";
 import {
     Users,
     Building2,
