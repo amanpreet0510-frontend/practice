@@ -26,13 +26,13 @@ export const useHrTaskStore= create<hrTaskStore>((set) => ({
         set({ loading: true, error: null });
     
         try {
-          let query = await supabase.rpc("get_tasks_with_employee");
+          const { data, error } = await supabase.rpc("get_tasks_with_employee");
     
-          if (status && status !== "all") {
-            query = query.eq("task_status", status); 
-          }
+          { status_filter: status ?? "all" } 
+            // query = query.eq("task_status", status); 
+          
     
-          const { data, error } = query;
+          // const { data, error } = query;
        
           if (error) throw error;
     

@@ -50,13 +50,13 @@ const Navbar = () => {
                 </div>
                 
                 <div className="flex justify-between">
-                {/* <Image
+                <Image
                     alt=""
                     height={10}
                     width={80}
-                    src={user?.image}
-                    className="rounded-[100%] border-2 border-white"
-                  /> */}
+                    src={user?.image ?? "/default-avatar.png"}
+                    className="rounded-[100%] border-5 border-white mt-10 m-10 h-20"
+                  />
                  
                  <p className="bg-[#F4FFC3] rounded-[100%]  text-xl font-bold h-10 mt-10"><Image alt="prop" height={30} width={40} src='/notification.png'/></p>
               </div>

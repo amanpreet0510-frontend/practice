@@ -6,7 +6,6 @@ const Attendance = () => {
   return (
     <>
       <AttenadanceCard />
-      hello
     </>
   );
 };

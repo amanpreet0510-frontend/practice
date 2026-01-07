@@ -5,12 +5,13 @@ import { supabase } from "@/lib/supabaseClient";
 import type { Task } from "@/types/task.types";
 
 export type TaskStatus = "pending" | "in_progress" | "completed" | "cancelled";
-
+export type Priority = "low" | "medium" | "high";
 export interface AssignTaskPayload {
   title: string;
   description: string;
   employeeId: string;
   dueDate: string;
+  priority: Priority;
 }
 
 interface TaskStore {
@@ -19,12 +20,13 @@ interface TaskStore {
   error: string | null;
   task_status: TaskStatus | "all";
   statusFilter:'all'|TaskStatus;
+  priority:"medium"
 
   setStatusFilter:(status: TaskStatus | "all") => Promise<void>;
 
   fetchTasks: (status?: TaskStatus | "all") => Promise<void>;
   updateTaskStatus: (id: string, status: TaskStatus) => Promise<void>;
-  assignTaskToEmployee?: (payload: AssignTaskPayload) => Promise<void>;
+  assignTaskToEmployee: (payload: AssignTaskPayload) => Promise<void>;
 }
 
 export const useTaskStore = create<TaskStore>((set) => ({
@@ -33,6 +35,7 @@ export const useTaskStore = create<TaskStore>((set) => ({
   error: null,
   task_status: "all",
   statusFilter:'all',
+  priority: "medium",
 
 
   setStatusFilter: async(status) => {
@@ -97,7 +100,7 @@ export const useTaskStore = create<TaskStore>((set) => ({
   },
 
   
-  assignTaskToEmployee: async ({ title, description, employeeId, dueDate }) => {
+  assignTaskToEmployee: async (payload) => {
     set({ loading: true, error: null });
     try {
       const { data: userData } = await supabase.auth.getUser();
@@ -106,12 +109,13 @@ export const useTaskStore = create<TaskStore>((set) => ({
       if (!userId) throw new Error("User not authenticated");
 
       const { data, error } = await supabase.from("tasks").insert({
-        title,
-        description,
-        assigned_to: employeeId,
+        title: payload.title,
+        description: payload.description,
+        assigned_to: payload.employeeId,
         assigned_by: userId,
-        due_date: dueDate,
-        task_status: "", 
+        due_date: payload.dueDate,
+        task_status: "pending", 
+        priority: payload.priority,
       });
 
       if (error) throw error;

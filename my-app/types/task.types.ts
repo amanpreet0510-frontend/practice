@@ -10,7 +10,8 @@ export interface Task {
   due_date:number;
   task_status: "pending"|"completed"|"in_progress"|"cancelled"|"all"|"undefined";
   created_at: string;
-  statusFilter: "all" | "pending"|"completed"|"in_progress"|"cancelled"
+  statusFilter: "all" | "pending"|"completed"|"in_progress"|"cancelled";
+  priority:"low"|"medium"|"high";
 }
 
 export interface AssignTaskPayload {

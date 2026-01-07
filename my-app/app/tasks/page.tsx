@@ -3,7 +3,8 @@ import React, { useEffect } from "react";
 import { Card } from "@/components/ui/Card";
 import { useTaskStore } from "../../store/taskStore";
 import { useUserStore } from "@/store/userStore";
-
+import { TaskStatus } from "@/types/task.types";
+import { TaskStatus as TaskStatusType } from "@/store/taskStore";
 
 const TaskPage = () => {
   const TaskStatus = [
@@ -84,7 +85,7 @@ const TaskPage = () => {
                   <div>
                   <select
                     value={item.task_status}
-                    onChange={(e) => updateTaskStatus(item.id, e.target.value)}
+                    onChange={(e) => updateTaskStatus(item.id, e.target.value as TaskStatusType )}
                   className="border-1 border-gray-400 rounded-2xl appearance: base-select"
                   >
                     <option className="px-3 bg-orange-200 border-gray-400 border-2" value={"pending"}>

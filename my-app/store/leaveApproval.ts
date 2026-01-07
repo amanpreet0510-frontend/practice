@@ -1,10 +1,10 @@
 // store/leaveApprovalStore.ts
 import { create } from "zustand";
 import { supabase } from "@/lib/supabaseClient";
-import type { LeaveApproval } from "../types/leaves.types";
+import type { LeaveBalance,LeaveRequest } from "../types/leaves.types";
 
 interface LeaveApprovalStore {
-  requests: LeaveApproval[];
+  requests: LeaveRequest[];
   loading: boolean;
   error: string | null;
 
