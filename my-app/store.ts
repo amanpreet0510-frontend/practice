@@ -1,7 +1,9 @@
+
 import { configureStore } from '@reduxjs/toolkit'
 //import counterNumber from '@/app/CreateSlice';
 import attendanceReducer from '@/lib/attendanceSlice';
-import profileReducer from '@/slices/profileSlice'
+import profileReducer from '@/slices/profileSlice';
+import usersSlice from '@/slices/usersSlice';
 // import notificationReducer from '@/features/notifications/notificationSlice'
 // import appearanceReducer from '@/features/appearance/appearanceSlice'
 
@@ -11,6 +13,7 @@ export const store = configureStore({
     //counter: counterNumber,
     attendance: attendanceReducer,
     profile: profileReducer,
+    users: usersSlice,
     // notifications: notificationReducer,
     // appearance: appearanceReducer
   },
