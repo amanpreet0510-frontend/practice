@@ -32,3 +32,18 @@ export const getLoginHourWithUser = async (userId: string) => {
 
 
 
+
+export async function updateUserRole(
+  userId: string,
+  role: "admin" | "hr" | "employee"
+) {
+  const { error } = await supabase
+    .from("profiles")
+    .update({ role })
+    .eq("id", userId)
+
+  if (error) throw error
+}
+
+
+
