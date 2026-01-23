@@ -3,7 +3,7 @@ import { Card, CardTitle } from './Card';
 import { Button } from './button';
 import { useAppDispatch, useAppSelector } from "@/app/hooks";
 import { fetchProfile} from "@/slices/profileSlice";
-import {updateUserRole} from '@/supabaseApi/supabaseApi';
+import {updateUserRole,deleteUserProfile} from '@/supabaseApi/supabaseApi';
 
 
 export type userRole="hr"|"admin"|"employee"
@@ -53,6 +53,10 @@ const EditRole = ( {open,
       setLoading(false)
     }
   }
+
+ 
+  
+
   
   return (
     <>

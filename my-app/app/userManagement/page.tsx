@@ -12,17 +12,25 @@ import { supabase } from '@/lib/supabaseClient'
 import { fetchAllUsers } from "../../slices/profileSlice";
 import { RootState, AppDispatch } from "@/store";
 import EditRole from '@/components/ui/EditRole';
+import { deleteUserProfile,updateUserStatus } from '@/supabaseApi/supabaseApi';
+import { fetchProfile } from "@/slices/profileSlice";
 
 
 const UserManagement = () => {
   const dispatch = useDispatch<AppDispatch>();
 
-  const { users, loading, error } = useSelector(
+  const onSuccess = () => {
+    dispatch(fetchAllUsers())
+  }
+
+
+  const { users, error } = useSelector(
     (state: RootState) => state.users
   );
   const [selectedUser, setSelectedUser] = useState<User | null>(null)
   const [active, setIsActive] = useState(true);
 
+  console.log('selectedUser', selectedUser)
 
   const [employee, setEmployee] = useState<User[]>([]);
 
@@ -30,28 +38,45 @@ const UserManagement = () => {
     dispatch(fetchAllUsers());
   }, [dispatch]);
 
-  console.log('users', users)
 
-  const toggleUserStatus = async (id: string, currentStatus: boolean) => {
-    const { error } = await supabase
-      .from("profiles")
-      .update({ is_active: !currentStatus })
-      .eq("id", id)
 
-    if (error) {
-      console.error(error.message)
-      return
-    }
+  
 
-    setEmployee((prev) =>
-      prev.map((u) =>
-        u.id === id ? { ...u, is_active: !currentStatus } : u
-      )
-    )
+const handleToggleStatus = async (userId: string, currentStatus: boolean) => {
+  console.log('userId123', userId)
+  try {
+    setLoading(true)
+    await updateUserStatus(userId, !currentStatus)
+
+    dispatch(fetchAllUsers())   
+  } catch (err) {
+    console.error("Failed to update status", err)
+  } finally {
+    setLoading(false)
   }
+}
+
 
   const [open, setopen] = useState(false);
+  const [loading, setLoading] = useState(false)
 
+  const handleDelete = async (userId: string) => {
+    if(!userId)return;
+    
+    try {
+      setLoading(true)
+      await deleteUserProfile(userId)
+      onSuccess?.()
+    } catch (err) {
+      console.error("Failed to delete user", err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const sortedUsers = [...users].sort((a, b) =>
+    a.name.localeCompare(b.name)
+  )
 
 
   return (
@@ -78,25 +103,25 @@ const UserManagement = () => {
                 <TableHead>Status</TableHead>
                 <TableHead>Actions</TableHead>
               </TableRow>
-
-              {users.map((item, id) =>
+              </TableHeader>
+              {sortedUsers.map((item, id) =>
                 <>
-                  <TableRow>
+                {console.log('item.is_active', item.is_active)}
+                  <TableRow key={item.id}>
                     <TableHead>{item?.name}</TableHead>
                     <TableHead>{item?.role}</TableHead>
                     <TableHead>{item?.email}</TableHead>
                     <TableHead> <Button >
                       {item.is_active ? "active" : "Inactive"}
                     </Button></TableHead>
-                    <TableHead> <div className='flex justify-around gap-2'>
+                     <div className='flex justify-around gap-2'>
                       <Button
                         onClick={() => {
-                          setopen(true)
                           setSelectedUser(item)
+                          setopen(true)
                         }
                         }
-
-                      >  <LucideSquarePen className='bg-gray-400' /></Button>
+                      ><LucideSquarePen className='bg-gray-400' /></Button>
                       {selectedUser && (
                         <EditRole
                           open={open}
@@ -106,14 +131,18 @@ const UserManagement = () => {
                           onSuccess={() => dispatch(fetchAllUsers())}
                         />
                       )}
-                      <LucideToggleRight onClick={() => toggleUserStatus(item.id, item.is_active)} className='bg-green-300 rounded-2xl'></LucideToggleRight>
-                      <LucideTrash className='bg-red-500 rounded-sm' />
-                    </div></TableHead>
+                      <LucideToggleRight  onClick={() => handleToggleStatus(item.id, item.is_active)} className='bg-green-300 rounded-2xl'></LucideToggleRight>
+                      <LucideTrash
+                        key={item.id}
+                        className="bg-red-500 rounded-sm cursor-pointer"
+                        onClick={() => handleDelete(item.id)}
+                      />
+                    </div>
                   </TableRow>
                 </>
               )}
 
-            </TableHeader>
+           
           </Table>
         </CardContent>
       </Card>

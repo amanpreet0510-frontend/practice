@@ -10,6 +10,7 @@ export const fetchAllUsers = createAsyncThunk(
       .from("profiles")
       .select("*");
 
+
     if (error) throw error;
     if (!data) return [];
 
