@@ -48,7 +48,7 @@ const TaskPage = () => {
             <div
               key={id}
               onClick={() => setStatusFilter(item)}
-              className=" m-5"
+              className=" m-5 cursor-pointer"
             >
               <Card className="p-5" key={id}>
                 <h1>{item}</h1>

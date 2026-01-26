@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { User } from "@/types/user.types";
 import { persist } from "zustand/middleware";
-import { supabase } from "@/lib/supabaseClient";
+import { getSupabaseClient } from '@/lib/supabaseClient'
 
 interface UserState {
   user: User | null;
@@ -20,6 +20,7 @@ export const useUserStore = create<UserState>()(
       clearUser: () => set({ user: null }),
 
       fetchUser: async () => {
+        const supabase = getSupabaseClient()
         const { data, error, status } = await supabase
           .from("profiles")
           .select("*");

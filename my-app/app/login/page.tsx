@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import { useUserStore } from "@/store/userStore";
 import { useRouter } from "next/navigation";
-import { supabase } from "../../lib/supabaseClient";
+import { getSupabaseClient } from "../../lib/supabaseClient";
+
 import { User } from "../../types/user.types";
 
 export default function LoginPage() {
@@ -22,6 +23,7 @@ export default function LoginPage() {
       alert("enter valid email and password");
       return;
     }
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -61,6 +63,7 @@ export default function LoginPage() {
   };
 
   const handleGoogleSignIn = async () => {
+    const supabase = getSupabaseClient();
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
     });

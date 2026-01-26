@@ -1,10 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { supabase } from '@/lib/supabaseClient'
+import { getSupabaseClient } from '@/lib/supabaseClient'
 import { User } from '../types/user.types'
 
 export const fetchProfile = createAsyncThunk(
+  
   'profile/fetch',
   async (): Promise<User> => {
+    const supabase = getSupabaseClient()
     const { data: auth } = await supabase.auth.getUser()
 
     if (!auth.user) throw new Error('Not authenticated')
@@ -37,6 +39,7 @@ export const updateProfile = createAsyncThunk(
     image: string | null
     mobile: string | null
   }): Promise<User> => {
+    const supabase = getSupabaseClient()
 
     const { data: authData, error: authError } =
       await supabase.auth.getUser()

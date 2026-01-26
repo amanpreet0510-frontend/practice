@@ -1,7 +1,7 @@
 //import { TaskStatus } from './hrTaskStore';
 //import  {TaskStatus}  from '@/types/task.types';
 import { create } from "zustand";
-import { supabase } from "@/lib/supabaseClient";
+import { getSupabaseClient } from "@/lib/supabaseClient";
 import type { Task } from "@/types/task.types";
 
 export type TaskStatus = "pending" | "in_progress" | "completed" | "cancelled";
@@ -50,6 +50,7 @@ export const useTaskStore = create<TaskStore>((set) => ({
     set({ loading: true, error: null });
 
     try {
+      const supabase = getSupabaseClient();
       let query = supabase.from("tasks").select("*").order("created_at", {
         ascending: false,
       });
@@ -74,6 +75,7 @@ export const useTaskStore = create<TaskStore>((set) => ({
     set({ loading: true, error: null });
 
     try {
+      const supabase = getSupabaseClient();
       const { data, error } = await supabase
         .from("tasks")
         .update({ task_status: status }) 
@@ -103,6 +105,7 @@ export const useTaskStore = create<TaskStore>((set) => ({
   assignTaskToEmployee: async (payload) => {
     set({ loading: true, error: null });
     try {
+      const supabase = getSupabaseClient();
       const { data: userData } = await supabase.auth.getUser();
       const userId = userData?.user?.id;
 

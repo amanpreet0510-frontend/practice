@@ -5,7 +5,8 @@ import { Button } from "./button";
 import { Calendar, Clock } from "lucide-react";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "@/store";
-import { supabase } from "@/lib/supabaseClient";
+import { getSupabaseClient } from "@/lib/supabaseClient";
+
 import { getLoginHourWithUser } from "@/supabaseApi/supabaseApi";
 import { loginTime, logoutTime } from "@/lib/attendanceSlice";
 
@@ -40,6 +41,7 @@ export const AttenadanceCard = () => {
 
   const fetchData = useCallback(async () => {
     setLoading(true);
+    const supabase = getSupabaseClient();
     const { data: profile, error: err1 } = await supabase.auth.getUser();
     if (err1 || !profile?.user?.id) {
       console.error("Error getting user:", err1);
@@ -93,6 +95,7 @@ export const AttenadanceCard = () => {
   }, [fetchData]);
 
   const handleLogin = async () => {
+    const supabase = getSupabaseClient();
     setLoading(true);
     try {
       const { data: profile, error: err1 } = await supabase.auth.getUser();
@@ -146,6 +149,7 @@ export const AttenadanceCard = () => {
   };
 
   const handleLogout = async () => {
+    const supabase = getSupabaseClient();
     if (!currentSession) {
       alert("No active session to logout from");
       return;

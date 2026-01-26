@@ -7,11 +7,13 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { useUserStore } from "@/store/userStore";
 import { useRouter } from "next/navigation";
-import { supabase } from "../../lib/supabaseClient";
+import { getSupabaseClient } from "../../lib/supabaseClient";
+
 import { User } from "../../types/user.types";
 
 const CreateProfile = () => {
   const router = useRouter();
+  const supabase = getSupabaseClient();
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
   console.log("user", user);

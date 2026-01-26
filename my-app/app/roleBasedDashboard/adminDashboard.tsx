@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabaseClient";
+import { getSupabaseClient } from "@/lib/supabaseClient";
+
 import { Card,CardHeader,CardTitle,CardContent } from "@/components/ui/Card";
 import { useUserStore } from "@/store/userStore";
 
@@ -29,6 +30,7 @@ export default function AdminDashboard() {
     setLoading(true);
 
     // 1️⃣ Get all users from "profiles" table
+    const supabase = getSupabaseClient();
     const { data: users, error } = await supabase
   .from("profiles")
   .select("*")

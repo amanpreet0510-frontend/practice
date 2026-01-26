@@ -4,7 +4,8 @@ import Link from "next/link";
 import { MenuItem } from "@/types/menu.types";
 import logo from '../../public/logo.png'
 import Image from "next/image";
-import { supabase } from "@/lib/supabaseClient";
+import { getSupabaseClient } from "@/lib/supabaseClient";
+
 import { useRouter } from "next/navigation";    
 
 const menu: MenuItem[] = [
@@ -23,6 +24,7 @@ const Sidebar = () => {
   
   const handleLogout = async () => {
    
+        const supabase = getSupabaseClient();
         await supabase.auth.signOut();
         router.replace("/login");
         router.refresh();

@@ -1,6 +1,7 @@
 // store/leaveApprovalStore.ts
 import { create } from "zustand";
-import { supabase } from "@/lib/supabaseClient";
+import { getSupabaseClient } from "@/lib/supabaseClient";
+
 import type { LeaveBalance,LeaveRequest } from "../types/leaves.types";
 
 interface LeaveApprovalStore {
@@ -24,6 +25,7 @@ export const useLeaveApprovalStore = create<LeaveApprovalStore>((set) => ({
   fetchPendingLeaves: async () => {
     set({ loading: true, error: null });
 
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from("leave_requests")
       .select("*")
@@ -43,7 +45,7 @@ export const useLeaveApprovalStore = create<LeaveApprovalStore>((set) => ({
   // 🔹 HR/Admin approve or reject
   updateLeaveStatus: async (requestId, status) => {
     set({ loading: true, error: null });
-
+    const supabase = getSupabaseClient();
     const { error } = await supabase
       .from("leave_requests")
       .update({ status })
