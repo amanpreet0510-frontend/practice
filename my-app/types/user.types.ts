@@ -6,4 +6,5 @@ export interface User {
   first_time: boolean,
   image:string | null,
   mobile: string | null
+  is_active:boolean
 }

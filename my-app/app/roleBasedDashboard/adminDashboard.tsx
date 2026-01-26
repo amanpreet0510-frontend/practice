@@ -44,7 +44,6 @@ export default function AdminDashboard() {
       return;
     }
 
-    // 2️⃣ Calculate stats
     const total = users.length;
     const admins = users.filter((u) => u.role === "admin").length;
     const hr = users.filter((u) => u.role === "hr").length;
@@ -53,7 +52,7 @@ export default function AdminDashboard() {
     const activeUsers = users.filter((u) => u.is_active === true).length;
     const inactiveUsers = users.filter((u) => u.is_active === false).length;
 
-    // 3️⃣ Save stats in state
+ 
     setStats({
       totalUsers: total,
       admins,
@@ -63,8 +62,7 @@ export default function AdminDashboard() {
       inactiveUsers,
     });
 
-    // 4️⃣ Save last 5 invited users
-    //setRecentInvites(users.slice(0, 5));
+   
 
     setLoading(false);
   };

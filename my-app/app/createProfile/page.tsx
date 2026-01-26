@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,7 +16,7 @@ const CreateProfile = () => {
   const supabase = getSupabaseClient();
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
-  console.log("user", user);
+  
 
   const [name, setName] = useState("");
   const [image, setImage] = useState<File | null>(null);
@@ -71,6 +71,15 @@ const CreateProfile = () => {
 
     setLoading(false);
   };
+
+  useEffect(() => {
+    if (!user) return;
+  
+    if (!user.first_time) {
+      router.replace("/roleBasedDashboard");
+    }
+  }, [user]);
+  
 
   return (
     <>
