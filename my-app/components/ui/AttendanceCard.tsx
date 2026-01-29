@@ -126,6 +126,9 @@ export const AttenadanceCard = () => {
         .select()
         .single();
 
+console.log('profile.user.id', profile.user.id)
+
+
       if (err2) {
         console.error("Error creating attendance record:", err2);
         alert("Error: " + err2.message);

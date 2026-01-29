@@ -4,7 +4,7 @@ import Link from "next/link";
 import { MenuItem } from "@/types/menu.types";
 import logo from '../../public/logo.png'
 import Image from "next/image";
-import { supabase } from "@/lib/supabaseClient";
+import { getSupabaseClient } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";    
 
 const menu: MenuItem[] = [
@@ -19,7 +19,7 @@ const menu: MenuItem[] = [
 
 const Sidebar = () => {
   const router = useRouter();
-
+   const supabase=getSupabaseClient();
   
   const handleLogout = async () => {
    

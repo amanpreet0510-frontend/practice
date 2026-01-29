@@ -51,12 +51,14 @@ console.log('user', user)
       email: profile.email ?? data.user.email ?? "",
       name: profile.name ?? "",
       role: profile.role ?? "",
-      first_time:profile.first_time ?? "false",
+      first_time:profile.first_time ?? "",
       image:profile.image || null,
       mobile:profile.mobile || null,
       is_active:profile.is_active||null
     };
     
+
+console.log('profile.first_time', profile.first_time)
 
     setUser(user);
     if(profile?.first_time){

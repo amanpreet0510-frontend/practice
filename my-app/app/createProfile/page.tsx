@@ -60,12 +60,21 @@ const CreateProfile = () => {
       setLoading(false);
       return;
     }
-    setUser({
-      ...user,
-      name,
-      image: publicUrl,
-      first_time: false,
-    });
+//
+    await supabase.auth.refreshSession();
+
+    const { data: updatedProfile, error } = await supabase
+      .from("profiles")
+      .select("*")
+      .eq("id", user.id)
+      .single();
+    
+    if (error || !updatedProfile) {
+      console.error("Failed to refetch profile:", error);
+      return;
+    }
+//
+setUser(updatedProfile);
 
     router.replace("/roleBasedDashboard");
 

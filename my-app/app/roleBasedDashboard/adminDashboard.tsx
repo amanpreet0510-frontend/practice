@@ -29,7 +29,7 @@ export default function AdminDashboard() {
   const fetchDashboardData = async () => {
     setLoading(true);
 
-    // 1️⃣ Get all users from "profiles" table
+    
     const supabase = getSupabaseClient();
     const { data: users, error } = await supabase
   .from("profiles")
@@ -152,6 +152,7 @@ export default function AdminDashboard() {
               </li>
             ))}
           </ul> */}
+          
         </CardContent>
       </Card>
     </div>

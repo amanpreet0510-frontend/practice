@@ -32,17 +32,21 @@ export default function ProfileSettings() {
         name: user.name,
         mobile: user.mobile ?? "",
         image: user.image ?? "",
+        
       });
     }
   }, [user]);
 
   const onSave = () => {
+    if (!user) return;
+
     dispatch(
       updateProfile({
         name: form.name,
-        email: user?.email ?? "",
+        email: user.email,
         image: form.image || null,
         mobile: form.mobile || null,
+        is_active: user.is_active,
       })
     );
   };
