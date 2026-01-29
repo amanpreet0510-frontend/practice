@@ -37,7 +37,7 @@ export const inviteUser = createAsyncThunk<
       }
 
       return created;
-    } catch (err:any) {
+    } catch (err: any) {
       return rejectWithValue(err.message || "Failed to invite user");
     }
   }
@@ -65,11 +65,76 @@ export const fetchAllUsers = createAsyncThunk(
       first_time: profile.first_time,
       image: profile.image,
       mobile: profile.mobile,
+      position: profile.position,
+      department: profile.position,
+      reports_to: profile.reports_to
     }));
   }
 );
 
 
+export const addUserHierarchy = createAsyncThunk(
+  "users/addHierarchy",
+  async (
+
+    payload: {
+      userId: string
+      name:string | null
+      position: string | null
+      department: string | null
+      reports_to: string | null
+    },
+    { rejectWithValue }
+  ) => {
+    const supabase = getSupabaseClient()
+    const { data,error } = await supabase
+      .from("profiles")
+      .upsert({
+        id: payload.userId,
+        name:payload.name,
+        position: payload.position,
+        department: payload.department,
+        reports_to: payload.reports_to,
+      })
+      .eq("id", payload.userId)
+
+    if (error) return rejectWithValue(error.message)
+
+    return data
+  }
+)
+
+export const updateUserHierarchy = createAsyncThunk(
+  "users/updateHierarchy",
+  async (
+
+    payload: {
+      userId: string
+      name:string | null
+      position: string | null
+      department: string | null
+      reports_to: string | null
+    },
+    { rejectWithValue }
+  ) => {
+    const supabase = getSupabaseClient()
+    const { data,error } = await supabase
+      .from("profiles")
+      .update({
+        id: payload.userId,
+        name:payload.name,
+        position: payload.position,
+        department: payload.department,
+        reports_to: payload.reports_to,
+      })
+      .eq("id", payload.userId)
+      .select()
+      .single()
+    if (error) return rejectWithValue(error.message)
+
+    return data
+  }
+)
 
 
 

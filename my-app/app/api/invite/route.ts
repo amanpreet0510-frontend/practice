@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     if (!email) return NextResponse.json({ error: "Email is required" }, { status: 400 });
 
     const { data, error } =
-  await supabaseAdmin.auth.admin.inviteUserByEmail(email,{redirectTo: "http://localhost:3000/set-password"});
+  await supabaseAdmin.auth.admin.inviteUserByEmail(email,{redirectTo: "https://4d2bcd737489.ngrok-free.app/setPassword"});
 
 
 if (error) {

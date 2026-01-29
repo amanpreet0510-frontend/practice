@@ -40,21 +40,6 @@ const UserManagement = () => {
     dispatch(fetchAllUsers());
   }, [dispatch]);
 
-  // useEffect(() => {
-  //   console.log('users state updated:', users);
-  //   console.log('users count:', users?.length || 0);
-  //   if (error) {
-  //     console.error('Error fetching users:', error);
-  //   }
-  //   if (loading) {
-  //     console.log('Loading users...');
-  //   }
-  // }, [users, error]);
-
-
-
-
-
   const handleToggleStatus = async (userId: string, currentStatus: boolean) => {
     console.log('userId123', userId)
     try {
@@ -71,6 +56,7 @@ const UserManagement = () => {
 
 
   const [open, setopen] = useState(false);
+  const [openn, setopenn] = useState(false)
   const [loading, setLoading] = useState(false)
 
   const handleDelete = async (userId: string) => {
@@ -109,11 +95,11 @@ const UserManagement = () => {
         </div>
         <div className='flex justify-end'>
           <Button className='bg-[#BBC863] m-10 p-7 text-white text-lg' onClick={() => {
-            setopen(true)
+            setopenn(true)
           }
           } ><LucideUserPlus />Invite User</Button>
-          <InviteUser open={open}
-            onClose={() => setopen(false)}/>
+          <InviteUser open={openn}
+            onClose={() => setopenn(false)}/>
             
         </div>
       </div>
