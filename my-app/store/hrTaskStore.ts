@@ -1,5 +1,6 @@
 import { create } from "zustand";
-import { supabase } from "@/lib/supabaseClient";
+import { getSupabaseClient } from "@/lib/supabaseClient";
+
 import type { Task } from "@/types/task.types";
 
 export type TaskStatus = "pending" | "in_progress" | "completed" | "cancelled";
@@ -26,7 +27,8 @@ export const useHrTaskStore= create<hrTaskStore>((set) => ({
         set({ loading: true, error: null });
     
         try {
-          const { data, error } = await supabase.rpc("get_tasks_with_employee");
+          const supabase = getSupabaseClient();
+        const { data, error } = await supabase.rpc("get_tasks_with_employee");
     
           { status_filter: status ?? "all" } 
             // query = query.eq("task_status", status); 
@@ -46,6 +48,7 @@ export const useHrTaskStore= create<hrTaskStore>((set) => ({
         set({ loading: true, error: null });
     
         try {
+          const supabase = getSupabaseClient();
           const { data, error } = await supabase
             .from("tasks")
             .update({ task_status: status }) 

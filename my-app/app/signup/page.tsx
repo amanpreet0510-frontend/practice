@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { supabase } from "@/lib/supabaseClient";
+import { getSupabaseClient } from '@/lib/supabaseClient'
 import { useRouter } from "next/navigation";
 import { useUserStore } from "@/store/userStore";
 import { User } from "@/types/user.types";
@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 
 export default function SignupPage() {
+  const supabase = getSupabaseClient()
   const router = useRouter();
   const setUser = useUserStore((state) => state.setUser);
 
@@ -47,7 +48,7 @@ if (updateError) {
 
  const { data: profile, error: fetchError } = await supabase
   .from("profiles")
-  .select("id, email, name, role, first_time, image,mobile")
+  .select("id, email, name, role, first_time, image,mobile,is_active")
   .eq("id", data.user.id)
   .single();
 
@@ -64,7 +65,8 @@ if (fetchError || !profile) {
   role: profile.role,
   first_time: profile.first_time,
   image: profile.image,
-  mobile:profile.mobile
+  mobile:profile.mobile,
+  is_active:profile.is_active
 };
 
 

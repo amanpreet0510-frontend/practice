@@ -11,6 +11,7 @@ import ProductList from "./ProductList";
 import Sidebar from "../components/layout/Sidebar";
 import Layout from "../app/layout";
 import { redirect } from "next/navigation";
+import SetPassword from "./setPassword/page";
 
 
 export const experimental_ppr = true;
@@ -25,6 +26,7 @@ export default function homepage() {
   return (
  <>
 {/* <Counter/> */}
+{/* <SetPassword/> */}
  </>
   );
 }

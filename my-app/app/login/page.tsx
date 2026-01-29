@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import { useUserStore } from "@/store/userStore";
 import { useRouter } from "next/navigation";
-import { supabase } from "../../lib/supabaseClient";
+import { getSupabaseClient } from "../../lib/supabaseClient";
+
 import { User } from "../../types/user.types";
 
 export default function LoginPage() {
@@ -11,7 +12,7 @@ export default function LoginPage() {
   const setUser = useUserStore((state) => state.setUser);
   const {user,fetchUser}=useUserStore();
 
-
+console.log('user', user)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -22,6 +23,7 @@ export default function LoginPage() {
       alert("enter valid email and password");
       return;
     }
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -33,12 +35,16 @@ export default function LoginPage() {
 
     const { data: profile,error:profileError } = await supabase
       .from("profiles")
-      .select("name, role, email, first_time,image,mobile")
+      .select("name, role, email, first_time,image,mobile,is_active")
       .eq("id", data.user.id)
       .single();
      
 
     if (!profile) return console.error("No profile found for this user");
+    if (!profile.is_active) {
+      throw new Error("Your account is inactive. Contact admin.");
+    }
+
 
     const user: User = {
       id: data.user.id,
@@ -47,8 +53,12 @@ export default function LoginPage() {
       role: profile.role ?? "",
       first_time:profile.first_time ?? "",
       image:profile.image || null,
-      mobile:profile.mobile || null
+      mobile:profile.mobile || null,
+      is_active:profile.is_active||null
     };
+    
+
+console.log('profile.first_time', profile.first_time)
 
     setUser(user);
     if(profile?.first_time){
@@ -61,6 +71,7 @@ export default function LoginPage() {
   };
 
   const handleGoogleSignIn = async () => {
+    const supabase = getSupabaseClient();
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
     });

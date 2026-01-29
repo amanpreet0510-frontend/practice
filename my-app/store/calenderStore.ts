@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { supabase } from "@/lib/supabaseClient";
+import { getSupabaseClient } from "@/lib/supabaseClient";
 import { CalendarEvent } from "../types/calender.types";
 
 interface calenderStore {
@@ -17,6 +17,7 @@ export const usecalenderStore = create<calenderStore>((set) => ({
   fetchEvents: async () => {
     set({ loading: true, error: null });
 
+    const supabase = getSupabaseClient();
     const { data, error } = await supabase
       .from("public_calendar")
       .select("*")

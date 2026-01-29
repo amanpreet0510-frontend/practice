@@ -1,10 +1,83 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { supabase } from '@/lib/supabaseClient'
+import { getSupabaseClient } from '@/lib/supabaseClient'
 import { User } from '../types/user.types'
 
+
+export const inviteUser = createAsyncThunk<
+  User,
+  { name: string; email: string; role: "admin" | "hr" | "employee" },
+  { rejectValue: string }
+>(
+  "users/inviteUser",
+  async ({ name, email, role }, { rejectWithValue }) => {
+    const supabase = getSupabaseClient()
+    try {
+      const { data, error } = await supabase.from("profiles").insert([
+        {
+          name,
+          email,
+          role,
+          first_time: true,
+          is_active: true,
+        },
+      ]).select().single();
+
+      if (error) throw error;
+
+      // Normalize to our shared User type
+      const created: User = {
+        id: data.id,
+        email: data.email,
+        name: data.name,
+        role: data.role,
+        first_time: data.first_time,
+        is_active: data.is_active,
+        image: data.image ?? null,
+        mobile: data.mobile ?? null,
+      }
+
+      return created;
+    } catch (err:any) {
+      return rejectWithValue(err.message || "Failed to invite user");
+    }
+  }
+);
+
+
+export const fetchAllUsers = createAsyncThunk(
+  "users/fetchAll",
+  async (): Promise<User[]> => {
+    const supabase = getSupabaseClient()
+    const { data, error } = await supabase
+      .from("profiles")
+      .select("*");
+
+
+    if (error) throw error;
+    if (!data) return [];
+
+    return data.map((profile): User => ({
+      id: profile.id,
+      email: profile.email,
+      name: profile.name,
+      role: profile.role,
+      is_active: profile.is_active,
+      first_time: profile.first_time,
+      image: profile.image,
+      mobile: profile.mobile,
+    }));
+  }
+);
+
+
+
+
+
 export const fetchProfile = createAsyncThunk(
+
   'profile/fetch',
   async (): Promise<User> => {
+    const supabase = getSupabaseClient()
     const { data: auth } = await supabase.auth.getUser()
 
     if (!auth.user) throw new Error('Not authenticated')
@@ -23,6 +96,7 @@ export const fetchProfile = createAsyncThunk(
       name: profile.name,
       role: profile.role,
       first_time: profile.first_time,
+      is_active: profile.is_active,
       image: profile.image,
       mobile: profile.mobile
     }
@@ -36,7 +110,9 @@ export const updateProfile = createAsyncThunk(
     email: string
     image: string | null
     mobile: string | null
+    is_active: boolean
   }): Promise<User> => {
+    const supabase = getSupabaseClient()
 
     const { data: authData, error: authError } =
       await supabase.auth.getUser()
@@ -47,7 +123,7 @@ export const updateProfile = createAsyncThunk(
 
     const user = authData.user
 
-    
+
     if (user.email !== payload.email) {
       const { error } = await supabase.auth.updateUser({
         email: payload.email
@@ -55,13 +131,14 @@ export const updateProfile = createAsyncThunk(
       if (error) throw error
     }
 
-    
+
     const { data, error } = await supabase
       .from('profiles')
       .update({
         name: payload.name,
         image: payload.image,
-        mobile: payload.mobile
+        mobile: payload.mobile,
+        is_active: payload.is_active
       })
       .eq('id', user.id)
       .select('*')
@@ -73,15 +150,16 @@ export const updateProfile = createAsyncThunk(
 
     const profile = data[0]
 
-    
+
     return {
       id: profile.id,
-      email: payload.email,         
+      email: payload.email,
       name: profile.name,
       role: profile.role,
       first_time: profile.first_time,
       image: profile.image,
-      mobile: profile.mobile
+      mobile: profile.mobile,
+      is_active: profile.is_active
     }
   }
 )

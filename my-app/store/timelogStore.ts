@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { supabase } from "@/lib/supabaseClient";
+import { getSupabaseClient } from "@/lib/supabaseClient";
 
 export interface TimeLogState{
   totalHours: number;
@@ -19,6 +19,7 @@ export const usetimeLogStore=create<TimeLogState>((set) => ({
 
 
   if (!userId) {
+    const supabase = getSupabaseClient();
     const {
       data: { user },
     } = await supabase.auth.getUser();
@@ -27,10 +28,23 @@ export const usetimeLogStore=create<TimeLogState>((set) => ({
       return;
     }
     userId = user.id;
+    const { data, error } = await supabase
+      .from("employee_logged_hours")
+      .select("hours")
+      .eq("user_id", userId);
+
+    if (error) {
+      set({ loading: false, error: error.message });
+      return;
+    }
+
+    const total = data?.reduce((sum: number, log: {hours: number}) => sum + Number(log.hours), 0) ?? 0;
+
+    set({ totalHours: total, loading: false });
+    return;
   }
 
-
-
+  const supabase = getSupabaseClient();
   const { data, error } = await supabase
     .from("employee_logged_hours")
     .select("hours")
@@ -41,7 +55,7 @@ export const usetimeLogStore=create<TimeLogState>((set) => ({
     return;
   }
 
-  const total = data?.reduce((sum, log) => sum + Number(log.hours), 0) ?? 0;
+  const total = data?.reduce((sum: number, log: {hours: number}) => sum + Number(log.hours), 0) ?? 0;
 
   set({ totalHours: total, loading: false });
  },
@@ -49,6 +63,7 @@ export const usetimeLogStore=create<TimeLogState>((set) => ({
 
  
  logHours: async (hours: number) => {
+    const supabase = getSupabaseClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();

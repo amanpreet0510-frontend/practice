@@ -5,14 +5,13 @@ import { MenuItem } from "@/types/menu.types";
 import logo from '../../public/logo.png'
 import Image from "next/image";
 import { getSupabaseClient } from "@/lib/supabaseClient";
-
 import { useRouter } from "next/navigation";    
 
 const menu: MenuItem[] = [
   { label: "Dashboard", href: "/roleBasedDashboard", image: '' },
-  { label: "Attendance", href: "/attendance", image: '' },
-  { label: "Leave Request", href: "/leaveRequest", image: '' },
-  { label: "Tasks", href: "/tasks", image: '' },
+  { label: "User Management", href: "/userManagement", image: '' },
+  { label: "Hierarchy", href: "/hierarchy", image: '' },
+  { label: "", href: "/", image: '' },
   { label: "Settings", href: "/settings", image: '' },
 ];
 
@@ -20,11 +19,10 @@ const menu: MenuItem[] = [
 
 const Sidebar = () => {
   const router = useRouter();
-
+   const supabase=getSupabaseClient();
   
   const handleLogout = async () => {
    
-        const supabase = getSupabaseClient();
         await supabase.auth.signOut();
         router.replace("/login");
         router.refresh();

@@ -1,5 +1,6 @@
 import { create } from "zustand";
-import { supabase } from "@/lib/supabaseClient";
+import { getSupabaseClient } from "@/lib/supabaseClient";
+
 import { LeaveBalance } from "@/types/leaves.types";
 
 interface LeaveStore {
@@ -20,7 +21,8 @@ export const useLeaveStore = create<LeaveStore>((set) => ({
   set({ loading: true, error: null });
 
   
-  const { data: policies, error: policyError } = await supabase
+  const supabase = getSupabaseClient();
+    const { data: policies, error: policyError } = await supabase
     .from("leave_policies")
     .select("leave_type, yearly_quota");
 

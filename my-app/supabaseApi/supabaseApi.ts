@@ -1,6 +1,7 @@
-import { supabase } from "@/lib/supabaseClient";
+import { getSupabaseClient } from "@/lib/supabaseClient";
 
 
+const supabase = getSupabaseClient();
 const { data:authUser } = await supabase.auth.getUser();
  const user = authUser;
 
@@ -31,4 +32,39 @@ export const getLoginHourWithUser = async (userId: string) => {
 };
 
 
+
+
+export async function updateUserRole(
+  userId: string,
+  role: "admin" | "hr" | "employee"
+) {
+  const { error } = await supabase
+    .from("profiles")
+    .update({ role })
+    .eq("id", userId)
+
+  if (error) throw error
+}
+
+export async function deleteUserProfile(userId: string) {
+  const { error } = await supabase
+    .from("profiles")
+    .delete()
+    .eq("id", userId)
+
+  if (error) throw error
+}
+
+
+export async function updateUserStatus(
+  userId: string,
+  isActive: boolean
+) {
+  const { error } = await supabase
+    .from("profiles")
+    .update({ is_active: isActive })
+    .eq("id", userId)
+
+  if (error) throw error
+}
 

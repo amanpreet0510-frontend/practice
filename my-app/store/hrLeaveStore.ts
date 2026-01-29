@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { supabase } from "@/lib/supabaseClient";
+import { getSupabaseClient } from "@/lib/supabaseClient";
 
 export interface HRLeaveRequest {
   id: string;
@@ -27,6 +27,7 @@ export const useHRLeaveStore = create<HRLeaveStore>((set) => ({
   fetchPendingLeaves: async () => {
     set({ loading: true });
 
+    const supabase = getSupabaseClient();
     const { data } = await supabase
       .from("leave_requests")
       .select("*")
@@ -38,6 +39,7 @@ export const useHRLeaveStore = create<HRLeaveStore>((set) => ({
 
   // 2️⃣ Approve leave
   approveLeave: async (leaveId) => {
+    const supabase = getSupabaseClient();
     await supabase
       .from("leave_requests")
       .update({ status: "approved" })
@@ -46,6 +48,7 @@ export const useHRLeaveStore = create<HRLeaveStore>((set) => ({
 
   // 3️⃣ Reject leave
   rejectLeave: async (leaveId) => {
+    const supabase = getSupabaseClient();
     await supabase
       .from("leave_requests")
       .update({ status: "rejected" })

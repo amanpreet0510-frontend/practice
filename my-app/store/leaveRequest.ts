@@ -1,5 +1,6 @@
 import { create } from "zustand";
-import { supabase } from "@/lib/supabaseClient";
+import { getSupabaseClient } from "@/lib/supabaseClient";
+
 import { LeaveRequest } from "@/types/leaves.types";
 
 interface ApplyLeavePayload {
@@ -25,6 +26,7 @@ export const useLeaveRequestStore = create<LeaveRequestStore>((set) => ({
   loading: false,
 
   fetchMyLeaveRequests: async (userId: string) => {
+    const supabase = getSupabaseClient();
     const { data } = await supabase
       .from("leave_requests")
       .select("*")
@@ -36,7 +38,7 @@ export const useLeaveRequestStore = create<LeaveRequestStore>((set) => ({
 
   applyLeave: async (payload: ApplyLeavePayload, userId: string) => {
     set({ loading: true });
-
+    const supabase = getSupabaseClient();
     await supabase.from("leave_requests").insert({
       ...payload,
       user_id: userId,
