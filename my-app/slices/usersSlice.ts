@@ -31,35 +31,52 @@ const initialState: UsersState = {
         state.loading = false;
         state.error = action.error.message ?? null;
       })
+      // .addCase(addUserHierarchy.fulfilled, (state, action) => {
+      //   const maybeUser = action.payload as User | null
+
+      //   // Guard against a possible null payload
+      //   if (!maybeUser) {
+      //     return
+      //   }
+
+      //   const updatedUser: User = maybeUser
+
+      //   const index = state.users.findIndex(
+      //     (user: User) => user.id === updatedUser.id
+      //   )
+
+      //   if (index !== -1) {
+      //     state.users[index] = updatedUser
+      //   } else {
+      //     state.users.push(updatedUser)
+      //   }
+      // })
       .addCase(addUserHierarchy.fulfilled, (state, action) => {
-        const maybeUser = action.payload as User | null
+        const updatedUser = action.payload as User | null
 
-        // Guard against a possible null payload
-        if (!maybeUser) {
-          return
-        }
+        if (!updatedUser) return
 
-        const updatedUser: User = maybeUser
-
-        const index = state.users.findIndex(
-          (user: User) => user.id === updatedUser.id
-        )
+        const index = state.users.findIndex(user => user.id === updatedUser.id)
 
         if (index !== -1) {
-          state.users[index] = updatedUser
+          
+          state.users[index] = {
+            ...state.users[index],
+            ...updatedUser,
+          }
         } else {
           state.users.push(updatedUser)
         }
       })
       .addCase(updateUserHierarchy.fulfilled, (state, action) => {
-        const updatedUser = action.payload
-      
+        const updatedUser = action.payload as User | null
+
         if (!updatedUser) return
-      
+
         const index = state.users.findIndex(user => user.id === updatedUser.id)
-      
+
         if (index !== -1) {
-          // merge updated fields only
+         
           state.users[index] = {
             ...state.users[index],
             ...updatedUser,

@@ -56,19 +56,28 @@ export const fetchAllUsers = createAsyncThunk(
     if (error) throw error;
     if (!data) return [];
 
-    return data.map((profile): User => ({
-      id: profile.id,
-      email: profile.email,
-      name: profile.name,
-      role: profile.role,
-      is_active: profile.is_active,
-      first_time: profile.first_time,
-      image: profile.image,
-      mobile: profile.mobile,
-      position: profile.position,
-      department: profile.position,
-      reports_to: profile.reports_to
-    }));
+    console.log('=== fetchAllUsers raw data ===')
+    console.log('First profile sample:', data[0])
+    console.log('First profile keys:', data[0] ? Object.keys(data[0]) : 'no data')
+    console.log('First profile id:', data[0]?.id)
+
+    return data.map((profile): User => {
+      const mapped = {
+        id: profile.id,
+        email: profile.email,
+        name: profile.name,
+        role: profile.role,
+        is_active: profile.is_active,
+        first_time: profile.first_time,
+        image: profile.image,
+        mobile: profile.mobile,
+        position: profile.position,
+        department: profile.department,
+        reports_to: profile.reports_to
+      }
+      console.log('Mapped user id:', mapped.id, 'from profile.id:', profile.id)
+      return mapped
+    });
   }
 );
 
@@ -80,6 +89,7 @@ export const addUserHierarchy = createAsyncThunk(
     payload: {
       userId: string
       name:string | null
+      image:string | null
       position: string | null
       department: string | null
       reports_to: string | null
@@ -90,13 +100,16 @@ export const addUserHierarchy = createAsyncThunk(
     const { data,error } = await supabase
       .from("profiles")
       .upsert({
-        id: payload.userId,
         name:payload.name,
+        image:payload.image,
         position: payload.position,
         department: payload.department,
         reports_to: payload.reports_to,
       })
       .eq("id", payload.userId)
+      .select()
+      .single()
+
 
     if (error) return rejectWithValue(error.message)
 
@@ -121,7 +134,6 @@ export const updateUserHierarchy = createAsyncThunk(
     const { data,error } = await supabase
       .from("profiles")
       .update({
-        id: payload.userId,
         name:payload.name,
         position: payload.position,
         department: payload.department,
@@ -130,6 +142,9 @@ export const updateUserHierarchy = createAsyncThunk(
       .eq("id", payload.userId)
       .select()
       .single()
+
+      console.log('payload.reports_to', payload.reports_to)
+
     if (error) return rejectWithValue(error.message)
 
     return data
@@ -208,6 +223,8 @@ export const updateProfile = createAsyncThunk(
       .eq('id', user.id)
       .select('*')
 
+console.log('payload.image', payload.image)
+
     if (error) throw error
     if (!data || data.length === 0) {
       throw new Error('No profile returned after update')
@@ -239,7 +256,7 @@ const profileSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder
-      // FETCH PROFILE
+     
       .addCase(fetchProfile.pending, state => {
         state.loading = true
       })
@@ -248,12 +265,11 @@ const profileSlice = createSlice({
         state.loading = false
       })
 
-      // UPDATE PROFILE (🔥 MISSING PART 🔥)
+      
       .addCase(updateProfile.pending, state => {
         state.loading = true
       })
       .addCase(updateProfile.fulfilled, (state, action) => {
-        console.log('UPDATED USER:', action.payload)
         if (state.data) {
           state.data.name = action.payload.name
           state.data.image = action.payload.image

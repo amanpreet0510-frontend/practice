@@ -10,7 +10,7 @@ interface FormValues {
     name:string;
     position: string;
     department: string;
-    reportsTo: string;
+    reports_to: string;
 }
 
 type AddPositionProps = {
@@ -52,6 +52,8 @@ const AddPosition = ({ open,
     //     }
     // }
 
+console.log('userId', userId)
+
     const handleSubmit = async () => {
         try {
             await dispatch(
@@ -60,10 +62,13 @@ const AddPosition = ({ open,
                     name:values.name || null,
                     position: values.position || null,
                     department: values.department || null,
-                    reports_to: values.reportsTo || null,
+                    reports_to: values.reports_to || null,
                 })
             ).unwrap()
 
+console.log('values.reportsTo', values.reports_to)
+
+           onClose()
             console.log("Hierarchy updated successfully")
         } catch (err) {
             console.log("Failed to update hierarchy")
@@ -76,8 +81,8 @@ const AddPosition = ({ open,
                 <div className='bg-white w-[600px]  h-140 rounded-xl p-6 shadow-xl'>
                     <div className='flex justify-between mb-5 pb-5'>
                         <div>
-                            <h3 className='text-2xl font-bold'>Add Position</h3>
-                            <h4 className='text-gray-400 text-md font-medium'> Add a new position to the organizational hierarchy</h4>
+                            <h3 className='text-2xl font-bold'>Edit Position</h3>
+                            <h4 className='text-gray-400 text-md font-medium'> Edit User information</h4>
                         </div>
 
                         <div>
@@ -102,14 +107,15 @@ const AddPosition = ({ open,
                     <CardTitle className='mt-2 text-lg'>Reports To</CardTitle>
                     <div className='flex flex-col'>
                         <select
-                            value={values.reportsTo}
-                            onChange={(e) => setRole(e.target.value)}
+                            value={values.reports_to}
+                            onChange={(e) =>
+                                setValues({ ...values, reports_to: e.target.value })}
                             className="border p-2 rounded mt-2 w-full">
                             <option value="admin">Admin</option>
                             <option value="employee">Employee</option>
                             <option value="hr">HR</option>
                         </select>
-                        <Button className='mt-7 text-lg p-6' onClick={handleSubmit}>Create</Button>
+                        <Button className='mt-7 text-lg p-6' onClick={handleSubmit}>Update</Button>
                     </div>
                 </div>
             </Card>}

@@ -9,14 +9,10 @@ import { getSupabaseClient } from '@/lib/supabaseClient';
 
 
 const SetPassword = () => {
-//     const router = useRouter();
-//   const { token } = router.query;
 
 const searchParams = useSearchParams();
 const router = useRouter();
 const token = searchParams.get("token");
-
-console.log('token', token)
 
     const [show, setShow] = useState(false);
     const [password, setPassword] = useState("");

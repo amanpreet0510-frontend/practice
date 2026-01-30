@@ -10,11 +10,15 @@ import Image from "next/image";
 import { LucidePen, Plus } from "lucide-react";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { Lock } from "lucide-react";
+import { getSupabaseClient } from "@/lib/supabaseClient";
 
 export default function ProfileSettings() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((s) => s.profile.data);
   const [open, setOpen] = useState(false);
+  const [imagePreview, setImagePreview] = useState<string | null>(null)
+  const [imageFile, setImageFile] = useState<File | null>(null)
+
 
   const [form, setForm] = useState({
     name: "",
@@ -32,51 +36,96 @@ export default function ProfileSettings() {
         name: user.name,
         mobile: user.mobile ?? "",
         image: user.image ?? "",
-        
+
       });
     }
   }, [user]);
 
-  const onSave = () => {
-    if (!user) return;
-
-    dispatch(
+  const onSave = async () => {
+    if (!user) return
+  
+    let imageUrl = form.image || null
+  
+   
+    if (imageFile) {
+      const supabase = getSupabaseClient()
+  
+      const fileExt = imageFile.name.split(".").pop()
+      const filePath = `avatars/${user.id}.${fileExt}`
+  
+      const { error: uploadError } = await supabase.storage
+        .from("profile_pictures")
+        .upload(filePath, imageFile, {
+          upsert: true,
+          contentType: imageFile.type,
+        })
+  
+      if (uploadError) {
+        console.error("Image upload failed:", uploadError)
+        return
+      }
+  
+      const { data } = supabase.storage
+        .from("profile_pictures")
+        .getPublicUrl(filePath)
+  
+      imageUrl = data.publicUrl
+    }
+  
+   
+    await dispatch(
       updateProfile({
         name: form.name,
         email: user.email,
-        image: form.image || null,
+        image: imageUrl,
         mobile: form.mobile || null,
         is_active: user.is_active,
       })
-    );
-  };
+    )
+  
+   
+    setImagePreview(null)
+    setImageFile(null)
+  }
+  
 
   if (!user) return null;
 
+  console.log('form.image', form.image)
   return (
     <>
-     
+
       <div className="p-6">
         <h1 className="text-5xl font-bold">My Profile</h1>
         <p className="text-xl mt-3 text-gray-500">
           View and manage your profile and account settings
         </p>
       </div>
-  
-      
+
+
       <Card className="max-w-7xl mx-auto rounded-3xl shadow-xl">
         <CardContent className="p-10 space-y-14">
-  
-          
+
+
           <div className="flex flex-col lg:flex-row items-center gap-10">
             <div className="relative w-40 h-40">
-              <Image
-                src={form.image || "/avatar.png"}
-                alt="Profile Image"
-                fill
-                className="rounded-full object-cover border-4 border-white shadow"
-              />
-  
+            {imagePreview ? (
+  <img
+    src={imagePreview}
+    alt="Profile Preview"
+    className="rounded-full object-cover border-4 border-white shadow w-full h-full"
+  />
+) : (
+  <Image
+    src={form.image || "/logo.png"}
+    alt="Profile Image"
+    fill
+    className="rounded-full object-cover border-4 border-white shadow"
+  />
+)}
+
+
+
               <label className="absolute bottom-2 right-2 w-9 h-9 rounded-full bg-primary flex items-center justify-center text-white cursor-pointer">
                 <Plus size={18} />
                 <input
@@ -85,33 +134,30 @@ export default function ProfileSettings() {
                   className="hidden"
                   onChange={(e) => {
                     const file = e.target.files?.[0];
-                    if (file) {
-                      setForm((prev) => ({
-                        ...prev,
-                        image: URL.createObjectURL(file),
-                      }));
-                    }
+                    if (!file) return
+                    setImagePreview(URL.createObjectURL(file))
+                    setImageFile(file)
                   }}
                 />
               </label>
             </div>
-  
+
             <div className="text-center lg:text-left space-y-2">
               <h2 className="text-3xl font-bold">{form.name}</h2>
               <p className="text-gray-500">{form.mobile || "N/A"}</p>
-  
+
               <span className="inline-block mt-2 px-5 py-1 rounded-full bg-green-200 text-green-800 text-sm">
                 {user.role}
               </span>
             </div>
           </div>
-  
-          
+
+
           <div>
             <h3 className="text-2xl font-semibold mb-6">
               Contact Information
             </h3>
-  
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="flex gap-4 p-5 rounded-xl border">
                 <Mail className="text-gray-400 mt-1" />
@@ -120,7 +166,7 @@ export default function ProfileSettings() {
                   <p className="font-medium">{user.email}</p>
                 </div>
               </div>
-  
+
               <div className="flex gap-4 p-5 rounded-xl border">
                 <Phone className="text-gray-400 mt-1" />
                 <div>
@@ -128,7 +174,7 @@ export default function ProfileSettings() {
                   <p className="font-medium">{form.mobile || "N/A"}</p>
                 </div>
               </div>
-  
+
               <div className="flex gap-4 p-5 rounded-xl border">
                 <MapPin className="text-gray-400 mt-1" />
                 <div>
@@ -138,13 +184,13 @@ export default function ProfileSettings() {
               </div>
             </div>
           </div>
-  
-          
+
+
           <div>
             <h3 className="text-2xl font-semibold mb-6">
               Profile Details
             </h3>
-  
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <Label>Name</Label>
@@ -156,12 +202,12 @@ export default function ProfileSettings() {
                   className='mt-5'
                 />
               </div>
-  
+
               <div>
                 <Label>Email</Label>
                 <Input value={user.email} disabled className='mt-5' />
               </div>
-  
+
               <div>
                 <Label>Mobile</Label>
                 <Input
@@ -172,39 +218,39 @@ export default function ProfileSettings() {
                   className='mt-5'
                 />
               </div>
-  
+
               <div>
                 <Label>Role</Label>
-                <Input value={user.role} disabled 
-                className='mt-5'/>
+                <Input value={user.role} disabled
+                  className='mt-5' />
               </div>
             </div>
-  
+
             <div className="flex justify-end mt-8">
               <Button onClick={onSave} className="px-10 py-6 text-base">
                 Save Profile Changes
               </Button>
             </div>
           </div>
-  
-          
+
+
           <div>
             <h3 className="text-2xl font-semibold mb-6 flex items-center gap-3">
               <Lock />
               Account Settings
             </h3>
-  
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div>
                 <Label>Current Password</Label>
-                <Input type="password" placeholder="Enter current password" className='mt-5'/>
+                <Input type="password" placeholder="Enter current password" className='mt-5' />
               </div>
-  
+
               <div>
                 <Label>New Password</Label>
-                <Input type="password" placeholder="Enter new password" className='mt-5'/>
+                <Input type="password" placeholder="Enter new password" className='mt-5' />
               </div>
-  
+
               <div>
                 <Label>Confirm New Password</Label>
                 <Input
@@ -214,14 +260,14 @@ export default function ProfileSettings() {
                 />
               </div>
             </div>
-  
+
             <div className="flex justify-end mt-8">
               <Button className="px-10 py-6 text-base">
                 Update Password
               </Button>
             </div>
           </div>
-  
+
         </CardContent>
       </Card>
     </>

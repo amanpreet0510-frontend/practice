@@ -11,7 +11,7 @@ const menu: MenuItem[] = [
   { label: "Dashboard", href: "/roleBasedDashboard", image: '' },
   { label: "User Management", href: "/userManagement", image: '' },
   { label: "Hierarchy", href: "/hierarchy", image: '' },
-  { label: "", href: "/", image: '' },
+  { label: "Directory", href: "/directory", image: '' },
   { label: "Settings", href: "/settings", image: '' },
 ];
 
@@ -30,23 +30,23 @@ const Sidebar = () => {
 
   return (
     <>
-      <aside className="bg-[#BBC863] w-100 p-5 sticky top-0 ">
+      <aside className="bg-gray-700 w-100 p-5 sticky top-0 ">
         <div className="flex justify-center items-center pt-10 gap-3">
-          <Image alt="logo" height={50} width={80} src={logo} className="bg-[#F4FFC3] rounded-[100%] p-1" />
-          <h1 className="text-5xl font-extrabold text-[#F4FFC3]">WorkFlow</h1>
+          <Image alt="logo" height={50} width={80} src={logo} className="bg-white rounded-[100%] p-1" />
+          <h1 className="text-5xl font-extrabold text-white">WorkFlow</h1>
           </div>
         <ul className="text-center pt-10 p-20">
           {menu.map((item, id) => (
             <React.Fragment key={id}>
               <Link href={item.href}>
-                <li className="mt-15 font-extrabold w-max items-center text-2xl text-[#F4FFC3] hover:text-black hover:scale-110 transition-all duration-300">
+                <li className="mt-15 font-extrabold w-max items-center text-2xl text-white hover:text-black hover:scale-110 transition-all duration-300">
                   {item.label}
                 </li>
               </Link>
             </React.Fragment>
           ))}
         </ul>
-        <button onClick={handleLogout} className="text-[#F4FFC3]  text-xl font-bold mt-35 border-transparent w-full p-5 shadow-md">LogOut</button>
+        <button onClick={handleLogout} className="text-white  text-xl font-bold mt-35 border-transparent w-full p-5 shadow-md">LogOut</button>
       </aside>
     </>
   );
