@@ -22,7 +22,7 @@ import { MenuItem } from "@/types/menu.types";
 const menu: MenuItem[] = [{ label: "signup", href: "/signup", image: "" }];
 
 export default function homepage() {
-  redirect("/signup");
+  redirect("/login");
   return (
  <>
 {/* <Counter/> */}
