@@ -1,22 +1,21 @@
 "use client";
 
-import { useEffect, useState,useRef } from "react";
+import { useState } from "react";
 import { useUserStore } from "@/store/userStore";
 import { useRouter } from "next/navigation";
 import { getSupabaseClient } from "../../lib/supabaseClient";
-
 import { User } from "../../types/user.types";
-import PurpleBubbles from "@/components/ui/PurpleBubbles";
+import Link from "next/link";
 
 
 
 
 
 export default function LoginPage() {
-  
+
   const router = useRouter();
   const setUser = useUserStore((state) => state.setUser);
-  const { user, fetchUser } = useUserStore();
+  const { user } = useUserStore();
 
   console.log('user', user)
   const [email, setEmail] = useState("");
@@ -39,7 +38,7 @@ export default function LoginPage() {
 
     if (!data.user) return;
 
-    const { data: profile, error: profileError } = await supabase
+    const { data: profile } = await supabase
       .from("profiles")
       .select("name, role, email, first_time,image,mobile,is_active")
       .eq("id", data.user.id)
@@ -57,7 +56,7 @@ export default function LoginPage() {
       email: profile.email ?? data.user.email ?? "",
       name: profile.name ?? "",
       role: profile.role ?? "",
-      first_time: profile.first_time ?? "",
+      first_time: Boolean(profile.first_time),
       image: profile.image || null,
       mobile: profile.mobile || null,
       is_active: profile.is_active || null
@@ -80,17 +79,18 @@ export default function LoginPage() {
     const supabase = getSupabaseClient();
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+      },
     });
     if (error) {
       console.error("Google login error:", error.message);
     }
   };
 
-  
-
   return (
     <div className="min-h-screen bg-black text-white flex  items-center justify-center">
-     <PurpleBubbles/>
+
       <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-10 px-6">
         <div className="flex flex-col justify-center">
           <div className="flex gap-2"><img src="/logo w 2.jpg" alt="logo" className="w-25 h-20 rounded-2xl" />
@@ -112,11 +112,9 @@ export default function LoginPage() {
   rounded-3xl
   border
   border-purple-500/30
-  shadow-[0_0_60px_rgba(168,85,247,0.35)] mt-1 w-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-600 p-6  max-w-sm"
+   mt-1 w-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-600 p-6  max-w-sm"
           >
             <h1 className="text-2xl font-semibold pb-5">Email Address</h1>
-
-
             <input
               type="email"
               placeholder="Enter email"
@@ -131,7 +129,7 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <div className="text-right mt-2">
+            <div className="text-center m-2">
               <a className="text-sm text-purple-400 hover:underline cursor-pointer">
                 Forgot your password?
               </a>
@@ -150,47 +148,48 @@ export default function LoginPage() {
             </div>
             <button
               className="w-full py-3 rounded-xl border border-zinc-700 hover:bg-zinc-900 transition"
+              type="button"
               onClick={handleGoogleSignIn}
             >
               <div className='flex justify-center'>
                 <div>
-              <svg
-            width="30"
-            height="20"
-            viewBox="0 0 256 262"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027"
-              fill="#4285F4"
-            />
-            <path
-              d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1"
-              fill="#34A853"
-            />
-            <path
-              d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82 0-8.994 1.595-17.697 4.206-25.82l-.073-1.73-40.803-31.688-1.335.635C5.077 89.644 0 109.517 0 130.55c0 21.033 5.077 40.905 13.925 58.602l42.356-32.782"
-              fill="#FBBC05"
-            />
-            <path
-              d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251"
-              fill="#EA4335"
-            />
-          </svg></div>
-          <div>
-              <p className='ps-2'>Continue with Google</p></div>
+                  <svg
+                    width="30"
+                    height="20"
+                    viewBox="0 0 256 262"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M255.878 133.451c0-10.734-.871-18.567-2.756-26.69H130.55v48.448h71.947c-1.45 12.04-9.283 30.172-26.69 42.356l-.244 1.622 38.755 30.023 2.685.268c24.659-22.774 38.875-56.282 38.875-96.027"
+                      fill="#4285F4"
+                    />
+                    <path
+                      d="M130.55 261.1c35.248 0 64.839-11.605 86.453-31.622l-41.196-31.913c-11.024 7.688-25.82 13.055-45.257 13.055-34.523 0-63.824-22.773-74.269-54.25l-1.531.13-40.298 31.187-.527 1.465C35.393 231.798 79.49 261.1 130.55 261.1"
+                      fill="#34A853"
+                    />
+                    <path
+                      d="M56.281 156.37c-2.756-8.123-4.351-16.827-4.351-25.82 0-8.994 1.595-17.697 4.206-25.82l-.073-1.73-40.803-31.688-1.335.635C5.077 89.644 0 109.517 0 130.55c0 21.033 5.077 40.905 13.925 58.602l42.356-32.782"
+                      fill="#FBBC05"
+                    />
+                    <path
+                      d="M130.55 50.479c24.514 0 41.05 10.589 50.479 19.438l36.844-35.974C195.245 12.91 165.798 0 130.55 0 79.49 0 35.393 29.301 13.925 71.947l42.211 32.783c10.59-31.477 39.891-54.251 74.414-54.251"
+                      fill="#EA4335"
+                    />
+                  </svg></div>
+                <div>
+                  <p className='ps-2'>Continue with Google</p></div>
               </div>
             </button>
           </form>
           <p className="text-lg text-gray-400 ps-15  pt-10">
             Don’t have an account?{" "}
-            <span className="text-purple-400 hover:underline cursor-pointer">Sign up</span>
+            <span className="text-purple-400 hover:underline cursor-pointer"><Link href="/signup">Sign up</Link></span>
           </p>
         </div>
 
-        
+
         <div className="hidden lg:flex items-center justify-center relative">
-          
+
           <div className="absolute rounded-2xl  inset-0 bg-[radial-gradient(circle_at_center,_rgba(168,85,247,0.55),_transparent_150%)]" />
 
 
@@ -205,7 +204,7 @@ export default function LoginPage() {
 
             <p className="text-lg text-gray-400 text-center">
               Don’t have an account?{" "}
-              <span className="text-purple-400 hover:underline cursor-pointer">Sign up</span>
+              <span className="text-purple-400 hover:underline cursor-pointer"><Link href="/signup">Sign up</Link></span>
             </p>
           </div>
         </div>

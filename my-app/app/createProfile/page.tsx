@@ -1,6 +1,6 @@
 "use client";
 
-import { useState,useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,14 +16,16 @@ const CreateProfile = () => {
   const supabase = getSupabaseClient();
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
-  
+console.log('user', user)
 
   const [name, setName] = useState("");
   const [image, setImage] = useState<File | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+  const [role, setRole] = useState<"admin" | "hr" | "employee">("employee");
 
   const handleSubmit = async () => {
     if (!user) return;
+    setLoading(true);
 
     let publicUrl = null;
 
@@ -33,48 +35,70 @@ const CreateProfile = () => {
       const { data, error } = await supabase.storage
         .from("profile_pictures")
         .upload(storagePath, image, { upsert: true });
-
+       
       if (error) {
         alert(error.message);
         setLoading(false);
         return;
       }
 
-      console.log("data", data);
+      
       publicUrl = supabase.storage
         .from("profile_pictures")
         .getPublicUrl(storagePath).data.publicUrl;
     }
 
+    // Use upsert so first-time Google users (no row yet) still work
     const { error: updateError } = await supabase
       .from("profiles")
-      .update({
+      .upsert({
+        id: user.id,
         name,
         image: publicUrl,
         first_time: false,
+        // keep these stable if your table requires them / for store completeness
+        email: user.email,
+        role: user.role ?? "",
+        is_active: user.is_active ?? true,
       })
-      .eq("id", user.id);
+      .select();
 
+    console.log('user.id', user.id)
     if (updateError) {
       alert(updateError.message);
       setLoading(false);
       return;
     }
-//
+    //
     await supabase.auth.refreshSession();
 
     const { data: updatedProfile, error } = await supabase
       .from("profiles")
-      .select("*")
+      .select("id, email, name, role, first_time, image, mobile, is_active, position, department, reports_to")
       .eq("id", user.id)
       .single();
-    
+
     if (error || !updatedProfile) {
       console.error("Failed to refetch profile:", error);
+      setLoading(false);
       return;
     }
-//
-setUser(updatedProfile);
+    //
+    const nextUser: User = {
+      id: updatedProfile.id,
+      email: updatedProfile.email ?? user.email ?? "",
+      name: updatedProfile.name ?? "",
+      role: updatedProfile.role ?? "",
+      first_time: Boolean(updatedProfile.first_time),
+      image: updatedProfile.image ?? null,
+      mobile: updatedProfile.mobile ?? null,
+      is_active: Boolean(updatedProfile.is_active),
+      position: updatedProfile.position ?? null,
+      department: updatedProfile.department ?? null,
+      reports_to: updatedProfile.reports_to ?? null,
+    };
+
+    setUser(nextUser);
 
     router.replace("/roleBasedDashboard");
 
@@ -82,13 +106,45 @@ setUser(updatedProfile);
   };
 
   useEffect(() => {
-    if (!user) return;
+    async function hydrate() {
+      const { data: { user: authUser } } = await supabase.auth.getUser();
+      if (!authUser) return;
   
-    if (!user.first_time) {
-      router.replace("/roleBasedDashboard");
+      let { data: profile } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", authUser.id)
+        .maybeSingle();
+  
+      // 👇 Google user first login
+      if (!profile) {
+        const { data: newProfile, error } = await supabase
+          .from("profiles")
+          .insert({
+            id: authUser.id,
+            email: authUser.email,
+            role: "employee",     // SAFE DEFAULT
+            first_time: false,
+            is_active: true,
+          })
+          .select()
+          .single();
+  
+        if (error) {
+          console.error(error);
+          return;
+        }
+  
+        profile = newProfile;
+      }
+  
+      setUser(profile);
     }
-  }, [user]);
   
+    hydrate();
+  }, []);
+  
+
 
   return (
     <>
@@ -123,13 +179,24 @@ setUser(updatedProfile);
                   onChange={(e) => setImage(e.target.files?.[0] || null)}
                 />
               </div>
-
+              {/* <div>
+                <Label htmlFor="avatar">Role</Label>
+                <select
+                  value={role}
+                  onChange={(e) => setRole(e.target.value as "admin" | "hr" | "employee")}
+                  className="mb-3 p-2 border rounded w-full"
+                >
+                  <option value="admin">Admin</option>
+                  <option value="hr">HR</option>
+                  <option value="employee">Employee</option>
+                </select>
+              </div> */}
               <Button
                 type="submit"
                 className="w-full mt-2"
-                onSubmit={handleSubmit}
+                disabled={loading}
               >
-                Create Profile
+                {loading ? "Saving..." : "Create Profile"}
               </Button>
             </form>
           </CardContent>

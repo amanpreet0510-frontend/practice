@@ -19,12 +19,14 @@ export const experimental_ppr = true;
 import Link from "next/link";
 import { MenuItem } from "@/types/menu.types";
 
+
 const menu: MenuItem[] = [{ label: "signup", href: "/signup", image: "" }];
 
 export default function homepage() {
-  redirect("/login");
+   redirect("/login");
   return (
  <>
+ 
 {/* <Counter/> */}
 {/* <SetPassword/> */}
  </>

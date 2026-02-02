@@ -17,15 +17,15 @@ export default function DashboardLayout({
 }) {
   const dispatch = useAppDispatch();
   const router = useRouter();
-  //const { user } = useUserStore();
-  const user = useUserStore((state) => state.user);
+  const { user } = useUserStore();
+  //const user = useUserStore((state) => state.user);
 
 
   useEffect(() => {
     dispatch(fetchProfile())
   }, [dispatch])
 
-console.log('user?.first_time', user?.first_time)
+  
 
 useEffect(() => {
   if (!user) return;

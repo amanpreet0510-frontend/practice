@@ -48,7 +48,7 @@ const HRDashboard = () => {
                   colSpan={5}
                   className="text-center py-10 text-gray-500"
                 >
-                  No pending leave requests 🎉
+                  No pending leave requests   
                 </td>
               </tr>
             ) : (
