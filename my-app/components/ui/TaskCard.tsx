@@ -39,18 +39,30 @@ const TaskCard = () => {
       
   return (
    <>
-   <Card className='p-10'>
+   <Card className='p-10 text-zinc-400 relative
+  bg-zinc-900/70
+  backdrop-blur-xl
+  rounded-3xl
+  border
+  border-purple-500/30
+   mt-1 w-full  focus:outline-none focus:ring-2 focus:ring-purple-600 '>
     <div className='flex justify-between w-50  gap-5'>
-    <span><h3>Pending Tasks</h3>
+    <span><h3 className='text-2xl font-bold'>Pending Tasks</h3>
     {pendingTask}</span>
-    <ClipboardList className='bg-blue-300 p-2 h-15 w-15 rounded-2xl'/>
+    <ClipboardList className='p-2 h-15 w-15 rounded-2xl'/>
     </div>
    </Card>
-   <Card className='p-10'>
+   <Card className='p-10 text-zinc-400 relative
+  bg-zinc-900/70
+  backdrop-blur-xl
+  rounded-3xl
+  border
+  border-purple-500/30
+   mt-1 w-full  focus:outline-none focus:ring-2 focus:ring-purple-600'>
    <div className='flex justify-between gap-5'>
-   <span><h3>Completed Tasks</h3>
+   <span><h3 className='text-2xl font-bold'>Completed Tasks</h3>
    {completedTask}</span>
-   <CheckCircle2 className='bg-green-200 p-2 h-15 w-15 rounded-2xl'/>
+   <CheckCircle2 className='p-2 h-15 w-15 rounded-2xl'/>
    </div>
    </Card>
    </>

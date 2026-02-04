@@ -70,11 +70,13 @@ export default function SignupPage() {
       is_active: profile.is_active
     };
 
-
+    console.log('profile.first_time', profile.first_time)
     setUser(user);
     router.replace("/roleBasedDashboard");
 
   };
+
+ 
 
   const handleGoogleSignIn = async () => {
     const supabase = getSupabaseClient();
@@ -118,6 +120,7 @@ export default function SignupPage() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="mt-3 h-12 w-full rounded-xl bg-zinc-900 border  border-purple-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-600"
+              required            
             />
             <Input
               type="email"
@@ -125,6 +128,7 @@ export default function SignupPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="mt-3  h-12 w-full rounded-xl bg-zinc-900 border  border-purple-900   px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-600"
+              required            
             />
             <Input
               type="password"
@@ -132,6 +136,7 @@ export default function SignupPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="mt-3  h-12 w-full rounded-xl bg-zinc-900 border border-purple-900 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-600"
+              required            
             />
             <select
               value={role}
@@ -143,10 +148,10 @@ export default function SignupPage() {
               <option value="employee">Employee</option>
             </select>
 
-            <Button type="submit" className="w-full mt-2 bg-zinc-900 border border-zinc-300">
+            <Button type="submit" className="w-full mt-2 bg-zinc-900 border border-zinc-500">
               Create Account
             </Button>
-            <Button onClick={() => router.push("/login")} className="w-full mt-2">
+            <Button type="button" onClick={() => router.push("/login")} className="w-full mt-2 bg-zinc-900 border border-zinc-500">
               Login
             </Button>
             <div className="flex items-center gap-3">

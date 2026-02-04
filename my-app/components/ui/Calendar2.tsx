@@ -13,8 +13,15 @@ export default function CalendarPage() {
   }, [fetchEvents]);
 
   return (
-    <div className="w-full p-6">
-      <Card className="">
+    <div className="m-8 p-10 text-zinc-400 relative
+  bg-zinc-900/70
+  backdrop-blur-xl
+  rounded-3xl
+  border
+  border-purple-500/30
+   mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600  ">
+      <Card className=" bg-zinc-900/70
+  backdrop-blur-xl text-zinc-400">
         <CardHeader>
           <CardTitle className="text-4xl font-bold">Public Holidays & Events</CardTitle>
         </CardHeader>
