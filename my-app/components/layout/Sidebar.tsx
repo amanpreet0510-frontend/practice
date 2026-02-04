@@ -14,8 +14,8 @@ const menu: MenuItem[] = [
   { label: "Dashboard", href: "/roleBasedDashboard", icon: Home },
   { label: "Attendance", href: "/attendance", icon: CalendarClock  },
   { label: "Leave Request", href: "/leaveRequest", icon:Notebook },
-  { label: "Tasks", href: "/tasks", icon:ListTodo  },
-  { label: "Settings", href: "/settings", icon:Settings  },
+  { label: "Tasks", href: "/tasks", icon:ListTodo},
+  { label: "Settings", href: "/settings", icon:Settings},
 ];
 
 
@@ -55,7 +55,7 @@ const Sidebar = () => {
             return (
               <Link href={item.href} key={id}>
                 <li className="mt-15 font-extrabold w-max flex items-center gap-3 text-2xl text-zinc-400 hover:text-white hover:scale-110 transition-all duration-300">
-                  <Icon className="w-6 h-6" />
+                  {Icon && <Icon className="w-6 h-6" />}
                   <span>{item.label}</span>
                 </li>
               </Link>

@@ -8,11 +8,11 @@ import { getSupabaseClient } from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";    
 
 const menu: MenuItem[] = [
-  { label: "Dashboard", href: "/roleBasedDashboard", image: '' },
-  { label: "User Management", href: "/userManagement", image: '' },
-  { label: "Hierarchy", href: "/hierarchy", image: '' },
-  { label: "Directory", href: "/directory", image: '' },
-  { label: "Settings", href: "/settings", image: '' },
+  { label: "Dashboard", href: "/roleBasedDashboard"},
+  { label: "User Management", href: "/userManagement"},
+  { label: "Hierarchy", href: "/hierarchy"},
+  { label: "Directory", href: "/directory"},
+  { label: "Settings", href: "/settings"},
 ];
 
 

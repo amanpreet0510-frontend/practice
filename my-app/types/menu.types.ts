@@ -2,8 +2,8 @@
 export interface MenuItem{
     label:string,
     href:string,
-    image:string,
-    icon: React.ElementType;
+    image?:string,
+    icon?: React.ElementType;
 }
 
 export interface titleValues{
