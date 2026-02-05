@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-const config = {
+module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
@@ -7,15 +7,16 @@ const config = {
   theme: {
     extend: {
       fontFamily: {
-        poppins: ["var(--font-poppins)"],
-        playfair: ["var(--font-playfair)"],
-        cursive: ["var(--font-cursive)"],
-        inter: ["var(--font-inter)"],
-        manrope: ["var(--font-manrope)"],
-        jakarta: ["var(--font-jakarta)"],
+        sans: ['var(--font-inter)'],
+        mono: ['var(--font-roboto-mono)'],
+        script:['var(--font-cursive)'],
+        poppins: ["var(--font-poppins)", "poppins"],
+        playfair: ["var(--font-playfair)",'playfair' ],
+        inter: ["var(--font-inter)", "sans-serif"],
+        manrope: ["var(--font-manrope)", "sans-serif"],
+        jakarta: ["var(--font-jakarta-sans)", "sans-serif"],
       },
     },
   },
+  plugins: [],
 };
-
-export default config;

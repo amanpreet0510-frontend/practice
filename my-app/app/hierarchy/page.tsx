@@ -56,21 +56,20 @@ const Hierarchy = ({ userId, initialValues }: Props) => {
 
     return (
         <>
-            <Card className='m-5'>
+            <Card className='bg-gradient-to-b me-20 ms-20 from-[#0D091E] to-[#54239B] shadow-white shadow-sm rounded-2xl p-5 mt-15'>
                 <div className='p-10 flex justify-between'>
                     <div>
-                        <h1 className='text-4xl font-bold'>Organizational Hierarchy</h1>
-                        <h3 className='text-xl pt-5 text-gray-500'>Manage reporting relationships and organizational structure</h3>
+                        <h1 className='text-4xl font-bold text-white'>Organizational Hierarchy</h1>
+                        <h3 className='text-xl pt-5 text-zinc-400'>Manage reporting relationships and organizational structure</h3>
                     </div>
                 </div>
             </Card>
-            <Card className='m-5'>
-                <div className='p-5 flex'>
-                    <LucideBuilding size={40} color='gray' /><h1 className='ps-5 text-3xl font-bold'>Company Structure</h1>
+            <Card className='mt-15 bg-gradient-to-b w-full from-[#0D091E] to-[#54239B] shadow-white shadow-sm rounded-2xl p-5'>
+                <div className='p-5 flex text-white'>
+                    <LucideBuilding size={40} color='white' /><h1 className='ps-5 text-3xl font-bold'>Company Structure</h1>
                 </div>
                 <div>
                     {assignedUsers.map((user, index) => {
-
                         return (
                             <>
                                 <div className='flex justify-between'>
@@ -80,8 +79,8 @@ const Hierarchy = ({ userId, initialValues }: Props) => {
                                             console.log('clicked user.id', user.id)
                                             setSelectedUser(user)
                                         }}
-                                        className={`m-10 w-full text-left p-3 border rounded cursor-pointer mb-2 transition-colors
-      ${selectedUser?.id === user.id ? "bg-gray-100 border-green-100" : "hover:bg-gray-50"}
+                                        className={`m-10 w-full text-left p-3 border rounded-2xl cursor-pointer mb-2 transition-colors
+      ${selectedUser?.id === user.id ? "bg-zinc-200 border-zinc-500" : "hover:bg-white"}
     `}
                                     >
                                         <div className='flex'>

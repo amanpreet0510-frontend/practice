@@ -3,8 +3,6 @@ import "./globals.css";
 import Notifications from "./dashboardppr/Notifications";
 import SalesChart from "./dashboardppr/SalesChart";
 import Navbar from "./dashboardppr/Navbar";
-// import SearchDebounce from "./SearchDebounce";
-// import Throttling from "./Throttling";
 import Bmi from "./bmiCalculator/Bmi";
 import Todo from "./todo/Todo";
 import ProductList from "./ProductList";

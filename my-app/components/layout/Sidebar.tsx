@@ -19,20 +19,17 @@ const menu: MenuItem[] = [
 ];
 
 
-
 const Sidebar = () => {
   const router = useRouter();
 
   const user = useUserStore((s) => s.user);
 
-  const title: titleValues[] = [
-    {
-      label: `${user?.name} `,
-      role: `${user?.role}`
-    },
-  ];
-
-
+  // const title: titleValues[] = [
+  //   {
+  //     label: `${user?.name} `,
+  //     role: `${user?.role}`
+  //   },
+  // ];
 
   const handleLogout = async () => {
 
@@ -62,8 +59,7 @@ const Sidebar = () => {
             );
           })}
         </ul>
-
-        <button onClick={handleLogout} className="text-zinc-400 text-xl font-bold mt-70 p-5 w-full py-3 rounded-xl border-l border-r border-2 border-zinc-700 shadow-lg shadow-zinc-700 hover:bg-zinc-900 transition">LogOut</button>
+        <button onClick={handleLogout} className="text-zinc-400 text-xl font-bold mt-70 p-5 w-full py-3 rounded-xl border-l border-r border-2 border-zinc-700 shadow-lg shadow-zinc-700 bg-transparent hover:bg-zinc-100 transition">LogOut</button>
       </aside>
     </>
   );

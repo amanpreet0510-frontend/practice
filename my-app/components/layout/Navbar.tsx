@@ -50,7 +50,7 @@ const Navbar = () => {
                 <p className="p-5 text-xl font-cursive  text-zinc-400  rounded-[50px]">Here's what's happening today</p>
                 </div>
                 <div className="flex justify-between">
-                <LucideBell className="text-zinc-400 p-3 rounded-full mt-15 h-15 w-15"/>
+                <LucideBell className="text-zinc-100 p-3 rounded-full mt-15 h-15 w-15"/>
                 <Image
                     alt=""
                     height={10}

@@ -5,6 +5,7 @@ import { getSupabaseClient } from "@/lib/supabaseClient";
 
 import { Card,CardHeader,CardTitle,CardContent } from "@/components/ui/Card";
 import { useUserStore } from "@/store/userStore";
+import { LucideUser, LucideUserRoundX, LucideUsers } from "lucide-react";
 
 export default function AdminDashboard() {
   const { user } = useUserStore();
@@ -71,31 +72,40 @@ export default function AdminDashboard() {
 
   return (
     <div className="p-8 space-y-8">
-      <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+      <h1 className="text-3xl font-bold text-white">Admin Dashboard</h1>
 
-      {/* ---- Stats Cards ---- */}
-      <div className="grid md:grid-cols-3 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Total Users</CardTitle>
+      
+      <div className="grid md:grid-cols-3 gap-6 text-zinc-600 text-2xl">
+        <Card className="bg-zinc-300">
+          <CardHeader >
+            <div className="flex justify-between">
+              <div><CardTitle>Total Users</CardTitle></div>
+              <div><LucideUsers className=" w-10 h-10"/></div>
+              </div>
           </CardHeader>
           <CardContent className="text-3xl font-bold">
             {stats.totalUsers}
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-zinc-300">
           <CardHeader>
-            <CardTitle>Active Users</CardTitle>
+          <div className="flex justify-between">
+            <div><CardTitle>Active Users</CardTitle></div>
+           <div> <LucideUser className=" w-10 h-10"/></div>
+            </div>
           </CardHeader>
           <CardContent className="text-3xl font-bold">
             {stats.activeUsers}
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-zinc-300">
           <CardHeader>
-            <CardTitle>Inactive Users</CardTitle>
+          <div className="flex justify-between">
+           <div><CardTitle>Inactive Users</CardTitle></div> 
+            <div><LucideUserRoundX className=" w-10 h-10" /></div>
+            </div>
           </CardHeader>
           <CardContent className="text-3xl font-bold">
             {stats.inactiveUsers}
@@ -103,23 +113,23 @@ export default function AdminDashboard() {
         </Card>
       </div>
 
-      {/* ---- Roles Stats ---- */}
-      <div className="grid md:grid-cols-3 gap-6">
-        <Card>
+      
+      <div className="grid md:grid-cols-3 gap-6 text-zinc-600 text-2xl">
+        <Card className="bg-zinc-300">
           <CardHeader>
             <CardTitle>Admins</CardTitle>
           </CardHeader>
           <CardContent className="text-3xl font-bold">{stats.admins}</CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-zinc-300">
           <CardHeader>
             <CardTitle>HR</CardTitle>
           </CardHeader>
           <CardContent className="text-3xl font-bold">{stats.hr}</CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-zinc-300">
           <CardHeader>
             <CardTitle>Employees</CardTitle>
           </CardHeader>
@@ -129,10 +139,10 @@ export default function AdminDashboard() {
         </Card>
       </div>
 
-      {/* ---- Recent Invited Users ---- */}
-      <Card>
+      
+      <Card className="border-zinc-400 bg-zinc-300 ">
         <CardHeader>
-          <CardTitle>Recently Invited Users</CardTitle>
+          <CardTitle className="text-zinc-600 text-2xl">Recently Invited Users</CardTitle>
         </CardHeader>
         <CardContent>
           {/* <ul className="space-y-3">

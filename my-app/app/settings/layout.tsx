@@ -6,7 +6,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   return (
     <div className="flex ">
       <Sidebar />
-      <div className="flex-1 ">
+      <div className="flex-1 bg-gradient-to-b w-full from-[#0D091E] to-[#54239B] ">
         {/* <Navbar /> */}
         
         <main className="">{children}</main>

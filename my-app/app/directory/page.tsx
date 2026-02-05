@@ -22,14 +22,14 @@ const Directory = () => {
 
     return (
         <>
-            <div>
-                <h1 className='text-5xl  font-medium m-5'>Employee Directory</h1>
-                <h2 className='text-xl text-gray-300 m-5'>Browse and search employee profiles and contact information.</h2>
-                <Input placeholder='search' className='items-center justify-center w-1/2 ps-2 m-10 ' />
-                <Card>
+            <div className='bg-gradient-to-b w-full from-[#0D091E] to-[#54239B] shadow-white shadow-lg rounded-2xl p-5'>
+                <h1 className='text-5xl m-5 font-bold text-white'>Employee Directory</h1>
+                <h2 className='text-xl text-zinc-500 m-5'>Browse and search employee profiles and contact information.</h2>
+                <Input placeholder='search' className='items-center justify-center w-1/2 ps-2 m-10 bg-white' />
+                <Card className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3'>
                     {users.map((user) => 
                     <>
-                    <div className='m-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 border-2 border-gray-300 h-100 w-100 rounded-2xl'>
+                    <div className='m-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 border-2 border-gray-300 h-100 w-100 rounded-2xl'>
                      {user.image && <Image src={user.image} alt='' height={50} width={50}/> }
                      <ul><li>{user.name}</li>
                      <li>{user.position}</li>
