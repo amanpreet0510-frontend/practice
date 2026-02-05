@@ -15,8 +15,8 @@ export default function LoggedHoursCard() {
 
   return (
     <>
-    <Card className="m-10 ps-5 bg-white  my-6 w-full max-w-md ">
-<h1 className="text-5xl font-bold p-10">Today's Attendance</h1>
+    <Card className="m-10 ps-5 bg-gray-300  my-6 w-full max-w-md ">
+<h1 className="text-4xl font-bold pt-5">Today's Attendance</h1>
     <div className="flex justify-around gap-5 ">
       <input
         type="number"

@@ -1,50 +1,86 @@
-'use client'
+"use client";
 
-import { useEffect } from 'react'
-import { useAppDispatch } from '@/app/hooks'
-import { fetchProfile } from '@/slices/profileSlice'
-import Sidebar from '@/components/layout/Sidebar'
-import Navbar from '@/components/layout/Navbar'
-import AdminSidebar from '@/components/layout/AdminSidebar';
+import { useEffect, useState } from "react";
+import Sidebar from "@/components/layout/Sidebar";
+import Navbar from "@/components/layout/Navbar";
+import AdminSidebar from "@/components/layout/AdminSidebar";
 import { useUserStore } from "@/store/userStore";
-import { useRouter } from "next/navigation";
-
+import { useRouter, usePathname } from "next/navigation"; 
+import { getSupabaseClient } from "@/lib/supabaseClient"; 
 
 export default function DashboardLayout({
-  children
+  children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
-  const dispatch = useAppDispatch();
   const router = useRouter();
-  //const { user } = useUserStore();
-  const user = useUserStore((state) => state.user);
-
+  const pathname = usePathname(); 
+  const { user, setUser } = useUserStore();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    dispatch(fetchProfile())
-  }, [dispatch])
+    const syncUser = async () => {
+      const supabase = getSupabaseClient();
+      
+      
+      const { data: { user: authUser } } = await supabase.auth.getUser();
 
-console.log('user?.first_time', user?.first_time)
+      if (!authUser) {
+        router.replace("/login");
+        return;
+      }
 
-useEffect(() => {
-  if (!user) return;
+    
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", authUser.id)
+        .single();
 
-  if (user.first_time) {
-    router.replace("/createProfile");
-  } else {
-    router.replace("/roleBasedDashboard");
+      if (profile) {
+        
+        setUser({
+          id: profile.id,
+          email: profile.email,
+          name: profile.name,
+          role: profile.role, 
+          first_time: profile.first_time,
+          image: profile.image,
+          mobile: profile.mobile,
+          is_active: profile.is_active
+        });
+
+        
+        if (profile.first_time) {
+          router.replace("/createProfile");
+        } 
+       
+      }
+      
+      setIsLoading(false);
+    };
+
+    syncUser();
+  }, [setUser, router]);
+
+  
+  if (isLoading) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-zinc-900 text-white">
+        Loading...
+      </div>
+    );
   }
-}, [user, router]);
-
 
   return (
-    <div className="flex ">
-      {user?.role==="admin"?<AdminSidebar/>:<Sidebar/>}
+    <div className="flex min-h-screen bg-[#0D091E]">
+      {/* 5. Now 'user.role' is fresh, so this switches correctly */}
+      {user?.role === "admin" ? <AdminSidebar /> : <Sidebar />}
+      
       <div className="flex flex-col flex-1">
         <Navbar />
-        <main className="p-4">{children}</main>
+        <main className="p-8">{children}</main>
       </div>
     </div>
-  )
+  );
 }

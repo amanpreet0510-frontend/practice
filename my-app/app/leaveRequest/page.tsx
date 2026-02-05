@@ -9,7 +9,7 @@ const LeaveRequestPage = () => {
 
 
     <>
-    <div className='bg-[#F4FFC3]'>
+    <div className='bg-[#1E103C] bg-gradient-to-r from-[#0D091E] to-[#54239B]'>
     <div className=' p-10'>
     <ApplyLeaveCard />
     </div>

@@ -1,19 +1,21 @@
 'use client';
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import { MenuItem } from "@/types/menu.types";
-import logo from '../../public/logo.png'
+import logo from '@/public/logo w 2.jpg'
 import Image from "next/image";
 import { getSupabaseClient } from "@/lib/supabaseClient";
-
-import { useRouter } from "next/navigation";    
+import { useUserStore } from "@/store/userStore";
+import { useRouter } from "next/navigation";
+import { titleValues } from "@/types/menu.types";
+import { Home,ListTodo,Settings,CalendarClock,Notebook } from "lucide-react";
 
 const menu: MenuItem[] = [
-  { label: "Dashboard", href: "/roleBasedDashboard", image: '' },
-  { label: "Attendance", href: "/attendance", image: '' },
-  { label: "Leave Request", href: "/leaveRequest", image: '' },
-  { label: "Tasks", href: "/tasks", image: '' },
-  { label: "Settings", href: "/settings", image: '' },
+  { label: "Dashboard", href: "/roleBasedDashboard", icon: Home },
+  { label: "Attendance", href: "/attendance", icon: CalendarClock  },
+  { label: "Leave Request", href: "/leaveRequest", icon:Notebook },
+  { label: "Tasks", href: "/tasks", icon:ListTodo},
+  { label: "Settings", href: "/settings", icon:Settings},
 ];
 
 
@@ -21,34 +23,47 @@ const menu: MenuItem[] = [
 const Sidebar = () => {
   const router = useRouter();
 
-  
+  const user = useUserStore((s) => s.user);
+
+  const title: titleValues[] = [
+    {
+      label: `${user?.name} `,
+      role: `${user?.role}`
+    },
+  ];
+
+
+
   const handleLogout = async () => {
-   
-        const supabase = getSupabaseClient();
-        await supabase.auth.signOut();
-        router.replace("/login");
-        router.refresh();
-      }
+
+    const supabase = getSupabaseClient();
+    await supabase.auth.signOut();
+    router.replace("/login");
+    router.refresh();
+  }
 
   return (
     <>
-      <aside className="bg-[#BBC863] w-100 p-5 sticky top-0 ">
+      <aside className="border-r border-zinc-600 bg-[#0F0E23] w-100 p-5 sticky top-0 max-h-screen">
         <div className="flex justify-center items-center pt-10 gap-3">
-          <Image alt="logo" height={50} width={80} src={logo} className="bg-[#F4FFC3] rounded-[100%] p-1" />
-          <h1 className="text-5xl font-extrabold text-[#F4FFC3]">WorkFlow</h1>
-          </div>
-        <ul className="text-center pt-10 p-20">
-          {menu.map((item, id) => (
-            <React.Fragment key={id}>
-              <Link href={item.href}>
-                <li className="mt-15 font-extrabold w-max items-center text-2xl text-[#F4FFC3] hover:text-black hover:scale-110 transition-all duration-300">
-                  {item.label}
+          <Image alt="logo" height={50} width={80} src={logo} className="" />
+          <h1 className="text-5xl font-extrabold text-white">WorkFlow</h1>
+        </div>
+        <ul className="text-center ps-20 pt-1">
+          {menu.map((item, id) => {
+            const Icon = item.icon;
+            return (
+              <Link href={item.href} key={id}>
+                <li className="mt-15 font-extrabold w-max flex items-center gap-3 text-2xl text-zinc-400 hover:text-white hover:scale-110 transition-all duration-300">
+                  {Icon && <Icon className="w-6 h-6" />}
+                  <span>{item.label}</span>
                 </li>
               </Link>
-            </React.Fragment>
-          ))}
+            );
+          })}
         </ul>
-        <button onClick={handleLogout} className="text-[#F4FFC3]  text-xl font-bold mt-35 border-transparent w-full p-5 shadow-md">LogOut</button>
+
+        <button onClick={handleLogout} className="text-zinc-400 text-xl font-bold mt-70 p-5 w-full py-3 rounded-xl border-l border-r border-2 border-zinc-700 shadow-lg shadow-zinc-700 hover:bg-zinc-900 transition">LogOut</button>
       </aside>
     </>
   );

@@ -187,11 +187,12 @@ console.log('profile.user.id', profile.user.id)
     }
   };
 
-  console.log("sessions", sessions);
+  
 
   return (
     <>
-      <Card className="p-5 m-5">
+    <div className="bg-[#1E103C] p-10 rounded-2xl ">
+      <Card className="p-5 mt-10 mb-5 rounded-2xl bg-zinc-100">
         <div className="flex justify-between">
           <div>
             <CardHeader className="text-2xl font-semibold">
@@ -245,7 +246,7 @@ console.log('profile.user.id', profile.user.id)
               <Button
                 onClick={handleLogin}
                 disabled={loading}
-                className="bg-[#BBC863] hover:bg-[#A8B550] m-10 h-15 w-100"
+                className="bg-[#361A65] hover:bg-[#4E2190] m-10 h-15 w-100"
               >
                 {loading ? "Logging in..." : "Login"}
                 <svg
@@ -297,7 +298,7 @@ console.log('profile.user.id', profile.user.id)
         </Card>
       </div>
       {/* attendance history     */}
-      <div className="m-10">
+      <div className="m-10 mb-0 bg-[#26144A]">
         <Card>
           <h1 className="text-2xl ps-10 pt-5">Attendance History</h1>
           <Card className="ms-5 me-5">
@@ -348,6 +349,7 @@ console.log('profile.user.id', profile.user.id)
             </div>
           )}
         </Card>
+      </div>
       </div>
     </>
   );

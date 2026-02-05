@@ -2,18 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { useLeaveStore } from "@/store/leaveStore";
-import { useLeaveRequestStore } from "../../store/leaveRequest";
 import { useUserStore } from "@/store/userStore";
-import { Calendar } from "lucide-react";
 import Calendar2 from "@/components/ui/Calendar2";
 import Task from "@/components/ui/ReadTask";
-import Image from "next/image";
-import LoggedHoursCard from "@/components/ui/LoggedHoursCard";
-import ApplyLeaveCard from "@/components/ui/ApplyleaveCard";
 import LeaveDetailsCard from "@/components/ui/LeaveDetailsCard";
 import TaskCard from "@/components/ui/TaskCard";
-import { useSelector, useDispatch } from "react-redux";
-//import formatSessionDuration from "@/lib/time"
+import LoggedHoursCard from "@/components/ui/LoggedHoursCard";
+
 
 interface AttendanceSession {
   id: string;
@@ -39,16 +34,14 @@ const EmployeeLeaveDashboard = () => {
 
   return (
     <>
-      <div className="bg-[#F4FFC3]">
-        <div className="pt-10 ps-8 flex gap-6">
+      <div className="bg-gradient-to-b w-full from-[#0D091E] to-[#54239B] shadow-white shadow-lg rounded-2xl p-5">
+        <div className="pt-10 ps-8 gap-6 grid grid-cols-3 ">
           <TaskCard />
-          <LeaveDetailsCard />
+          <Task />
         </div>
         <div className="flex">
           {/* <LoggedHoursCard /> */}
-        
-
-          <Task />
+          <LeaveDetailsCard />
           </div>
           <Calendar2 />
         </div>
