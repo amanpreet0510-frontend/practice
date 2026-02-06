@@ -1,6 +1,7 @@
 'use client';
 import React, { useEffect } from 'react';
 import { useLeaveApprovalStore } from '@/store/leaveApproval';
+import HrDashboard from '@/components/ui/HrDashboard';
 
 const HRDashboard = () => {
   const {
@@ -14,11 +15,13 @@ const HRDashboard = () => {
   }, [fetchPendingLeaves]);
 
   return (
-    <div className="p-6 space-y-6">
-      <h1 className='text-4xl font-bold'>HR Dashboard</h1>
-      <h2 className='text-2xl font-semibold'>Employee management and HR operations</h2>
+    <>
+    <div>
+      <HrDashboard/>
+    </div>
+    <div className="p-6 space-y-6 text-zinc-100">
       <div>
-        <h2 className="text-2xl font-bold">
+        <h2 className="text-3xl font-bold text-white">
           Pending Leave Requests
         </h2>
         <p className="text-gray-500 mt-1">
@@ -26,7 +29,6 @@ const HRDashboard = () => {
         </p>
       </div>
 
-      {/* Table Card */}
       <div className="bg-white rounded-2xl shadow-md overflow-hidden">
         <table className="w-full border-collapse">
           <thead>
@@ -55,7 +57,7 @@ const HRDashboard = () => {
               requests.map((leave) => (
                 <tr
                   key={leave.id}
-                  className="border-t hover:bg-gray-50 transition"
+                  className="border-t hover:bg-gray-50 transition text-zinc-600"
                 >
                   <td className="px-6 py-4 font-medium">
                     {leave.leave_type}
@@ -109,6 +111,7 @@ const HRDashboard = () => {
         </table>
       </div>
     </div>
+    </>
   );
 };
 

@@ -30,7 +30,7 @@ import { useHRLeaveStore } from "@/store/hrLeaveStore";
           className="border p-4 rounded flex justify-between items-center"
         >
           <div>
-            <p className="font-semibold">{r.leave_type}</p>
+            <p className="font-semibold text-zinc-700">{r.leave_type}</p>
             <p className="text-sm">
               {r.start_date} → {r.end_date} ({r.days} day)
             </p>
