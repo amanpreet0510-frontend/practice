@@ -107,15 +107,15 @@ const UserManagement = () => {
             
         </div>
       </div>
-      <Card className='p-5 m-10 mt-20 bg-zinc-300 rounded-2xl'>
+      <Card className='p-5 m-10 mt-20 bg-zinc-200 rounded-2xl'>
         <CardTitle className='text-4xl font-bold p-10 text-zinc-700'>All Users</CardTitle>
         <Input type='text' placeholder='Search.....' className='rounded-full h-15 bg-zinc-100 border border-zinc-400' value={search}
           onChange={(e) => setSearch(e.target.value)} />
         <CardContent>
         <div className="min-h-screen">
-        <Table className='border-b-0'>
+        <Table>
             <TableHeader>
-              <TableRow className='border-b-0'>
+              <TableRow>
                 <TableHead className='text-2xl'>Name</TableHead>
                 <TableHead className='text-2xl'>Role</TableHead>
                 <TableHead className='text-2xl'>Department</TableHead>
@@ -159,10 +159,10 @@ const UserManagement = () => {
                         onSuccess={() => dispatch(fetchAllUsers())}
                       />
                     )}
-                    <LucideToggleRight onClick={() => handleToggleStatus(item.id, item.is_active)} className='bg-green-300 rounded-2xl'></LucideToggleRight>
+                    <LucideToggleRight onClick={() => handleToggleStatus(item.id, item.is_active)} className='rounded-2xl'></LucideToggleRight>
                     <LucideTrash
                       key={item.id}
-                      className="bg-red-500 rounded-sm cursor-pointer"
+                      className="rounded-sm cursor-pointer"
                       onClick={() => handleDelete(item.id)}
                     />
                   </div>

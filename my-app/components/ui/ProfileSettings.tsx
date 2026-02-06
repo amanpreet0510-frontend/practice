@@ -89,13 +89,13 @@ export default function ProfileSettings() {
   return (
     <>
       <div className="">
-        <div className="p-6 bg-gradient-to-b w-full from-[#0D091E] to-[#54239B]">
+        <div className="p-6 bg-gradient-to-b  from-[#0D091E] to-[#0D091E] rounded-2xl m-10 mt-5">
           <h1 className="font-playfair text-5xl font-bold text-white">My Profile</h1>
           <p className="text-xl mt-3 text-zinc-400">
             View and manage your profile and account settings
           </p>
         </div>
-        <Card className="m-15 max-w-7xl mx-auto rounded-2xl shadow-xl bg-zinc-300">
+        <Card className="m-15 max-w-7xl mx-auto rounded-2xl shadow-xl bg-zinc-200">
           <CardContent className="p-10 space-y-14">
             <div className="flex flex-col lg:flex-row items-center gap-10">
               <div className="relative w-40 h-40">
@@ -110,7 +110,7 @@ export default function ProfileSettings() {
                     src={form.image || "/logo.png"}
                     alt="Profile Image"
                     fill
-                    className="rounded-full object-cover border-4 shadow"
+                    className="rounded-full border-4 shadow"
                   />
                 )}
                 <label className="absolute bottom-2 right-2 w-9 h-9 rounded-full bg-primary flex items-center justify-center text-white cursor-pointer">
@@ -136,34 +136,34 @@ export default function ProfileSettings() {
                 </span>
               </div>
             </div>
-            
-              <h3 className="text-zinc-600 text-3xl font-cursive font-semibold mb-6">
-                Contact Information
-              </h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="shadow-lg shadow-zinc-700 flex gap-4 p-5 rounded-xl border mt-1 w-full bg-zinc-100  border-zinc-400 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-600">
-                  <Mail className="text-gray-400 mt-1" />
-                  <div className="">
-                    <p className="text-sm text-gray-500">Email</p>
-                    <p className="text-zinc-500 font-medium">{user.email}</p>
-                  </div>
-                </div>
-                <div className="shadow-lg shadow-zinc-700 flex gap-4 p-5 rounded-xl border mt-1 w-full bg-zinc-100  border-zinc-400 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-600">
-                  <Phone className="text-gray-400 mt-1" />
-                  <div>
-                    <p className="text-sm text-gray-500">Phone</p>
-                    <p className="text-zinc-500 font-medium">{form.mobile || "N/A"}</p>
-                  </div>
-                </div>
-                <div className="shadow-lg shadow-zinc-700 flex gap-4 p-5 rounded-xl border mt-1 w-full bg-zinc-100  border-zinc-400 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-600">
-                  <MapPin className="text-gray-400 mt-1" />
-                  <div>
-                    <p className="text-sm text-gray-500">Location</p>
-                    <p className="text-zinc-500 font-medium">N/A</p>
-                  </div>
+
+            <h3 className="text-zinc-600 text-3xl font-cursive font-semibold mb-6">
+              Contact Information
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="shadow-lg shadow-zinc-700 flex gap-4 p-5 rounded-xl border mt-1 w-full bg-zinc-100  border-zinc-400 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-600">
+                <Mail className="text-gray-400 mt-1" />
+                <div className="">
+                  <p className="text-sm text-gray-500">Email</p>
+                  <p className="text-zinc-500 font-medium">{user.email}</p>
                 </div>
               </div>
-            
+              <div className="shadow-lg shadow-zinc-700 flex gap-4 p-5 rounded-xl border mt-1 w-full bg-zinc-100  border-zinc-400 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-600">
+                <Phone className="text-gray-400 mt-1" />
+                <div>
+                  <p className="text-sm text-gray-500">Phone</p>
+                  <p className="text-zinc-500 font-medium">{form.mobile || "N/A"}</p>
+                </div>
+              </div>
+              <div className="shadow-lg shadow-zinc-700 flex gap-4 p-5 rounded-xl border mt-1 w-full bg-zinc-100  border-zinc-400 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-600">
+                <MapPin className="text-gray-400 mt-1" />
+                <div>
+                  <p className="text-sm text-gray-500">Location</p>
+                  <p className="text-zinc-500 font-medium">N/A</p>
+                </div>
+              </div>
+            </div>
+
             <div>
               <h3 className="text-3xl font-semibold mb-6 text-zinc-600">
                 Profile Details
@@ -186,7 +186,7 @@ export default function ProfileSettings() {
                 <div>
                   <Label className="text-zinc-600 text-xl">Mobile</Label>
                   <Input
-                  placeholder="mobile no."
+                    placeholder="mobile no."
                     value={form.mobile}
                     onChange={(e) =>
                       setForm({ ...form, mobile: e.target.value })
@@ -197,7 +197,7 @@ export default function ProfileSettings() {
                 <div>
                   <Label className="text-zinc-600 text-xl">Role</Label>
                   <Input value={user.role} disabled
-                   className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600' />
+                    className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600' />
                 </div>
               </div>
 
