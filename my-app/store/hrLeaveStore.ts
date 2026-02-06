@@ -23,7 +23,7 @@ export const useHRLeaveStore = create<HRLeaveStore>((set) => ({
   requests: [],
   loading: false,
 
-  // 1️⃣ Fetch pending leaves
+  
   fetchPendingLeaves: async () => {
     set({ loading: true });
 
