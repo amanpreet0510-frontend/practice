@@ -10,104 +10,116 @@ import { getSupabaseClient } from '@/lib/supabaseClient';
 
 const SetPassword = () => {
 
-const searchParams = useSearchParams();
-const router = useRouter();
-const token = searchParams.get("token");
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const token = searchParams.get("token");
 
-    const [show, setShow] = useState(false);
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+  const [show, setShow] = useState(false);
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
-    const handleSubmit = async () => {
-        if (!token) return;
-        if (password !== confirmPassword) {
-          alert("Passwords do not match.");
-          return;
-        }
+  const handleSubmit = async () => {
+    if (!token) return;
+    if (password !== confirmPassword) {
+      alert("Passwords do not match.");
+      return;
+    }
 
-        const supabase = getSupabaseClient();
+    const supabase = getSupabaseClient();
 
-        // First, verify the recovery token from the URL
-        const { error: verifyError } = await supabase.auth.verifyOtp({
-          token_hash: token as string,
-          type: 'invite',
-        });
 
-        if (verifyError) {
-          console.error(verifyError.message);
-          alert("The recovery link is invalid or has expired.");
-          return;
-        }
+    const { error: verifyError } = await supabase.auth.verifyOtp({
+      token_hash: token as string,
+      type: 'invite',
+    });
 
-        // After successful verification, update the user's password
-        const { error: updateError } = await supabase.auth.updateUser({
-          password,
-        });
+    if (verifyError) {
+      console.error(verifyError.message);
+      alert("The recovery link is invalid or has expired.");
+      return;
+    }
 
-        if (updateError) {
-          console.error(updateError.message);
-          alert("Failed to update password. Please try again.");
-          return;
-        }
+    const { error: updateError } = await supabase.auth.updateUser({
+      password,
+    });
 
-        alert("Password set successfully!");
-        router.push("/login"); 
-      };
+    if (updateError) {
+      console.error(updateError.message);
+      alert("Failed to update password. Please try again.");
+      return;
+    }
 
-    return (
-        <>
-            <div>
-                <Card className='fixed inset-0 z-50 flex items-center justify-center bg-black/50  '>
-                    <div className='bg-white w-[600px]  h-110 rounded-xl p-6 shadow-xl'>
-                        <div className='flex justify-between mb-5 pb-5'>
-                            <div>
-                                <h3 className='text-2xl font-bold'>SetPassword</h3>
-                            </div>
-                        </div>
-                        <div className="relative">
-                            <CardTitle className='mt-5 text-lg'>Password</CardTitle>
-                            <Input
-                                type={show ? "text" : "password"}
-                                placeholder="Enter password"
-                                className="pr-10 mt-5 p-7"
-                                value={password}
-                                 onChange={(e) => setPassword(e.target.value)} 
-                            />
-                            <Button
-                                type="button"
-                                variant="ghost"
-                                size="icon"
-                                onClick={() => setShow(!show)}
-                                className="absolute right-2 top-1/2 translate-y-2 h-7 w-7"
-                            >
-                                {show ? <EyeOff size={16} /> : <Eye size={16} />}
-                            </Button>
-                        </div>
-                        <CardTitle className='mt-5 text-lg'>Confirm Password</CardTitle>
-                        <Input
-                            type={show ? "text" : "password"}
-                            placeholder="Confirm password"
-                            className="pr-10 mt-5 p-7"
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
+    alert("Password set successfully!");
+    router.push("/login");
+  };
 
-                        />
-                        <Button
-                            type="button"
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => setShow(!show)}
-                            className="absolute  translate-y-10  -translate-x-10 h-7 w-7"
-                        >
-                            {show ? <EyeOff size={16} /> : <Eye size={16} />}
-                        </Button>
-                        <Button onClick={handleSubmit} className='w-full p-7 mt-8'>Set Password</Button>
-                    </div>
-                </Card>
+  return (
+    <>
+      <div className='min-h-screen bg-black text-white flex flex-col  items-center justify-center'>
 
-            </div>
-        </>
-    )
+       
+          <div className="flex gap-2 m-10">
+            <img src="/logo w 2.jpg" alt="logo" className="w-25 h-20 rounded-2xl" />
+            <h1 className="font-cursive text-6xl font-bold mt-5">WorkFlow</h1>
+            <img src='/reset-password.png' className="h-25 w-25" />
+          </div>
+          <Card className='relative
+  bg-zinc-900/70
+  backdrop-blur-xl
+  rounded-3xl
+  border
+  border-purple-500/30  w-[600px]  max-h-screen p-6 shadow-xl '>
+            
+              <div>
+                <h3 className='text-4xl font-bold text-purple-100 text-center mt-5 mb-10'>SetPassword</h3>
+              </div>
+              <div className="relative">
+                <CardTitle className='mt-5 text-lg'>Password</CardTitle>
+                <Input
+                  type={show ? "text" : "password"}
+                  placeholder="Enter password"
+                  className="mt-5 w-full rounded-xl p-7 bg-zinc-900 border border-zinc-800 focus:outline-none focus:ring-2 focus:ring-purple-900"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setShow(!show)}
+                  className="absolute right-2 top-1/2 translate-y-2 h-7 w-7"
+                >
+                  {show ? <EyeOff size={16} /> : <Eye size={16} />}
+                </Button>
+              </div>
+              <CardTitle className='mt-5 text-lg'>Confirm Password</CardTitle>
+              <Input
+                type={show ? "text" : "password"}
+                placeholder="Confirm password"
+                className="mt-5 w-full p-7 rounded-xl bg-zinc-900 border border-zinc-800 focus:outline-none focus:ring-2 focus:ring-purple-900"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+              />
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                onClick={() => setShow(!show)}
+                className="absolute  translate-y-92  translate-x-125 h-7 w-7"
+              >
+                {show ? <EyeOff size={16} /> : <Eye size={16} />}
+              </Button>
+              <Button onClick={handleSubmit}
+                className="w-full p-7 mt-15 mb-5 rounded-xl border border-zinc-700 hover:bg-zinc-300 hover:text-black font-bold transition "
+              //className='w-full p-7 mt-8'
+              >
+                Set Password</Button>
+            
+          </Card>
+        </div>
+    
+    </>
+  )
 }
 
 const SetPasswordPage = () => (

@@ -1,12 +1,33 @@
 import "./globals.css";
-import { Poppins, Playfair_Display } from "next/font/google";
+import { Poppins,Playfair_Display } from "next/font/google";
 import { Dancing_Script } from "next/font/google";
 import Providers from "./providers";
-import { Inter, Manrope, Plus_Jakarta_Sans } from "next/font/google";
+import { Manrope, Plus_Jakarta_Sans } from "next/font/google";
+import { Inter, Roboto_Mono } from 'next/font/google'
+
+
 
 const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-inter',
+})
+ 
+const roboto_mono = Roboto_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-roboto-mono',
+})
+
+const cursive = Dancing_Script({
   subsets: ["latin"],
-  variable: "--font-inter",
+  display: 'swap',
+  variable: "--font-cursive",
+});
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins",
 });
 
 const manrope = Manrope({
@@ -19,21 +40,10 @@ const jakarta = Plus_Jakarta_Sans({
   variable: "--font-jakarta-sans",
 });
 
-const dancing = Dancing_Script({
-  subsets: ["latin"],
-  weight: ["600", "700"],
-  variable: "--font-cursive",
-});
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["600", "700"],
-  variable: "--font-poppins",
-});
-
 const playfair = Playfair_Display({
   subsets: ["latin"],
-  weight: ["700"],
+  // Add normal weights to avoid falling back when text isn't bold.
+  weight: ["400", "500", "600", "700"],
   variable: "--font-playfair",
 });
 
@@ -43,10 +53,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body
-        className={`${poppins.variable} ${playfair.variable} ${dancing.variable} ${inter.variable} ${manrope.variable} ${jakarta.variable}`}
-      >
+    // <html lang="en" className={`${inter.variable} ${roboto_mono.variable} ${cursive.variable}`}>
+     <html lang="en" className={`${inter.variable} ${roboto_mono.variable} ${poppins.variable} ${playfair.variable} ${cursive.variable} ${inter.variable} ${manrope.variable} ${jakarta.variable}`}> 
+      <body>
         {/* {children} */}
         <Providers>{children}</Providers>
       </body>
