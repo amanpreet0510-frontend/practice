@@ -2,6 +2,7 @@
 import React, { useEffect } from 'react';
 import { useLeaveApprovalStore } from '@/store/leaveApproval';
 import HrDashboard from '@/components/ui/HrDashboard';
+import { useUserStore } from '@/store/userStore';
 
 const HRDashboard = () => {
   const {
@@ -9,10 +10,12 @@ const HRDashboard = () => {
     fetchPendingLeaves,
     updateLeaveStatus,
   } = useLeaveApprovalStore();
+  const { users, fetchUser } = useUserStore();
 
   useEffect(() => {
     fetchPendingLeaves();
-  }, [fetchPendingLeaves]);
+    fetchUser();
+  }, [fetchPendingLeaves, fetchUser]);
 
   return (
     <>
@@ -33,6 +36,7 @@ const HRDashboard = () => {
         <table className="w-full border-collapse">
           <thead>
             <tr className="bg-gray-50 text-left text-sm text-gray-600">
+              <th className="px-6 py-4">User</th>
               <th className="px-6 py-4">Leave Type</th>
               <th className="px-6 py-4">From</th>
               <th className="px-6 py-4">To</th>
@@ -47,7 +51,7 @@ const HRDashboard = () => {
             {requests.length === 0 ? (
               <tr>
                 <td
-                  colSpan={5}
+                  colSpan={6}
                   className="text-center py-10 text-gray-500"
                 >
                   No pending leave requests   
@@ -59,6 +63,16 @@ const HRDashboard = () => {
                   key={leave.id}
                   className="border-t hover:bg-gray-50 transition text-zinc-600"
                 >
+                  <td className="px-6 py-4">
+                    {(() => {
+                      const person = users.find((u) => u.id === leave.user_id);
+                      return (
+                        <span className="text-sm text-zinc-700">
+                          {person?.name ?? 'Unknown'} · {person?.role ?? '—'}
+                        </span>
+                      );
+                    })()}
+                  </td>
                   <td className="px-6 py-4 font-medium">
                     {leave.leave_type}
                   </td>

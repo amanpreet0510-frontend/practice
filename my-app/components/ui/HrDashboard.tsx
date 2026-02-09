@@ -16,11 +16,11 @@ export default function HrDashboard() {
 
   const dispatch = useAppDispatch();
 
-  const { onLeave, error } = useSelector(
+  const { onLeave, pendingCount, error } = useSelector(
     (state: RootState) => state.leaves
   );
   
-  const leaveCount=onLeave.length;
+  const onLeaveCount=onLeave.length;
 
 console.log('leaves', onLeave);
 
@@ -102,7 +102,7 @@ console.log('leaves', onLeave);
               <div><LucideCalendar/></div>
             </div>
             <div className="flex m-10 gap-3">
-          <div className="text-4xl"><p>{leaveCount}</p></div>
+          <div className="text-4xl"><p>{onLeaveCount}</p></div>
           <div className=""><LucideUsers className="w-10 h-10"/></div>
           </div>
           </div>
@@ -117,7 +117,7 @@ console.log('leaves', onLeave);
               <div><LucideCircleAlert/></div>
             </div>
             <div className="flex m-10 gap-3">
-          <div className="text-4xl"><p>{leaveCount}</p></div>
+          <div className="text-4xl"><p>{pendingCount}</p></div>
           <div className=""><LucideUsers className="w-10 h-10"/></div>
           </div>
           </div>

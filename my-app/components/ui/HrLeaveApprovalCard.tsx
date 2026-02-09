@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useHRLeaveStore } from "@/store/hrLeaveStore";
+import { useUserStore } from "@/store/userStore";
 
  function HRLeaveApprovalCard() {
   const {
@@ -11,9 +12,11 @@ import { useHRLeaveStore } from "@/store/hrLeaveStore";
     rejectLeave,
     loading,
   } = useHRLeaveStore();
+  const { users, fetchUser } = useUserStore();
 
   useEffect(() => {
     fetchPendingLeaves();
+    fetchUser();
   }, []);
 
   if (loading) return <p>Loading...</p>;
@@ -30,6 +33,14 @@ import { useHRLeaveStore } from "@/store/hrLeaveStore";
           className="border p-4 rounded flex justify-between items-center"
         >
           <div>
+            {(() => {
+              const person = users.find((u) => u.id === r.user_id);
+              return (
+                <p className="text-sm text-zinc-600">hello
+                  {person?.name ?? "Unknown"} · {person?.role ?? "—"}
+                </p>
+              );
+            })()}
             <p className="font-semibold text-zinc-700">{r.leave_type}</p>
             <p className="text-sm">
               {r.start_date} → {r.end_date} ({r.days} day)

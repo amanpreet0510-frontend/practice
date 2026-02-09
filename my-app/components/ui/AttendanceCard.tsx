@@ -106,14 +106,13 @@ export const AttenadanceCard = () => {
         return;
       }
 
-      // Check if user already has an active session
       if (currentSession) {
         alert("You are already logged in!");
         setLoading(false);
         return;
       }
 
-      // Create new attendance record
+      
       const { data: newSession, error: err2 } = await supabase
         .from("attendance")
         .insert([
@@ -176,7 +175,7 @@ console.log('profile.user.id', profile.user.id)
             loginId: Date.now(),
           })
         );
-        // Refresh data
+       
         await fetchData();
       }
     } catch (error) {
@@ -191,8 +190,8 @@ console.log('profile.user.id', profile.user.id)
 
   return (
     <>
-    <div className="bg-[#1E103C] p-10 rounded-2xl ">
-      <Card className="p-5 mt-10 mb-5 rounded-2xl bg-zinc-100">
+    <div className="p-10 pt-0 rounded-2xl ">
+      <Card className="p-5 mt-10 mb-5 rounded-2xl bg-zinc-100 border-zinc-300 text-zinc-600">
         <div className="flex justify-between">
           <div>
             <CardHeader className="text-2xl font-semibold">
@@ -222,7 +221,7 @@ console.log('profile.user.id', profile.user.id)
               <Button
                 onClick={handleLogout}
                 disabled={loading}
-                className="bg-red-500 hover:bg-red-600 m-10 h-15 w-100"
+                className="bg-zinc-700 text-zinc-300 text-xl hover:bg-red-600 m-10 h-15 w-100"
               >
                 {loading ? "Logging out..." : "Logout"}
                 <svg
@@ -246,7 +245,7 @@ console.log('profile.user.id', profile.user.id)
               <Button
                 onClick={handleLogin}
                 disabled={loading}
-                className="bg-[#361A65] hover:bg-[#4E2190] m-10 h-15 w-100"
+                className="text-zinc-300 font-bold text-xl bg-gradient-to-r from-[#0D091E] to-[#54239B] hover:bg-[#4E2190] m-10 h-15 w-100"
               >
                 {loading ? "Logging in..." : "Login"}
                 <svg
@@ -272,7 +271,7 @@ console.log('profile.user.id', profile.user.id)
       </Card>
 
       <div className="flex justify-around">
-        <Card className="mt-15">
+        <Card className="mt-8 bg-zinc-200 text-zinc-800 text-2xl font-script border-purple-300">
           <div className="flex justify-between gap-10 p-10 m-5">
             <h1>Days This Week</h1>
             <span>
@@ -280,7 +279,7 @@ console.log('profile.user.id', profile.user.id)
             </span>
           </div>
         </Card>
-        <Card className="mt-15">
+        <Card className="mt-8 bg-zinc-200 text-zinc-800 text-2xl font-script border-purple-300">
           <div className="flex justify-between gap-10 p-10 m-5">
             <h1>Hours This Week</h1>
             <span>
@@ -288,7 +287,7 @@ console.log('profile.user.id', profile.user.id)
             </span>
           </div>
         </Card>
-        <Card className="mt-15">
+        <Card className="mt-8 bg-zinc-200 text-zinc-800 text-2xl font-script border-purple-300">
           <div className="flex justify-between gap-10 p-10 m-5">
             <h1>Average Hours/Day</h1>
             <span>
@@ -298,10 +297,10 @@ console.log('profile.user.id', profile.user.id)
         </Card>
       </div>
       {/* attendance history     */}
-      <div className="m-10 mb-0 bg-[#26144A]">
-        <Card>
+      <div className="m-10 mb-0">
+        <Card className='bg-zinc-200 border-purple-300' >
           <h1 className="text-2xl ps-10 pt-5">Attendance History</h1>
-          <Card className="ms-5 me-5">
+          <Card className="ms-5 me-5 border-purple-300 border-2">
             <div className="flex justify-around text-xl font-bold">
               <h2>Date</h2>
               <h2>Check In</h2>
@@ -314,7 +313,7 @@ console.log('profile.user.id', profile.user.id)
               {sessions.map((session) => (
                 <div
                   key={session.id}
-                  className="flex justify-around text-sm p-3 border-b hover:bg-gray-50"
+                  className="flex justify-around text-sm p-3 border-b-2 border-purple-300 hover:bg-gray-50"
                 >
                   <span>
                     {new Date(session.login_time).toLocaleDateString()}
