@@ -7,7 +7,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     <div className="flex ">
       <Sidebar />
       <div className="flex-1">
-        <Navbar />
+        {/* <Navbar /> */}
         <main className="">{children}</main>
       </div>
     </div>

@@ -68,15 +68,15 @@ const TaskPage = () => {
 
   return (
     <>
-      <div className="bg-gradient-to-b w-full from-[#0D091E] to-[#54239B] font-bold sticky top-0 z-50 shadow-sm p-10">
-        <div className="bg-gradient-to-b w-full from-[#0D091E] to-[#54239B] font-bold sticky top-0 z-50 rounded-2xl  shadow-zinc-500 shadow-[5px_0px_15px_rgba(0,0,0,0.3)] p-10 flex gap-5">
+      <div className="font-bold sticky top-0 z-50 shadow-sm p-5">
+        <div className="font-bold  top-0 z-50 rounded-2xl  shadow-zinc-500 shadow-[5px_0px_15px_rgba(0,0,0,0.3)] p-10 flex gap-5 m-5 mb-0">
           {TaskStatus.map((item, id) => (
             <div
               key={id}
               onClick={() => setStatusFilter(item)}
               className=" m-5 cursor-pointer"
             >
-              <Card className="p-5 bg-zinc-300 shadow-zinc-400 shadow-[5px_0px_10px_rgba(0,0,0,0.3)]" key={id}>
+              <Card className="border-purple-200 text-zinc-600 p-5 bg-zinc-300 shadow-zinc-400 shadow-[5px_0px_10px_rgba(0,0,0,0.3)]" key={id}>
                 <h1>{item}</h1>
               </Card>
             </div>
@@ -86,7 +86,7 @@ const TaskPage = () => {
           <div className="w-full m-5 p-5">
             {filterTasks.map((item) => (
               <>
-                <Card className="bg-zinc-300 p-5 m-5 text-zinc-700">
+                <Card className="bg-zinc-300 border-purple-200 p-5 m-5 text-zinc-700">
                   <div key={item.id} className="text-2xl font-bold">
                     <h1>Task : {item.title}</h1>
                   </div>
@@ -99,9 +99,9 @@ const TaskPage = () => {
             ))}
           </div>
           <div className="flex justify-between">
-            <Card className="bg-zinc-300 m-5 w-80 max-w-auto right-0 max-h-fit">
+            <Card className="bg-zinc-300 m-5 mt-15 w-80 max-w-auto right-0 max-h-fit border-purple-200">
               <div className="flex flex-col gap-2 mt-5">
-                <div className="flex justify-around gap-15">
+                <div className="flex justify-around">
                   <div className="flex justify-around">
                     <div className="text-zinc-700 text-2xl font-bold">Task</div>
                     <div className="text-zinc-700 ps-3 pt-1"><LucideListTodo /></div>
