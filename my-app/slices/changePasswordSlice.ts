@@ -21,9 +21,15 @@ interface AuthState {
 
 const supabase=getSupabaseClient();
 
-  const { error: signInError } = await supabase.auth.reauthenticate({
-    password: oldPassword,
-  });
+  const { data: authData, error: authError } = await supabase.auth.getUser()
+  if (authError || !authData?.user?.email) {
+    return rejectWithValue("Not authenticated")
+  }
+
+  const { error: signInError } = await supabase.auth.signInWithPassword({
+    email: authData.user.email,
+    password: oldPassword
+  })
 
   if (signInError) {
     return rejectWithValue("Old password is incorrect");

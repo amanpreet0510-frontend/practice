@@ -20,8 +20,9 @@ export default function ProfileSettings() {
   const user = useAppSelector((s) => s.profile.data);
   const [imagePreview, setImagePreview] = useState<string | null>(null)
   const [imageFile, setImageFile] = useState<File | null>(null)
-  const [oldPassword, setOldPassword] = useState<''>('')
-  const [newPassword, setNewPassword] = useState<''>('')
+  const [oldPassword, setOldPassword] = useState<string>('')
+  const [newPassword, setNewPassword] = useState<string>('')
+  const [confirmNewPassword, setConfirmNewPassword] = useState<string>('')
 
   const [form, setForm] = useState({
     name: "",
@@ -103,6 +104,28 @@ export default function ProfileSettings() {
 
 
   const handleSubmit = () => {
+    if (!oldPassword || !newPassword || !confirmNewPassword) {
+      toast('Please fill all password fields', {
+        position: "top-center",
+        action: {
+          label: <X />,
+          onClick: () => console.log(''),
+        },
+      })
+      return
+    }
+
+    if (newPassword !== confirmNewPassword) {
+      toast('New passwords do not match', {
+        position: "top-center",
+        action: {
+          label: <X />,
+          onClick: () => console.log(''),
+        },
+      })
+      return
+    }
+
     dispatch(
       changePassword({
         oldPassword,
@@ -112,6 +135,7 @@ export default function ProfileSettings() {
 
     setOldPassword('');
     setNewPassword('');
+    setConfirmNewPassword('');
 
     toast('Password changed', {
       position: "top-center",
@@ -254,17 +278,19 @@ export default function ProfileSettings() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-zinc-600">
                 <div>
                   <Label className="text-xl m-5">Current Password</Label>
-                  <Input value={oldPassword} onChange={(e) => { setOldPassword(e.target.value) }} type="password" placeholder="Enter current password" className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600' />
+                  <Input value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} type="password" placeholder="Enter current password" className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600' />
                 </div>
 
                 <div>
                   <Label className="text-xl m-5">New Password</Label>
-                  <Input value={newPassword} onChange={(e) => { setNewPassword(e.target.value) }} type="password" placeholder="Enter new password" className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600' />
+                  <Input value={newPassword} onChange={(e) => setNewPassword(e.target.value)} type="password" placeholder="Enter new password" className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600' />
                 </div>
 
                 <div>
                   <Label className="text-xl m-5">Confirm New Password</Label>
                   <Input
+                    value={confirmNewPassword}
+                    onChange={(e) => setConfirmNewPassword(e.target.value)}
                     type="password"
                     placeholder="Confirm new password"
                     className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600'
