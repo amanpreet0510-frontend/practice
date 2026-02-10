@@ -6,11 +6,12 @@ import { getSupabaseClient } from "@/lib/supabaseClient";
 
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
 import { useUserStore } from "@/store/userStore";
-import { LucideCalendar, LucideCircleAlert, LucideUser, LucideUserRoundX, LucideUsers } from "lucide-react";
+import { LucideAArrowUp, LucideArrowBigUp, LucideArrowUpRight, LucideCalendar, LucideCircleAlert, LucideUser, LucideUserRoundX, LucideUsers } from "lucide-react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "@/app/hooks";
 import { RootState } from "@/store";
 import { fetchUsersOnLeave } from "@/slices/showLeaveRequest";
+import Link from "next/link";
 
 export default function HrDashboard() {
 
@@ -21,9 +22,6 @@ export default function HrDashboard() {
   );
   
   const onLeaveCount=onLeave.length;
-
-console.log('leaves', onLeave);
-
 
   useEffect(() => {
     dispatch(fetchUsersOnLeave());
@@ -123,6 +121,43 @@ console.log('leaves', onLeave);
           </div>
         </Card>
       </div>
+      <div className="text-zinc-300">
+        <Card className="h-50 w-70">
+          <div className=" ">
+            <div className="flex justify-around text-xl">
+              <div><p>Team Directory</p>
+              <span className="text-sm">Browse team members</span></div>
+              
+              <div><LucideUsers/></div>
+              </div>
+            </div>
+            <div className="flex justify-center m-auto">
+          <div className="flex justify-around gap-1 border border-zinc-300 p-3 text-center rounded-2xl">
+            <div><button className="rounded-2xl"><Link href="/userManagement">View Directory</Link></button></div>
+            <div><LucideArrowUpRight/></div>
+            </div>
+          </div>
+          
+        </Card>
+      </div>
+      <div className="text-zinc-300">
+        <Card className="h-50 w-70">
+          <div className=" ">
+            <div className="flex justify-around text-xl">
+              <div><p>Documents</p>
+              <span className="text-sm">View company documents</span></div>
+              <div><LucideUsers/></div>
+              </div>
+            </div>
+            <div className="flex justify-center m-auto">
+          <div className="flex justify-around gap-1 border border-zinc-300 p-3 text-center rounded-2xl">
+            <div><button className="rounded-2xl"><Link href="/documents">View Documents</Link></button></div>
+            <div><LucideArrowUpRight/></div>
+            </div>
+          </div>
+          
+        </Card>
+      </div>
       </div>
       <div className="grid md:grid-cols-3 gap-6 text-zinc-600 text-2xl">
         <Card className="bg-zinc-300">
@@ -194,24 +229,6 @@ console.log('leaves', onLeave);
           <CardTitle className="text-zinc-600 text-2xl">Recently Invited Users</CardTitle>
         </CardHeader>
         <CardContent>
-          {/* <ul className="space-y-3">
-            {recentInvites.map((u:any) => (
-              <li
-                key={u.id}
-                className="p-3 border rounded-lg flex justify-between items-center"
-              >
-                <div>
-                  <p className="font-semibold">{u.name}</p>
-                  <p className="text-sm text-gray-500">{u.email}</p>
-                </div>
-
-                <span className="text-xs px-2 py-1 rounded bg-gray-200">
-                  {u.role}
-                </span>
-              </li>
-            ))}
-          </ul> */}
-
         </CardContent>
       </Card>
     </div>

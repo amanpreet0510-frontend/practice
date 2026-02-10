@@ -31,11 +31,9 @@ const UserManagement = () => {
   const { users, error } = useSelector(
     (state: RootState) => state.users
   );
-  console.log('users', users)
+  
   const [selectedUser, setSelectedUser] = useState<User | null>(null)
   const [search, setSearch] = useState<string>("");
-
-
 
 
   useEffect(() => {

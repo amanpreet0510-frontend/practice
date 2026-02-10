@@ -2,11 +2,12 @@
 
 import { useEffect, useState } from "react";
 import Sidebar from "@/components/layout/Sidebar";
-import Navbar from "@/components/layout/Navbar";
 import AdminSidebar from "@/components/layout/AdminSidebar";
 import { useUserStore } from "@/store/userStore";
 import { useRouter, usePathname } from "next/navigation";
 import { getSupabaseClient } from "@/lib/supabaseClient";
+import HrSidebar from '@/components/layout/HrSidebar';
+
 
 export default function DashboardLayout({
   children,
@@ -17,6 +18,8 @@ export default function DashboardLayout({
   const pathname = usePathname();
   const { user, setUser } = useUserStore();
   const [isLoading, setIsLoading] = useState(true);
+
+
 
   useEffect(() => {
     const syncUser = async () => {
@@ -72,11 +75,15 @@ export default function DashboardLayout({
     );
   }
 
+  function RoleBasedSidebar({ role }: { role?: string }) {
+    if (role === "admin") return <AdminSidebar />;
+    if (role === "hr") return <HrSidebar />;
+    return <Sidebar />;
+  }
+
   return (
     <div className="flex min-h-screen">
-      {/* 5. Now 'user.role' is fresh, so this switches correctly */}
-      {user?.role === "admin" ? <AdminSidebar /> : <Sidebar />}
-
+    <RoleBasedSidebar role={user?.role} />
       <div className="flex flex-col flex-1">
         <main className="p-8">{children}</main>
       </div>

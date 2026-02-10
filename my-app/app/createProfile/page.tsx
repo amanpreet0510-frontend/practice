@@ -18,7 +18,7 @@ const CreateProfile = () => {
   const supabase = getSupabaseClient();
   const user = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
-  console.log('user', user)
+ 
 
   const [name, setName] = useState("");
   const [image, setImage] = useState<File | null>(null);
@@ -65,7 +65,7 @@ const CreateProfile = () => {
       })
       .select();
 
-    console.log('user.id', user.id)
+    
     if (updateError) {
       alert(updateError.message);
       setLoading(false);

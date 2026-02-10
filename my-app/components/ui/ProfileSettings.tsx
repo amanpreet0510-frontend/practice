@@ -7,17 +7,22 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { Plus } from "lucide-react";
+import { Plus, X } from "lucide-react";
 import { Mail, Phone, MapPin } from "lucide-react";
 import { Lock } from "lucide-react";
 import { getSupabaseClient } from "@/lib/supabaseClient";
+import { changePassword } from "@/slices/changePasswordSlice";
+import { toast } from "sonner";
+
 
 export default function ProfileSettings() {
   const dispatch = useAppDispatch();
   const user = useAppSelector((s) => s.profile.data);
   const [imagePreview, setImagePreview] = useState<string | null>(null)
   const [imageFile, setImageFile] = useState<File | null>(null)
-
+  const [oldPassword, setOldPassword] = useState<string>('')
+  const [newPassword, setNewPassword] = useState<string>('')
+  const [confirmNewPassword, setConfirmNewPassword] = useState<string>('')
 
   const [form, setForm] = useState({
     name: "",
@@ -83,8 +88,65 @@ export default function ProfileSettings() {
     )
     setImagePreview(null)
     setImageFile(null)
+
+    toast('Profile updated', {
+      position: "top-center",
+      action: {
+        label: <X />,
+        onClick: () => console.log(''),
+      },
+    }
+    )
+
+
   }
   if (!user) return null;
+
+
+  const handleSubmit = () => {
+    if (!oldPassword || !newPassword || !confirmNewPassword) {
+      toast('Please fill all password fields', {
+        position: "top-center",
+        action: {
+          label: <X />,
+          onClick: () => console.log(''),
+        },
+      })
+      return
+    }
+
+    if (newPassword !== confirmNewPassword) {
+      toast('New passwords do not match', {
+        position: "top-center",
+        action: {
+          label: <X />,
+          onClick: () => console.log(''),
+        },
+      })
+      return
+    }
+
+    dispatch(
+      changePassword({
+        oldPassword,
+        newPassword,
+      })
+    );
+
+    setOldPassword('');
+    setNewPassword('');
+    setConfirmNewPassword('');
+
+    toast('Password changed', {
+      position: "top-center",
+      action: {
+        label: <X />,
+        onClick: () => console.log(''),
+      },
+    }
+    )
+
+  }
 
   return (
     <>
@@ -216,17 +278,19 @@ export default function ProfileSettings() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-zinc-600">
                 <div>
                   <Label className="text-xl m-5">Current Password</Label>
-                  <Input type="password" placeholder="Enter current password" className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600' />
+                  <Input value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} type="password" placeholder="Enter current password" className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600' />
                 </div>
 
                 <div>
                   <Label className="text-xl m-5">New Password</Label>
-                  <Input type="password" placeholder="Enter new password" className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600' />
+                  <Input value={newPassword} onChange={(e) => setNewPassword(e.target.value)} type="password" placeholder="Enter new password" className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600' />
                 </div>
 
                 <div>
                   <Label className="text-xl m-5">Confirm New Password</Label>
                   <Input
+                    value={confirmNewPassword}
+                    onChange={(e) => setConfirmNewPassword(e.target.value)}
                     type="password"
                     placeholder="Confirm new password"
                     className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600'
@@ -234,7 +298,7 @@ export default function ProfileSettings() {
                 </div>
               </div>
               <div className="flex justify-end mt-8">
-                <Button className="mt-10  px-10 py-6 text-base text-zinc-300 bg-[#2C1655]">
+                <Button className="mt-10  px-10 py-6 text-base text-zinc-300 bg-[#2C1655]" onClick={(handleSubmit)}>
                   Update Password
                 </Button>
               </div>

@@ -21,9 +21,9 @@ export default function LeaveDetailsCard() {
       ) : (
         <>
           <div className="m-10  space-y-5 text-xl text-zinc-700">
-            <p className="text-zinc-400 border-2 rounded-2xl border-zin-900 p-5 bg-gradient-to-r from-[#0D091E] to-[#54239B]"><b>Yearly Total:</b> {yearlyTotal}</p>
-            <p className="text-zinc-400 border-2 rounded-2xl border-zin-900 p-5  bg-gradient-to-r from-[#0D091E] to-[#54239B]"><b>Yearly Used:</b> {yearlyUsed}</p>
-            <p className="text-zinc-400 border-2 rounded-2xl border-zin-900 p-5  bg-gradient-to-r from-[#0D091E] to-[#54239B]"><b>Yearly Remaining:</b> {totalRemaining}</p>
+            <p className="text-zinc-400 border-2 rounded-2xl border-zin-900 p-5 bg-gradient-to-r from-[#0D091E] to-[#0D091E]"><b>Yearly Total:</b> {yearlyTotal}</p>
+            <p className="text-zinc-400 border-2 rounded-2xl border-zin-900 p-5  bg-gradient-to-r from-[#0D091E] to-[#0D091E]"><b>Yearly Used:</b> {yearlyUsed}</p>
+            <p className="text-zinc-400 border-2 rounded-2xl border-zin-900 p-5  bg-gradient-to-r from-[#0D091E] to-[#0D091E]"><b>Yearly Remaining:</b> {totalRemaining}</p>
             <p className="text-md text-zinc-900">
               Monthly Credit: 3 leaves (1 per type)
             </p>

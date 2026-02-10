@@ -1,14 +1,27 @@
 'use client';
-import React from 'react'
+import React,{useEffect} from 'react'
 import ApplyLeaveCard from '@/components/ui/ApplyleaveCard';
 import LeaveDetailsCard from '@/components/ui/LeaveDetailsCard';
 import {Card} from '@/components/ui/Card';
 import { useLeaveStore } from "@/store/leaveStore";
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "@/app/hooks";
+import { RootState } from "@/store";
+import { fetchUsersOnLeave } from "@/slices/showLeaveRequest";
 
 const LeaveRequestPage = () => {
-  
-  const { leaves, totalRemaining, loading } = useLeaveStore();
 
+  const dispatch = useAppDispatch();
+
+  const { onLeave, pendingCount, error } = useSelector(
+    (state: RootState) => state.leaves
+  );
+  
+  useEffect(() => {
+    dispatch(fetchUsersOnLeave());
+  }, [dispatch]);
+
+  const { leaves, totalRemaining, loading } = useLeaveStore();
 
   const yearlyTotal = leaves.reduce((sum, l) => sum + l.total, 0);
   const yearlyUsed = leaves.reduce((sum, l) => sum + l.used, 0);
@@ -40,7 +53,7 @@ const LeaveRequestPage = () => {
       <div>
         <Card className='h-50 w-100 m-15 mb-2  p-12 bg-zinc-200 border border-purple-200 text-zinc-600'>
            <span>Pending request</span>
-           <span></span>
+           <span className='text-blue-700'>{pendingCount}</span>
            <p>Available</p>
         </Card>
       </div>
@@ -49,7 +62,7 @@ const LeaveRequestPage = () => {
         <div className=' p-10'>
           <ApplyLeaveCard />
         </div>
-        <div className='p-10'>
+        <div className='flex p-10'>
           <LeaveDetailsCard />
         </div>
       </div>

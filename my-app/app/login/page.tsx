@@ -8,16 +8,13 @@ import { User } from "../../types/user.types";
 import Link from "next/link";
 
 
-
-
-
 export default function LoginPage() {
 
   const router = useRouter();
   const setUser = useUserStore((state) => state.setUser);
   const { user } = useUserStore();
 
-  console.log('user', user)
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
