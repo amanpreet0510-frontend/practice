@@ -4,6 +4,7 @@ import { Dancing_Script } from "next/font/google";
 import Providers from "./providers";
 import { Manrope, Plus_Jakarta_Sans } from "next/font/google";
 import { Inter, Roboto_Mono } from 'next/font/google'
+import { Toaster } from "sonner";
 
 
 
@@ -57,7 +58,7 @@ export default function RootLayout({
      <html lang="en" className={`${inter.variable} ${roboto_mono.variable} ${poppins.variable} ${playfair.variable} ${cursive.variable} ${inter.variable} ${manrope.variable} ${jakarta.variable}`}> 
       <body>
         {/* {children} */}
-        <Providers>{children}</Providers>
+        <Providers>{children}<Toaster /></Providers>
       </body>
     </html>
   );

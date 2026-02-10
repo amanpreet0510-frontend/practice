@@ -43,7 +43,7 @@ export default function ApplyLeaveCard() {
 
   return (
 
-    <div className=" text-black bg-zinc-200  h-200 backdrop-blur-xl
+    <div className=" text-black bg-zinc-200  h-210 backdrop-blur-xl
   rounded-3xl
   border
   border-zinc-100/30
@@ -61,7 +61,7 @@ export default function ApplyLeaveCard() {
           <option>Sick Leave</option>
           <option>Casual Leave</option>
         </select>
-        <div className="flex justify-between mb-25">
+        <div className="flex justify-between mb-7">
           <div>
             <div className="pb-5">Start Date</div>
             <span> <input
@@ -98,7 +98,7 @@ export default function ApplyLeaveCard() {
         <button
           onClick={handleApply}
           disabled={loading}
-          className=" bg-gradient-to-b w-full from-[#0D091E] to-[#54239B] text-white font-bold p-5 py-4 rounded-lg mt-10"
+          className=" bg-gradient-to-b w-full from-[#0D091E] to-[#0D091E] text-white font-bold p-5 py-4 rounded-lg mt-10"
         >
           {loading ? "Applying..." : "Apply Leave"}
         </button>

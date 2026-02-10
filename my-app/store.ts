@@ -4,7 +4,9 @@ import { configureStore } from '@reduxjs/toolkit'
 import attendanceReducer from '@/lib/attendanceSlice';
 import profileReducer from '@/slices/profileSlice';
 import usersSlice from '@/slices/usersSlice';
-import leaveReducer from '@/slices/showLeaveRequest'
+import leaveReducer from '@/slices/showLeaveRequest';
+import docsreducer from '@/slices/documentSlice';
+import authSlicereducer from '@/slices/changePasswordSlice'
 // import notificationReducer from '@/features/notifications/notificationSlice'
 // import appearanceReducer from '@/features/appearance/appearanceSlice'
 
@@ -12,6 +14,8 @@ import leaveReducer from '@/slices/showLeaveRequest'
 export const store = configureStore({
   reducer: {
     //counter: counterNumber,
+    auth:authSlicereducer,
+    docs:docsreducer,
     leaves:leaveReducer,
     attendance: attendanceReducer,
     profile: profileReducer,

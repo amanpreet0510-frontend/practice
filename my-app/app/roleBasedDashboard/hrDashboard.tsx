@@ -22,6 +22,7 @@ const HRDashboard = () => {
     <div>
       <HrDashboard/>
     </div>
+    
     <div className="p-6 space-y-6 text-zinc-100">
       <div>
         <h2 className="text-3xl font-bold text-white">
