@@ -4,6 +4,7 @@ import { useLeaveApprovalStore } from '@/store/leaveApproval';
 import HrDashboard from '@/components/ui/HrDashboard';
 import { useUserStore } from '@/store/userStore';
 
+
 const HRDashboard = () => {
   const {
     requests,
@@ -16,6 +17,9 @@ const HRDashboard = () => {
     fetchPendingLeaves();
     fetchUser();
   }, [fetchPendingLeaves, fetchUser]);
+
+
+  console.log('requests', requests);
 
   return (
     <>
@@ -39,6 +43,7 @@ const HRDashboard = () => {
             <tr className="bg-gray-50 text-left text-sm text-gray-600">
               <th className="px-6 py-4">User</th>
               <th className="px-6 py-4">Leave Type</th>
+              <th className="px-6 py-4">Reason</th>
               <th className="px-6 py-4">From</th>
               <th className="px-6 py-4">To</th>
               <th className="px-6 py-4">Days</th>
@@ -77,7 +82,9 @@ const HRDashboard = () => {
                   <td className="px-6 py-4 font-medium">
                     {leave.leave_type}
                   </td>
-
+                  <td className="px-6 py-4 font-medium">
+                    {leave.reason}
+                  </td>
                   <td className="px-6 py-4 text-gray-600">
                     {leave.start_date}
                   </td>

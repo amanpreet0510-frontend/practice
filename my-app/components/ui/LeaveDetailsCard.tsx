@@ -13,9 +13,8 @@ export default function LeaveDetailsCard() {
   rounded-3xl
   border
   border-zinc-100/30
-    focus:outline-none focus:ring-2 focus:ring-purple-600 shadow-white shadow-md  h-170 w-150 ">
+    focus:outline-none focus:ring-2 focus:ring-purple-600 shadow-white shadow-md  h-175 w-150">
       <h2 className="text-3xl font-bold m-10 mt-2 text-zinc-700">Leave Details</h2>
-
       {loading ? (
         <p>Loading...</p>
       ) : (

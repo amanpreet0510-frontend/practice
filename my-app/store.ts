@@ -6,7 +6,9 @@ import profileReducer from '@/slices/profileSlice';
 import usersSlice from '@/slices/usersSlice';
 import leaveReducer from '@/slices/showLeaveRequest';
 import docsreducer from '@/slices/documentSlice';
-import authSlicereducer from '@/slices/changePasswordSlice'
+import authSlicereducer from '@/slices/changePasswordSlice';
+import attendanceSummaryReducer from '@/slices/attendanceHours';
+
 // import notificationReducer from '@/features/notifications/notificationSlice'
 // import appearanceReducer from '@/features/appearance/appearanceSlice'
 
@@ -14,6 +16,7 @@ import authSlicereducer from '@/slices/changePasswordSlice'
 export const store = configureStore({
   reducer: {
     //counter: counterNumber,
+    summary:attendanceSummaryReducer,
     auth:authSlicereducer,
     docs:docsreducer,
     leaves:leaveReducer,

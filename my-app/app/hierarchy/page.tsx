@@ -64,9 +64,9 @@ const Hierarchy = ({ userId, initialValues }: Props) => {
                     </div>
                 </div>
             </Card>
-            <Card className='mt-15 bg-gradient-to-b m-15 from-[#0D091E] to-[#54239B] shadow-white shadow-sm rounded-2xl p-5'>
-                <div className='p-5 flex text-white'>
-                    <LucideBuilding size={40} color='white' /><h1 className='ps-5 text-3xl font-bold'>Company Structure</h1>
+            <Card className='mt-15 m-10 shadow-white shadow-sm rounded-2xl p-5'>
+                <div className='p-5 flex text-zinc-500'>
+                    <LucideBuilding size={40} color='white' /><h1 className='ps-5 text-4xl font-bold'>Company Structure</h1>
                 </div>
                 <div>
                     {assignedUsers.map((user, index) => {
@@ -80,7 +80,7 @@ const Hierarchy = ({ userId, initialValues }: Props) => {
                                             setSelectedUser(user)
                                         }}
                                         className={`m-10 w-full text-left p-3 border rounded-2xl cursor-pointer mb-2 transition-colors
-      ${selectedUser?.id === user.id ? "bg-zinc-200 border-zinc-500" : "hover:bg-white"}
+      ${selectedUser?.id === user.id ? "bg-purple-100 border-purple-200" : "hover:bg-white"}
     `}
                                     >
                                         <div className='flex'>

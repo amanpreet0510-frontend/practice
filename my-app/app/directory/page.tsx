@@ -59,17 +59,17 @@ const Directory = () => {
                                             </div>
                                         </div>
                                     </ul>
-                                    <div className='mt-70 w-full'>
+                                    <div className='flex justify-center rounded-2xl bg-zinc-100 border border-zinc-200 h-10 w-40 m-auto mb-5 items-center right-0'>
                                         <button
                                             onClick={() => {
                                                 setSelectedUserId(user.id);
                                                 setOpen(true);
                                             }}
-                                            className='-ms-10 p-3 rounded-2xl bg-zinc-100 border border-zinc-200 '
+                                            className='flex justify-center rounded-2xl bg-zinc-100 border border-zinc-200 h-10 w-40 m-auto mb-5 items-center'
                                         >
                                             <p className='text-black'>View Profile</p>
                                         </button>
-                                    </div>
+                                        </div>
                                 </div>
                             </React.Fragment>)}
                     </Card>

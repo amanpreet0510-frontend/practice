@@ -6,9 +6,11 @@ import { Calendar, Clock } from "lucide-react";
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "@/store";
 import { getSupabaseClient } from "@/lib/supabaseClient";
-
 import { getLoginHourWithUser } from "@/supabaseApi/supabaseApi";
 import { loginTime, logoutTime } from "@/lib/attendanceSlice";
+import { useUserStore } from "@/store/userStore";
+import { fetchAttendanceSummary } from "@/slices/attendanceHours";
+import { useAppSelector,useAppDispatch } from "@/app/hooks";
 
 interface AttendanceSession {
   id: string;
@@ -18,7 +20,49 @@ interface AttendanceSession {
 }
 
 export const AttenadanceCard = () => {
-  const dispatch = useDispatch();
+
+  const dispatch = useAppDispatch();
+  
+  const user = useUserStore((s) => s.user);
+  
+
+ 
+
+  useEffect(() => {
+    if (!user?.id) return;
+  
+    dispatch(fetchAttendanceSummary(user.id));
+  
+  }, [dispatch, user?.id]);
+  
+  
+  const { summary } = useAppSelector(
+    (state) => state.summary
+  );
+
+  
+
+  const getMonday = (date: Date) => {
+    const d = new Date(date);
+    const day = d.getDay(); 
+  
+    const diff = day === 0 ? -6 : 1 - day; // Adjust if Sunday
+    d.setDate(d.getDate() + diff);
+  
+    d.setHours(0, 0, 0, 0);
+    return d;
+  };
+  
+  const currentWeekStart = getMonday(new Date());
+
+  const currentWeek = summary.find((s) => {
+    const weekStart = new Date(s.week_start_date);
+    weekStart.setHours(0, 0, 0, 0);
+  
+    return weekStart.getTime() === currentWeekStart.getTime();
+  });
+  
+
   const currentDate = new Date();
   const options: Intl.DateTimeFormatOptions = {
     weekday: "long",
@@ -31,8 +75,6 @@ export const AttenadanceCard = () => {
   const loginTimehour = useSelector(
     (state: RootState) => state.attendance.loginTime
   );
-
-  console.log("Attendance state:", loginTimehour);
 
   const [sessions, setSessions] = useState<AttendanceSession[]>([]);
   const [loading, setLoading] = useState(false);
@@ -49,13 +91,10 @@ export const AttenadanceCard = () => {
       return;
     }
 
-    console.log("User ID:", profile?.user?.id);
+   
 
     const response = await getLoginHourWithUser(profile.user.id);
 
-    console.log("Full response:", response);
-    console.log("Response data:", response?.data);
-    console.log("Response error:", response?.error);
 
     const LoginhourData = response?.data;
     const err2 = response?.error;
@@ -66,7 +105,7 @@ export const AttenadanceCard = () => {
       setCurrentSession(null);
     } else if (LoginhourData && Array.isArray(LoginhourData)) {
       setSessions(LoginhourData);
-      // Check if there's an active session (no logout_time)
+      
       const activeSession = LoginhourData.find(
         (session) => !session.logout_time
       );
@@ -87,6 +126,7 @@ export const AttenadanceCard = () => {
       setSessions([]);
       setCurrentSession(null);
     }
+  
     setLoading(false);
   }, [dispatch]);
 
@@ -125,7 +165,6 @@ export const AttenadanceCard = () => {
         .select()
         .single();
 
-console.log('profile.user.id', profile.user.id)
 
 
       if (err2) {
@@ -271,28 +310,38 @@ console.log('profile.user.id', profile.user.id)
       </Card>
 
       <div className="flex justify-around">
+      
         <Card className="mt-8 bg-zinc-200 text-zinc-800 text-2xl font-script border-purple-300">
+          <div>
           <div className="flex justify-between gap-10 p-10 m-5">
             <h1>Days This Week</h1>
             <span>
               <Calendar className="bg-blue-200 rounded-2xl p-1 h-10 w-10" />
             </span>
+            </div>
+            <span className="flex justify-center mb-5 -mt-10">{currentWeek?.total_days}</span>
           </div>
         </Card>
         <Card className="mt-8 bg-zinc-200 text-zinc-800 text-2xl font-script border-purple-300">
+          <div>
           <div className="flex justify-between gap-10 p-10 m-5">
             <h1>Hours This Week</h1>
             <span>
               <Clock className="bg-yellow-200 rounded-2xl p-1 h-10 w-10" />
             </span>
           </div>
+          <span className="flex justify-center mb-5 -mt-10">{currentWeek?.total_hours}</span>
+          </div>
         </Card>
         <Card className="mt-8 bg-zinc-200 text-zinc-800 text-2xl font-script border-purple-300">
+          <div>
           <div className="flex justify-between gap-10 p-10 m-5">
             <h1>Average Hours/Day</h1>
             <span>
               <Clock className="bg-green-200 rounded-2xl p-1 h-10 w-10" />
             </span>
+            </div>
+            <span className="flex justify-center mb-5 -mt-10">{currentWeek?.avg_hours_per_day}</span>
           </div>
         </Card>
       </div>

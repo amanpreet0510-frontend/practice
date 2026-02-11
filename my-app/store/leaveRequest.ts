@@ -8,6 +8,7 @@ interface ApplyLeavePayload {
   start_date: string;
   end_date: string;
   days: number;
+  reason:string
 }
 
 interface LeaveRequestStore {
@@ -33,8 +34,11 @@ export const useLeaveRequestStore = create<LeaveRequestStore>((set) => ({
       .eq("user_id", userId)
       .order("created_at", { ascending: false });
 
+console.log('data', data)
+
     set({ requests: data ?? [] });
   },
+
 
   applyLeave: async (payload: ApplyLeavePayload, userId: string) => {
     set({ loading: true });

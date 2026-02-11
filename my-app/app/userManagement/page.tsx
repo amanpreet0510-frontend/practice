@@ -83,13 +83,13 @@ const UserManagement = () => {
       user.role?.toLowerCase().includes(query)
     );
   })
-    //.sort((a, b) => a.name.localeCompare(b.name));
+    .sort((a, b) => a.name.localeCompare(b.name));
 
 
   return (
     <div className='p-10 '>
      
-      <div className='flex justify-between bg-gradient-to-b w-full from-[#0D091E] to-[#54239B] shadow-white shadow-lg rounded-2xl p-5'>
+      <div className='flex justify-between  bg-gradient-to-b w-full from-[#0D091E] to-[#54239B] shadow-white shadow-lg rounded-2xl p-5'>
         <div className=''>
           <h1 className='text-5xl font-bold text-zinc-100'>User Management</h1>
           <h3 className='text-2xl pt-5 text-zinc-400'>Invite, manage, and control user access</h3>
@@ -105,15 +105,15 @@ const UserManagement = () => {
             
         </div>
       </div>
-      <Card className='p-5 m-10 mt-20 bg-zinc-200 rounded-2xl'>
-        <CardTitle className='text-4xl font-bold p-10 text-zinc-700'>All Users</CardTitle>
-        <Input type='text' placeholder='Search.....' className='rounded-full h-15 bg-zinc-100 border border-zinc-400' value={search}
-          onChange={(e) => setSearch(e.target.value)} />
+      <Card className='p-10 m-10 mt-20 bg-zinc-200 rounded-2xl h-min'>
+        <CardTitle className='text-4xl font-bold p-10 pt-5 pb-3 text-zinc-700 h-fit'>All Users</CardTitle>
+       <div className='m-5 mt-0 mb-2'><Input type='text' placeholder='Search.....' className='rounded-full h-15 bg-zinc-100 border border-zinc-400' value={search}
+          onChange={(e) => setSearch(e.target.value)} /></div>
         <CardContent>
         <div className="min-h-screen">
         <Table>
             <TableHeader>
-              <TableRow>
+              <TableRow className='text-zinc-600'>
                 <TableHead className='text-2xl'>Name</TableHead>
                 <TableHead className='text-2xl'>Role</TableHead>
                 <TableHead className='text-2xl'>Department</TableHead>
@@ -124,7 +124,7 @@ const UserManagement = () => {
             <TableBody className=''>
             {filteredUsers.map((item, id) =>
               <>
-                <TableRow key={item.id} className='border-b-0'>
+                <TableRow key={item.id} className='border-b-0 text-zinc-600'>
                   <TableCell className='mt-10'>
                     <div className='flex gap-5 text-xl'>
                     <div>
@@ -137,17 +137,17 @@ const UserManagement = () => {
                     </TableCell>
                   <TableCell className='mt-10 text-xl'>{item?.role}</TableCell>
                   <TableCell className='mt-10 text-xl'>{item?.email}</TableCell>
-                  <TableHead> <Button >
+                  <TableHead > <Button className='text-xl' >
                     {item.is_active ? "active" : "Inactive"}
                   </Button></TableHead>
-                  <div className='flex justify-around gap-2 mt-10 text-xl'>
+                  <div className='flex justify-around gap-2 mt-5 text-3xl'>
                     <Button
                       onClick={() => {
                         setSelectedUser(item)
                         setopen(true)
                       }
                       }
-                    ><LucideSquarePen className='bg-gray-400 w-20 h-20' /></Button>
+                    ><LucideSquarePen size={20} className=' ' /></Button>
                     {selectedUser && (
                       <EditRole
                         open={open}
@@ -172,6 +172,7 @@ const UserManagement = () => {
           </div>
         </CardContent>
       </Card>
+      {/* <EditRole/> */}
     </div>
   )
 }

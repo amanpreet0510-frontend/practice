@@ -56,10 +56,7 @@ export const fetchAllUsers = createAsyncThunk(
     if (error) throw error;
     if (!data) return [];
 
-    console.log('=== fetchAllUsers raw data ===')
-    console.log('First profile sample:', data[0])
-    console.log('First profile keys:', data[0] ? Object.keys(data[0]) : 'no data')
-    console.log('First profile id:', data[0]?.id)
+
 
     return data.map((profile): User => {
       const mapped = {
@@ -75,7 +72,7 @@ export const fetchAllUsers = createAsyncThunk(
         department: profile.department,
         reports_to: profile.reports_to
       }
-      console.log('Mapped user id:', mapped.id, 'from profile.id:', profile.id)
+     
       return mapped
     });
   }
@@ -143,7 +140,7 @@ export const updateUserHierarchy = createAsyncThunk(
       .select()
       .single()
 
-      console.log('payload.reports_to', payload.reports_to)
+      
 
     if (error) return rejectWithValue(error.message)
 
@@ -223,7 +220,7 @@ export const updateProfile = createAsyncThunk(
       .eq('id', user.id)
       .select('*')
 
-console.log('payload.image', payload.image)
+
 
     if (error) throw error
     if (!data || data.length === 0) {
