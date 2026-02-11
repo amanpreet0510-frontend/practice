@@ -25,6 +25,7 @@ export default function DashboardLayout({
       
       
       const { data: { user: authUser } } = await supabase.auth.getUser();
+      
 
       if (!authUser) {
         router.replace("/login");

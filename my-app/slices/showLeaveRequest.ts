@@ -19,6 +19,8 @@ export const fetchUsersOnLeave = createAsyncThunk<
       .from('users_currently_on_leave')
       .select('*');
 
+      console.log('onLeaveData', onLeaveData);
+    
     if (onLeaveError) {
       return rejectWithValue(onLeaveError.message);
     }

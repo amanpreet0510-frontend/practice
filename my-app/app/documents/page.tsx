@@ -46,7 +46,7 @@ const Documents = () => {
                         <p className='text-zinc-400 text-lg'>Access company documents and resources</p>
                     </div>
                     <div className='m-25 mt-0 mb-0'><Input value={search} onChange={(e) => setSearch(e.target.value)} className='border border-zinc-300 p-8  rounded-2xl placeholder:text-zinc-500 bg-zinc-100' placeholder='search...' /></div>
-                    <Card className='m-25 mt-5 border border-zinc-300  rounded-2xl'>
+                    <Card className='ps-15 pe-15  m-25 mt-5 border border-zinc-300  rounded-2xl'>
                         <Table>
                             <TableHeader>
                                 <TableRow className='text-zinc-400'>
@@ -56,7 +56,7 @@ const Documents = () => {
                                     <TableHead className='text-xl'>Actions</TableHead>
                                 </TableRow>
                             </TableHeader>
-                            <TableBody className='mt-10 ms-10'>
+                            <TableBody className='mt-10 ms-10 text-lg text-zinc-600'>
                                 {filteredDocs.map((item, id) =>
                                     <>
                                         <TableRow key={item.id} className='border-b-0 ms-20'>

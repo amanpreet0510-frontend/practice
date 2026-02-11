@@ -50,12 +50,12 @@ const InviteUser = ({ open,
 
   return (
     <>
-      {open && <Card className='fixed inset-0 z-50 flex items-center justify-center bg-black/50  '>
-        <div className='bg-white w-[600px]  h-118 rounded-xl p-6 shadow-xl'>
+      {open && <Card className='fixed inset-0 z-50 flex items-center justify-center bg-black/50 '>
+        <div className='bg-zinc-300  w-[600px]  h-135 rounded-xl p-10 shadow-xl border-purple-100 border-2'>
           <div className='flex justify-between mb-5 pb-5'>
             <div>
-              <h3 className='text-2xl font-bold'>Invite New User</h3>
-              <h4 className='text-gray-400 text-md font-medium'>Enter the user details to send an invitation</h4>
+              <h3 className='text-2xl font-bold text-zinc-800 '>Invite New User</h3>
+              <h4 className='text-gray-400 text-md font-medium pt-2'>Enter the user details to send an invitation</h4>
             </div>
 
             <div>
@@ -63,20 +63,20 @@ const InviteUser = ({ open,
             </div>
           </div>
           <CardTitle className='mt-2 text-lg'>Full Name</CardTitle>
-          <Input placeholder='name' className="border p-2 mt-2 rounded w-full" value={name} onChange={(e) => setName(e.target.value)}></Input>
+          <Input placeholder='name' className="border border-zinc-500  p-6 mt-2 rounded w-full" value={name} onChange={(e) => setName(e.target.value)}></Input>
           <CardTitle className='mt-2 text-lg'>Email</CardTitle>
-          <Input placeholder='email' className="border p-2 mt-2 rounded w-full" value={email} onChange={(e) => setEmail(e.target.value)}></Input>
+          <Input placeholder='email' className="border border-zinc-500  p-6  mt-2 rounded w-full" value={email} onChange={(e) => setEmail(e.target.value)}></Input>
           <CardTitle className='mt-2 text-lg'>Role</CardTitle>
           <div className='flex flex-col'>
             <select
               value={role}
               onChange={(e) => setRole(e.target.value)}
-              className="border p-2 rounded mt-2 w-full">
+              className="border p-3 rounded mt-2 w-full border-zinc-500   ">
               <option value="admin">Admin</option>
               <option value="employee">Employee</option>
               <option value="hr">HR</option>
             </select>
-            <Button className='mt-7 text-lg p-6' onClick={handleSendInvite} >Send Invitation</Button>
+            <Button className='mt-7 text-lg p-6 bg-[#0F0E23] text-zinc-300' onClick={handleSendInvite} >Send Invitation</Button>
           </div>
         </div>
       </Card>}

@@ -9,6 +9,7 @@ export interface HRLeaveRequest {
   start_date: string;
   end_date: string;
   status: string;
+  reason:string
 }
 
 interface HRLeaveStore {
@@ -37,7 +38,7 @@ export const useHRLeaveStore = create<HRLeaveStore>((set) => ({
     set({ requests: data || [], loading: false });
   },
 
-  // 2️⃣ Approve leave
+  
   approveLeave: async (leaveId) => {
     const supabase = getSupabaseClient();
     await supabase
@@ -46,7 +47,6 @@ export const useHRLeaveStore = create<HRLeaveStore>((set) => ({
       .eq("id", leaveId);
   },
 
-  // 3️⃣ Reject leave
   rejectLeave: async (leaveId) => {
     const supabase = getSupabaseClient();
     await supabase

@@ -7,7 +7,6 @@ import Image from "next/image";
 import { getSupabaseClient } from "@/lib/supabaseClient";
 import { useUserStore } from "@/store/userStore";
 import { useRouter } from "next/navigation";
-import { titleValues } from "@/types/menu.types";
 import { Home,ListTodo,Settings,CalendarClock,Notebook } from "lucide-react";
 
 const menu: MenuItem[] = [
@@ -17,6 +16,7 @@ const menu: MenuItem[] = [
   { label: "Leave Request", href: "/leaveRequest", icon:Notebook },
   { label: "Tasks", href: "/tasks", icon:ListTodo},
   { label: "Documents", href: "/documents", icon:ListTodo},
+  { label: "Leave History", href: "/leavehistory", icon:ListTodo},
   { label: "Settings", href: "/settings", icon:Settings},
 ];
 
@@ -25,8 +25,6 @@ const HrSidebar = () => {
   const router = useRouter();
 
   const user = useUserStore((s) => s.user);
-
- 
 
   const handleLogout = async () => {
 
@@ -48,8 +46,8 @@ const HrSidebar = () => {
             const Icon = item.icon;
             return (
               <Link href={item.href} key={id}>
-                <li className="mt-15 font-extrabold w-max flex items-center gap-3 text-2xl text-zinc-400 hover:text-white hover:scale-110 transition-all duration-300">
-                  {Icon && <Icon className="w-6 h-6" />}
+                <li className="mt-12 font-extrabold w-max flex items-center gap-3 text-2xl text-zinc-400 hover:text-white hover:scale-110 transition-all duration-300">
+                  {Icon && <Icon className="w-6 h-6"/>}
                   <span>{item.label}</span>
                 </li>
               </Link>

@@ -1,27 +1,42 @@
 'use client';
 import React,{useEffect} from 'react'
+import { Toaster } from "sonner";
 import ApplyLeaveCard from '@/components/ui/ApplyleaveCard';
 import LeaveDetailsCard from '@/components/ui/LeaveDetailsCard';
 import {Card} from '@/components/ui/Card';
 import { useLeaveStore } from "@/store/leaveStore";
+import { useUserStore } from "@/store/userStore";
+import { useLeaveRequestStore } from "@/store/leaveRequest";
 import { useSelector } from "react-redux";
-import { useAppDispatch } from "@/app/hooks";
 import { RootState } from "@/store";
+import { useAppDispatch } from "@/app/hooks";
 import { fetchUsersOnLeave } from "@/slices/showLeaveRequest";
 
 const LeaveRequestPage = () => {
 
-  const dispatch = useAppDispatch();
+   const dispatch = useAppDispatch();
+   const user = useUserStore((s) => s.user);
 
   const { onLeave, pendingCount, error } = useSelector(
-    (state: RootState) => state.leaves
-  );
+      (state: RootState) => state.leaves
+    );
+    
+
+    useEffect(() => {
+        dispatch(fetchUsersOnLeave());
+      }, [dispatch]);
+  const { leaves, totalRemaining, loading, fetchLeaveBalance } = useLeaveStore();
+  const { fetchMyLeaveRequests } = useLeaveRequestStore();
+  
+
   
   useEffect(() => {
-    dispatch(fetchUsersOnLeave());
-  }, [dispatch]);
+    if (user?.id) {
+      fetchLeaveBalance(user.id);
+      fetchMyLeaveRequests(user.id);
+    }
+  }, [user?.id, fetchLeaveBalance, fetchMyLeaveRequests]);
 
-  const { leaves, totalRemaining, loading } = useLeaveStore();
 
   const yearlyTotal = leaves.reduce((sum, l) => sum + l.total, 0);
   const yearlyUsed = leaves.reduce((sum, l) => sum + l.used, 0);
@@ -29,9 +44,10 @@ const LeaveRequestPage = () => {
 
   return (
     <>
+      <Toaster position="top-center" />
       <div className='bg-gradient-to-b  from-[#0D091E] to-[#54239B] p-10'>
         <h1 className='text-white text-5xl font-bold'>
-          Request Leave
+          Request Leave 
         </h1>
         <p className='text-zinc-400 text-lg mt-4'>Submit a new leave request and notify your manager.</p>
       </div>
