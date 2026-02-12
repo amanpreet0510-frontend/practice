@@ -8,6 +8,7 @@ import leaveReducer from '@/slices/showLeaveRequest';
 import docsreducer from '@/slices/documentSlice';
 import authSlicereducer from '@/slices/changePasswordSlice';
 import attendanceSummaryReducer from '@/slices/attendanceHours';
+import attendanceSessionsReducer from '@/slices/attendanceSessions';
 
 // import notificationReducer from '@/features/notifications/notificationSlice'
 // import appearanceReducer from '@/features/appearance/appearanceSlice'
@@ -23,6 +24,7 @@ export const store = configureStore({
     attendance: attendanceReducer,
     profile: profileReducer,
     users: usersSlice,
+    attendanceSessions: attendanceSessionsReducer,
     // notifications: notificationReducer,
     // appearance: appearanceReducer
   },

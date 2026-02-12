@@ -18,13 +18,7 @@ const Task = () => {
 
   return (
     <>
-      <Card className="p-10  overflow-y-auto max-w-md  text-zinc-400 relative
-  bg-zinc-900/70
-  backdrop-blur-xl
-  rounded-3xl
-  border
-  border-purple-500/30
-   mt-1 w-full  focus:outline-none focus:ring-2 focus:ring-purple-600 ">
+      <Card className="hover:bg-[#e8e5f6] border-zinc-300 ps-10 pe-10 pt-8 shadow-2xl shadow-zinc-600">
         <div className="flex justify-between">
         <CardHeader className="text-2xl font-bold">Recent Tasks</CardHeader>
         <div className="flex gap-2">

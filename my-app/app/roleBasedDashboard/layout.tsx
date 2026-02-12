@@ -85,7 +85,7 @@ function RoleBasedSidebar({ role }: { role?: string }) {
 
 
   return (
-    <div className="flex min-h-screen bg-[#0D091E]">
+    <div className="flex min-h-screen bg-zinc-200">
     
       {/* {user?.role === "admin" ? <AdminSidebar /> : <Sidebar />} */}
       <RoleBasedSidebar role={user?.role} />
