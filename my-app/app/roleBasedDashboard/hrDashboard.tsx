@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useLeaveApprovalStore } from '@/store/leaveApproval';
 import HrDashboard from '@/components/ui/HrDashboard';
 import { useUserStore } from '@/store/userStore';
+import AssignTask from '@/components/ui/AssignTask';
 
 
 const HRDashboard = () => {
@@ -132,6 +133,7 @@ const HRDashboard = () => {
           </tbody>
         </table>
       </div>
+      <AssignTask/>
     </div>
     </>
   );

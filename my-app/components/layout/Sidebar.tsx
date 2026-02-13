@@ -41,17 +41,17 @@ const Sidebar = () => {
 
   return (
     <>
-      <aside className="border-r border-zinc-600 bg-[#0F0E23] w-100 p-5 sticky top-0 max-h-screen">
+      <aside className="flex flex-col border-r border-zinc-600 bg-[#0F0E23] w-100 p-5 sticky top-0 h-screen">
         <div className="flex justify-center items-center pt-10 gap-3">
           <Image alt="logo" height={50} width={80} src={logo} className="" />
           <h1 className="text-5xl font-extrabold text-white">WorkFlow</h1>
         </div>
-        <ul className="text-center ps-20 pt-1">
+        <ul className="text-center ps-20 pt-10">
           {menu.map((item, id) => {
             const Icon = item.icon;
             return (
               <Link href={item.href} key={id}>
-                <li className="mt-15 font-extrabold w-max flex items-center gap-3 text-2xl text-zinc-400 hover:text-white hover:scale-110 transition-all duration-300">
+                <li className="mt-10  w-max flex items-center gap-3 text-xl text-zinc-300 hover:text-white hover:scale-110 transition-all duration-300">
                   {Icon && <Icon className="w-6 h-6" />}
                   <span>{item.label}</span>
                 </li>
@@ -59,7 +59,16 @@ const Sidebar = () => {
             );
           })}
         </ul>
-        <button onClick={handleLogout} className="text-zinc-400 text-xl font-bold mt-70 p-5 w-full py-3 rounded-xl border-l border-r border-2 border-zinc-700 shadow-lg shadow-zinc-700 bg-transparent hover:bg-zinc-100 transition">LogOut</button>
+        <div className="mt-auto">
+    <button
+      onClick={handleLogout}
+      className="flex justify-center m-auto text-zinc-400 text-lg p-5 py-3 rounded-xl 
+                 border-l border-r border-2 border-zinc-700 
+                 shadow-lg shadow-zinc-700 bg-transparent 
+                 hover:bg-zinc-100 transition">
+      LogOut
+    </button>
+  </div>     
       </aside>
     </>
   );

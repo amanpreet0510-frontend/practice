@@ -14,7 +14,7 @@ const menu: MenuItem[] = [
   { label: "Employee Directory", href: "/userManagement", icon: Home },
   { label: "Attendance", href: "/attendance", icon: CalendarClock  },
   { label: "Leave Request", href: "/leaveRequest", icon:Notebook },
-  { label: "Tasks", href: "/tasks", icon:ListTodo},
+  { label: "Tasks", href: "/assignTask", icon:ListTodo},
   { label: "Documents", href: "/documents", icon:ListTodo},
   { label: "Leave History", href: "/leavehistory", icon:ListTodo},
   { label: "Settings", href: "/settings", icon:Settings},

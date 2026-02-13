@@ -18,15 +18,15 @@ const Task = () => {
 
   return (
     <>
-      <Card className="hover:bg-[#e8e5f6] border-zinc-300 ps-10 pe-10 pt-8 shadow-2xl shadow-zinc-600">
-        <div className="flex justify-between">
-        <CardHeader className="text-2xl font-bold">Recent Tasks</CardHeader>
+      <Card className="hover:bg-zinc-300 border-zinc-300 ps-15 pe-10 pt-8 shadow-md shadow-zinc-500 z-20">
+        <div className="flex text-zinc-600 justify-between">
+         <h3 className="text-xl  font-bold">Recent Tasks</h3>
         <div className="flex gap-2">
           <span><Link href={"/tasks"} className="font-bold">View All</Link></span>
           <ArrowRight/>
           </div>
         </div>
-        <div className=" text-xl font-bold flex justify-between border-b pb-1">
+        <div className=" text-xl font-bold flex justify-between border-b pb-1 mt-10 text-zinc-600">
           <h1>Task name</h1>
           <p>Task description</p>
         </div>
@@ -40,7 +40,7 @@ const Task = () => {
             </React.Fragment>
           ))
         ) : (
-          <div>No Task assign yet.</div>
+          <div className="text-zinc-600">No Task assign yet.</div>
         )}
       </Card>
     </>

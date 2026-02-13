@@ -40,23 +40,23 @@ const Navbar = () => {
 ];
   return (
     <>
-      <nav className="bg-gradient-to-r from-[#0D091E] to-[#54239B] sticky top-0 z-50 shadow-sm">
+      <nav className="sticky top-0 z-50 shadow-sm bg-zinc-200" >
         <ul className="">
           {menu.map((item, id) => (
             <React.Fragment key={id}>
               <div className="flex justify-between">
                 <div className="p-10">
-                <li className="ps-5 text-4xl font-cursive font-bold text-white  rounded-[50px]">{item.label}</li>
-                <p className="p-5 text-xl font-cursive  text-zinc-400  rounded-[50px]">Here's what's happening today</p>
+                <li className="ps-5 mt-5 text-4xl font-cursive font-bold text-zinc-900  rounded-[50px]">{item.label}</li>
+                <p className="p-5 pt-3 pb-0 text-xl font-cursive  text-zinc-500  rounded-[50px]">Here's what's happening today</p>
                 </div>
-                <div className="flex justify-between">
-                <LucideBell className="text-zinc-100 p-3 rounded-full mt-15 h-15 w-15"/>
+                <div className="flex justify-between p-10">
+                <LucideBell className="text-zinc-900 p-3 rounded-full mt-5 me-4 h-18 w-15"/>
                 <Image
                     alt=""
                     height={10}
                     width={80}
                     src={user?.image ?? "/default-avatar.png"}
-                    className="rounded-[100%]  mt-11 me-10 w-20 h-20"
+                    className="rounded-[100%]  mt-5 me-15   w-20 h-20"
                   />
               </div>
               </div>

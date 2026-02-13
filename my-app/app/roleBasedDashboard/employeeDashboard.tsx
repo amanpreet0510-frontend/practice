@@ -12,6 +12,7 @@ import { Card } from "@/components/ui/Card";
 import { useAppSelector, useAppDispatch } from "@/app/hooks";
 import { fetchAttendanceSessions, loginAttendance, logoutAttendance, fetchTodayLogin } from "@/slices/attendanceSessions";
 import { fetchUsersOnLeave } from "@/slices/showLeaveRequest";
+import QuickActions from "@/components/ui/QuickActions";
 
 
 interface AttendanceSession {
@@ -39,8 +40,7 @@ const EmployeeLeaveDashboard = () => {
   const { sessions, currentSession, loading, login_time } = useAppSelector(
     (state) => state.attendanceSessions
   );
-  console.log('login_time', login_time)
-
+  
   const { fetchLeaveBalance } = useLeaveStore();
 
   useEffect(() => {
@@ -51,9 +51,9 @@ const EmployeeLeaveDashboard = () => {
 
   return (
     <>
-      <div className=" shadow-white shadow-lg rounded-2xl p-5">
-        <div className="m-5 pt-10 ps-8 gap-6 grid grid-cols-4 ">
-          <Card className="hover:bg-[#e8e5f6] border-zinc-300 ps-10 pe-10 pt-8 shadow-2xl shadow-zinc-600">
+      <div className=" shadow-white shadow-lg rounded-2xl z-20 ">
+        <div className="pt-5 gap-6 grid grid-cols-4 ">
+          <Card className="hover:bg-zinc-300 border-zinc-300 ps-10 pe-10 pt-8 shadow-md shadow-zinc-500 z-20">
             <h3 className="text-purple-900 font-bold font-playfair text-xl">Attendance Today</h3>
             <h2 className={`font-bold text-3xl ${login_time ? 'text-green-700':'text-red-700'}`}>{login_time?'Present':'Absent'}</h2>
             <p className="text-zinc-500 text-sm">Clocked in at {login_time
@@ -65,17 +65,14 @@ const EmployeeLeaveDashboard = () => {
               : "Not Marked"}
             </p>
           </Card>
-          <Card className="hover:bg-[#e8e5f6] border-zinc-300 ps-10 pe-10 pt-8 shadow-2xl shadow-zinc-600">
+          <Card className="hover:bg-zinc-300 border-zinc-300 ps-10 pe-10 pt-8 shadow-md shadow-zinc-500 z-20">
           <h3 className="text-purple-900 font-bold font-playfair text-xl">Annual leave</h3>
           <h2 className=''></h2>
           <div className=" bg-blue-500 transition-all h-1" ></div>
           </Card>
-          <TaskCard />
-          <Task />
+          <TaskCard/>
         </div>
-        <div className=" flex justify-center m-10">
-          <LeaveDetailsCard />
-        </div>
+        <QuickActions/>
         <Calendar2 />
       </div>
     </>

@@ -25,8 +25,6 @@ const LeaveHistory = () => {
         }
     }, [fetchMyLeaveRequests]);
 
-    console.log('requests', requests)
-    console.log('myLeaveRequests', requests)
 
     return (
         <>

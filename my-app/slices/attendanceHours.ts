@@ -24,7 +24,7 @@ import { getSupabaseClient } from '@/lib/supabaseClient';
       .eq("user_id", userId)
       .order("week_start_date", { ascending: false });
       //.single<AttendanceSummary>();
-      console.log('data', data)
+      
 
     if (error) {
       return rejectWithValue(error.message);

@@ -7,6 +7,7 @@ import { TaskStatus } from "@/types/task.types";
 import { TaskStatus as TaskStatusType } from "@/store/taskStore";
 import { Clock, LucideCheck, LucideCircleCheck, LucideClock, LucideCross, LucideListTodo, LucideLoader, LucideNotebook, LucideX } from "lucide-react";
 import Image from "next/image";
+import AssignTask from "@/components/ui/AssignTask";
 
 
 const TaskPage = () => {

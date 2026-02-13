@@ -95,8 +95,8 @@ export const AttenadanceCard = () => {
 
   return (
     <>
-    <div className="p-10 pt-0 rounded-2xl ">
-      <Card className="p-5 mt-10 mb-5 rounded-2xl bg-zinc-100 border-zinc-300 text-zinc-600">
+    <div className="ps-15 pe-15 pt-0 rounded-2xl">
+      <Card className="p-5 mt-10 mb-3 rounded-2xl bg-zinc-100 border-zinc-300 text-zinc-600">
         <div className="flex justify-between">
           <div>
             <CardHeader className="text-2xl font-semibold">
@@ -175,48 +175,47 @@ export const AttenadanceCard = () => {
         </div>
       </Card>
 
-      <div className="flex justify-around">
+      <div className="grid grid-cols-3 gap-10">
       
-        <Card className="mt-8 bg-zinc-200 text-zinc-800 text-2xl font-script border-purple-300">
+        <Card className="mt-8 bg-zinc-200 text-zinc-800 text-lg font-manrope  border-zinc-300">
           <div>
           <div className="flex justify-between gap-10 p-10 m-5">
             <h1>Days This Week</h1>
             <span>
-              <Calendar className="bg-blue-200 rounded-2xl p-1 h-10 w-10" />
+              <Calendar className="rounded-2xl p-1 h-10 w-10" />
             </span>
             </div>
-            <span className="flex justify-center mb-5 -mt-10">{currentWeek?.total_days}</span>
+            <span className="flex ms-15 mb-5 -mt-10">{currentWeek?.total_days}</span>
           </div>
         </Card>
-        <Card className="mt-8 bg-zinc-200 text-zinc-800 text-2xl font-script border-purple-300">
+        <Card className="mt-8 bg-zinc-200 text-zinc-800 text-lg font-manrope  border-zinc-300">
           <div>
           <div className="flex justify-between gap-10 p-10 m-5">
             <h1>Hours This Week</h1>
             <span>
-              <Clock className="bg-yellow-200 rounded-2xl p-1 h-10 w-10" />
+              <Clock className="rounded-2xl p-1 h-10 w-10" />
             </span>
           </div>
-          <span className="flex justify-center mb-5 -mt-10">{currentWeek?.total_hours}</span>
+          <span className="flex ms-15 mb-5 -mt-10">{currentWeek?.total_hours}</span>
           </div>
         </Card>
-        <Card className="mt-8 bg-zinc-200 text-zinc-800 text-2xl font-script border-purple-300">
+        <Card className="mt-8 bg-zinc-200 text-zinc-800 text-lg font-manrope  border-zinc-300">
           <div>
           <div className="flex justify-between gap-10 p-10 m-5">
             <h1>Average Hours/Day</h1>
             <span>
-              <Clock className="bg-green-200 rounded-2xl p-1 h-10 w-10" />
+              <Clock className="rounded-2xl p-1 h-10 w-10" />
             </span>
             </div>
-            <span className="flex justify-center mb-5 -mt-10">{currentWeek?.avg_hours_per_day}</span>
+            <span className="flex ms-15 mb-5 -mt-10">{currentWeek?.avg_hours_per_day}</span>
           </div>
         </Card>
       </div>
-      {/* attendance history     */}
-      <div className="m-10 mb-0">
-        <Card className='bg-zinc-200 border-purple-300' >
-          <h1 className="text-2xl ps-10 pt-5">Attendance History</h1>
-          <Card className="ms-5 me-5 border-purple-300 border-2">
-            <div className="flex justify-around text-xl font-bold">
+      <div className="mt-13 mb-15">
+        <Card className='bg-zinc-200 border-zinc-300' >
+          <h1 className="text-2xl font-semibold ps-10 pt-5 text-zinc-600">Attendance History</h1>
+          <Card className="ms-5 me-5 border-zinc-300 border-2">
+            <div className="flex justify-around text-xl text-zinc-500 font-bold">
               <h2>Date</h2>
               <h2>Check In</h2>
               <h2>Check Out</h2>
@@ -228,7 +227,7 @@ export const AttenadanceCard = () => {
               {sessions.map((session) => (
                 <div
                   key={session.id}
-                  className="flex justify-around text-sm p-3 border-b-2 border-purple-300 hover:bg-gray-50"
+                  className="flex justify-around text-sm p-3  hover:bg-gray-50"
                 >
                   <span>
                     {new Date(session.login_time).toLocaleDateString()}
