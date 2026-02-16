@@ -15,10 +15,10 @@ export default function LeaveDetailsCard() {
         <p>Loading...</p>
       ) : (
         <>
-          <div className="  space-y-5 text-xl text-zinc-700">
-            <p className="text-purple-950 border rounded-2xl border-zinc-300 p-3 bg-zinc-300"><b>Yearly Total:</b> {yearlyTotal}</p>
-            <p className="text-purple-950 border-2 rounded-2xl border-zinc-300 p-3  bg-zinc-300"><b>Yearly Used:</b> {yearlyUsed}</p>
-            <p className="text-purple-950 border-2 rounded-2xl border-zinc-300 p-3 bg-zinc-300"><b>Yearly Remaining:</b> {totalRemaining}</p>
+          <div className="space-y-4 text-xl text-zinc-700">
+            <p className="text-[#0F0E23] border rounded-xl border-zinc-300 p-2 bg-zinc-300 text-lg"><b>Yearly Total:</b> {yearlyTotal}</p>
+            <p className="text-[#0F0E23] border-2 rounded-xl border-zinc-300 p-2  bg-zinc-300 text-lg"><b>Yearly Used:</b> {yearlyUsed}</p>
+            <p className="text-[#0F0E23] border-2 rounded-xl border-zinc-300 p-2 bg-zinc-300 text-lg"><b>Yearly Remaining:</b> {totalRemaining}</p>
             <p className="text-sm text-zinc-500">
               Monthly Credit: 3 leaves (1 per type)
             </p>
@@ -28,7 +28,7 @@ export default function LeaveDetailsCard() {
             {leaves.map((l) => (
               <div
                 key={l.leave_type}
-                className="border-zinc-400 text-zinc-500 flex m-8 justify-between gap-2 border rounded-2xl p-2 pe-5 ps-5 bg-zinc-200 shadow-2xl"
+                className="border-zinc-300 text-zinc-500 text-lg flex m-8 justify-between gap-2 border rounded-2xl p-2 pe-5 ps-5 bg-zinc-200 shadow-2xl"
               >
                 <span className="pe-5 ">{l.leave_type}</span>
                 <span>

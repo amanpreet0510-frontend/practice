@@ -20,25 +20,20 @@ const HRDashboard = () => {
   }, [fetchPendingLeaves, fetchUser]);
 
 
-  console.log('requests', requests);
-
   return (
     <>
-    <div>
       <HrDashboard/>
-    </div>
-    
-    <div className="p-6 space-y-6 text-zinc-100">
+    <div className="p-0 2xl:p-6  text-zinc-100 pt-10 ps-0">
       <div>
-        <h2 className="text-3xl font-bold text-white">
+        <h2 className="text-3xl font-bold text-zinc-600">
           Pending Leave Requests
         </h2>
-        <p className="text-gray-500 mt-1">
+        <p className="text-zinc-500 mt-1">
           Review and approve employee leave requests
         </p>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-md overflow-hidden">
+      <div className="bg-white rounded-2xl shadow-md overflow-hidden mt-10 2xl:ms-0  2xl:m-20">
         <table className="w-full border-collapse">
           <thead>
             <tr className="bg-gray-50 text-left text-sm text-gray-600">
@@ -133,7 +128,6 @@ const HRDashboard = () => {
           </tbody>
         </table>
       </div>
-      <AssignTask/>
     </div>
     </>
   );

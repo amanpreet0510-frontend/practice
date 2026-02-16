@@ -51,7 +51,7 @@ const EmployeeLeaveDashboard = () => {
 
   return (
     <>
-      <div className=" shadow-white shadow-lg rounded-2xl z-20 ">
+      <div className=" rounded-2xl z-20 ">
         <div className="pt-5 gap-6 grid grid-cols-4 ">
           <Card className="hover:bg-zinc-300 border-zinc-300 ps-10 pe-10 pt-8 shadow-md shadow-zinc-500 z-20">
             <h3 className="text-purple-900 font-bold font-playfair text-xl">Attendance Today</h3>

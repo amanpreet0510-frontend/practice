@@ -85,7 +85,7 @@ export default function DashboardLayout({
     <div className="flex min-h-screen">
     <RoleBasedSidebar role={user?.role} />
       <div className="flex flex-col flex-1">
-        <main className="p-8">{children}</main>
+        <main className="">{children}</main>
       </div>
     </div>
   );

@@ -8,14 +8,14 @@ import { getSupabaseClient } from "@/lib/supabaseClient";
 import { useUserStore } from "@/store/userStore";
 import { useRouter } from "next/navigation";
 import { titleValues } from "@/types/menu.types";
-import { Home,ListTodo,Settings,CalendarClock,Notebook } from "lucide-react";
+import { Home, ListTodo, Settings, CalendarClock, Notebook } from "lucide-react";
 
 const menu: MenuItem[] = [
   { label: "Dashboard", href: "/roleBasedDashboard", icon: Home },
-  { label: "Attendance", href: "/attendance", icon: CalendarClock  },
-  { label: "Leave Request", href: "/leaveRequest", icon:Notebook },
-  { label: "Tasks", href: "/tasks", icon:ListTodo},
-  { label: "Settings", href: "/settings", icon:Settings},
+  { label: "Attendance", href: "/attendance", icon: CalendarClock },
+  { label: "Leave Request", href: "/leaveRequest", icon: Notebook },
+  { label: "Tasks", href: "/tasks", icon: ListTodo },
+  { label: "Settings", href: "/settings", icon: Settings },
 ];
 
 
@@ -24,12 +24,6 @@ const Sidebar = () => {
 
   const user = useUserStore((s) => s.user);
 
-  // const title: titleValues[] = [
-  //   {
-  //     label: `${user?.name} `,
-  //     role: `${user?.role}`
-  //   },
-  // ];
 
   const handleLogout = async () => {
 
@@ -60,15 +54,15 @@ const Sidebar = () => {
           })}
         </ul>
         <div className="mt-auto">
-    <button
-      onClick={handleLogout}
-      className="flex justify-center m-auto text-zinc-400 text-lg p-5 py-3 rounded-xl 
+          <button
+            onClick={handleLogout}
+            className="flex justify-center text-zinc-400 text-lg p-5 py-3 rounded-xl 
                  border-l border-r border-2 border-zinc-700 
-                 shadow-lg shadow-zinc-700 bg-transparent 
-                 hover:bg-zinc-100 transition">
-      LogOut
-    </button>
-  </div>     
+                 shadow-lg shadow-zinc-700 bg-transparent
+                 hover:bg-zinc-100 transition w-full m-auto">
+            LogOut
+          </button>
+        </div>
       </aside>
     </>
   );

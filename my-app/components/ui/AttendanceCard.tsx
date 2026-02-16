@@ -1,12 +1,19 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/Card";
 import { Button } from "./button";
 import { Calendar, Clock } from "lucide-react";
+import { useSelector, useDispatch } from "react-redux";
+import type { RootState } from "@/store";
+import { getSupabaseClient } from "@/lib/supabaseClient";
+
+import { getLoginHourWithUser } from "@/supabaseApi/supabaseApi";
+import { loginTime, logoutTime } from "@/lib/attendanceSlice";
 import { useUserStore } from "@/store/userStore";
 import { fetchAttendanceSummary } from "@/slices/attendanceHours";
 import { useAppSelector,useAppDispatch } from "@/app/hooks";
 import { fetchAttendanceSessions, loginAttendance, logoutAttendance } from "@/slices/attendanceSessions";
+
 
 interface AttendanceSession {
   id: string;
@@ -16,31 +23,18 @@ interface AttendanceSession {
 }
 
 export const AttenadanceCard = () => {
-
-  const dispatch = useAppDispatch();
-  
+  const dispatch = useDispatch();
   const user = useUserStore((s) => s.user);
-  
 
   useEffect(() => {
     if (!user?.id) return;
   
     dispatch(fetchAttendanceSummary(user.id));
-    dispatch(fetchAttendanceSessions(user.id));
   
   }, [dispatch, user?.id]);
-  
-  
   const { summary } = useAppSelector(
     (state) => state.summary
   );
-
-  const { sessions, currentSession, loading } = useAppSelector(
-    (state) => state.attendanceSessions
-  );
-  
-
-
   const getMonday = (date: Date) => {
     const d = new Date(date);
     const day = d.getDay(); 
@@ -60,8 +54,6 @@ export const AttenadanceCard = () => {
   
     return weekStart.getTime() === currentWeekStart.getTime();
   });
-  
-
   const currentDate = new Date();
   const options: Intl.DateTimeFormatOptions = {
     weekday: "long",
@@ -71,32 +63,170 @@ export const AttenadanceCard = () => {
   };
   const formattedDate = currentDate.toLocaleDateString(undefined, options);
 
+  const loginTimehour = useSelector(
+    (state: RootState) => state.attendance.loginTime
+  );
+
+  console.log("Attendance state:", loginTimehour);
+
+  const [sessions, setSessions] = useState<AttendanceSession[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [currentSession, setCurrentSession] =
+    useState<AttendanceSession | null>(null);
+
+  const fetchData = useCallback(async () => {
+    setLoading(true);
+    const supabase = getSupabaseClient();
+    const { data: profile, error: err1 } = await supabase.auth.getUser();
+    if (err1 || !profile?.user?.id) {
+      console.error("Error getting user:", err1);
+      setLoading(false);
+      return;
+    }
+
+    console.log("User ID:", profile?.user?.id);
+
+    const response = await getLoginHourWithUser(profile.user.id);
+
+    console.log("Full response:", response);
+    console.log("Response data:", response?.data);
+    console.log("Response error:", response?.error);
+
+    const LoginhourData = response?.data;
+    const err2 = response?.error;
+
+    if (err2) {
+      console.error("Error fetching login hours:", err2);
+      setSessions([]);
+      setCurrentSession(null);
+    } else if (LoginhourData && Array.isArray(LoginhourData)) {
+      setSessions(LoginhourData);
+      // Check if there's an active session (no logout_time)
+      const activeSession = LoginhourData.find(
+        (session) => !session.logout_time
+      );
+      if (activeSession) {
+        setCurrentSession(activeSession);
+        dispatch(
+          loginTime({
+            sessionId: activeSession.id,
+            loginId: new Date(activeSession.login_time).getTime(),
+          } as { sessionId: string; loginId: number })
+        );
+      } else {
+        setCurrentSession(null);
+      }
+      console.log("Sessions set successfully:", LoginhourData);
+    } else {
+      console.log("No attendance data found or data is empty");
+      setSessions([]);
+      setCurrentSession(null);
+    }
+    setLoading(false);
+  }, [dispatch]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
   const handleLogin = async () => {
-    if (!user?.id) {
-      alert("Error: Unable to get user information");
-      return;
+    const supabase = getSupabaseClient();
+    setLoading(true);
+    try {
+      const { data: profile, error: err1 } = await supabase.auth.getUser();
+      if (err1 || !profile?.user?.id) {
+        console.error("Error getting user:", err1);
+        alert("Error: Unable to get user information");
+        setLoading(false);
+        return;
+      }
+
+      if (currentSession) {
+        alert("You are already logged in!");
+        setLoading(false);
+        return;
+      }
+
+      
+      const { data: newSession, error: err2 } = await supabase
+        .from("attendance")
+        .insert([
+          {
+            user_id: profile.user.id,
+            login_time: new Date().toISOString(),
+            logout_time: null,
+          },
+        ])
+        .select()
+        .single();
+
+console.log('profile.user.id', profile.user.id)
+
+
+      if (err2) {
+        console.error("Error creating attendance record:", err2);
+        alert("Error: " + err2.message);
+      } else {
+        console.log("Login successful:", newSession);
+        dispatch(
+          loginTime({
+            sessionId: newSession.id,
+            loginId: Date.now(),
+          })
+        );
+        // Refresh data
+        await fetchData();
+      }
+    } catch (error) {
+      console.error("Unexpected error:", error);
+      alert("An unexpected error occurred");
+    } finally {
+      setLoading(false);
     }
-    if (currentSession) {
-      alert("You are already logged in!");
-      return;
-    }
-    await dispatch(loginAttendance(user.id));
   };
 
   const handleLogout = async () => {
+    const supabase = getSupabaseClient();
     if (!currentSession) {
       alert("No active session to logout from");
       return;
     }
-    await dispatch(logoutAttendance(currentSession.id));
+
+    setLoading(true);
+    try {
+      const { error: err } = await supabase
+        .from("attendance")
+        .update({ logout_time: new Date().toISOString() })
+        .eq("id", currentSession.id);
+
+      if (err) {
+        console.error("Error updating logout time:", err);
+        alert("Error: " + err.message);
+      } else {
+        console.log("Logout successful");
+        dispatch(
+          logoutTime({
+            sessionId: currentSession.id,
+            loginId: Date.now(),
+          })
+        );
+       
+        await fetchData();
+      }
+    } catch (error) {
+      console.error("Unexpected error:", error);
+      alert("An unexpected error occurred");
+    } finally {
+      setLoading(false);
+    }
   };
 
   
 
   return (
     <>
-    <div className="ps-15 pe-15 pt-0 rounded-2xl">
-      <Card className="p-5 mt-10 mb-3 rounded-2xl bg-zinc-100 border-zinc-300 text-zinc-600">
+    <div className="p-10 pt-0 rounded-2xl ">
+      <Card className="p-5 mt-10 mb-5 rounded-2xl bg-zinc-100 border-zinc-300 text-zinc-600">
         <div className="flex justify-between">
           <div>
             <CardHeader className="text-2xl font-semibold">
@@ -177,40 +307,41 @@ export const AttenadanceCard = () => {
 
       <div className="grid grid-cols-3 gap-10">
       
-        <Card className="mt-8 bg-zinc-200 text-zinc-800 text-lg font-manrope  border-zinc-300">
-          <div>
-          <div className="flex justify-between gap-10 p-10 m-5">
-            <h1>Days This Week</h1>
-            <span>
-              <Calendar className="rounded-2xl p-1 h-10 w-10" />
-            </span>
-            </div>
-            <span className="flex ms-15 mb-5 -mt-10">{currentWeek?.total_days}</span>
+      <Card className="mt-8 bg-zinc-200 text-zinc-800 text-lg font-manrope  border-zinc-300">
+        <div>
+        <div className="flex justify-between gap-10 p-10 m-5">
+          <h1>Days This Week</h1>
+          <span>
+            <Calendar className="rounded-2xl p-1 h-10 w-10" />
+          </span>
           </div>
-        </Card>
-        <Card className="mt-8 bg-zinc-200 text-zinc-800 text-lg font-manrope  border-zinc-300">
-          <div>
-          <div className="flex justify-between gap-10 p-10 m-5">
-            <h1>Hours This Week</h1>
-            <span>
-              <Clock className="rounded-2xl p-1 h-10 w-10" />
-            </span>
+          <span className="flex ms-15 mb-5 -mt-10">{currentWeek?.total_days}</span>
+        </div>
+      </Card>
+      <Card className="mt-8 bg-zinc-200 text-zinc-800 text-lg font-manrope  border-zinc-300">
+        <div>
+        <div className="flex justify-between gap-10 p-10 m-5">
+          <h1>Hours This Week</h1>
+          <span>
+            <Clock className="rounded-2xl p-1 h-10 w-10" />
+          </span>
+        </div>
+        <span className="flex ms-15 mb-5 -mt-10">{currentWeek?.total_hours}</span>
+        </div>
+      </Card>
+      <Card className="mt-8 bg-zinc-200 text-zinc-800 text-lg font-manrope  border-zinc-300">
+        <div>
+        <div className="flex justify-between gap-10 p-10 m-5">
+          <h1>Average Hours/Day</h1>
+          <span>
+            <Clock className="rounded-2xl p-1 h-10 w-10" />
+          </span>
           </div>
-          <span className="flex ms-15 mb-5 -mt-10">{currentWeek?.total_hours}</span>
-          </div>
-        </Card>
-        <Card className="mt-8 bg-zinc-200 text-zinc-800 text-lg font-manrope  border-zinc-300">
-          <div>
-          <div className="flex justify-between gap-10 p-10 m-5">
-            <h1>Average Hours/Day</h1>
-            <span>
-              <Clock className="rounded-2xl p-1 h-10 w-10" />
-            </span>
-            </div>
-            <span className="flex ms-15 mb-5 -mt-10">{currentWeek?.avg_hours_per_day}</span>
-          </div>
-        </Card>
-      </div>
+          <span className="flex ms-15 mb-5 -mt-10">{currentWeek?.avg_hours_per_day}</span>
+        </div>
+      </Card>
+    </div>
+      {/* attendance history     */}
       <div className="mt-13 mb-15">
         <Card className='bg-zinc-200 border-zinc-300' >
           <h1 className="text-2xl font-semibold ps-10 pt-5 text-zinc-600">Attendance History</h1>

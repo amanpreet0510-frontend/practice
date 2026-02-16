@@ -37,7 +37,7 @@ const Sidebar = () => {
           {menu.map((item, id) => (
             <React.Fragment key={id}>
               <Link href={item.href}>
-                <li className="mt-15 font-extrabold w-max flex items-center gap-3 text-2xl text-zinc-400 hover:text-white hover:scale-110 transition-all duration-300">
+                <li className="mt-12 font-extrabold w-max flex items-center gap-3 text-2xl text-zinc-400 hover:text-white hover:scale-110 transition-all duration-300">
                   {item.label}
                 </li>
               </Link>

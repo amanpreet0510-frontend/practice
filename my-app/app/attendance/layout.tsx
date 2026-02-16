@@ -20,7 +20,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       <RoleBasedSidebar role={user?.role} />
       <div className="flex-1">
         {/* <Navbar /> */}
-        <div className="bg-gradient-to-r from-[#0D091E] to-[#54239B] rounded-2xl ms-15 me-15 mt-10 sticky top-0 z-50 shadow-sm  p-10 ">
+        <div className="bg-gradient-to-r from-[#0D091E] to-[#54239B] rounded-2xl ms-10 me-10 mt-10 sticky top-0 z-50 shadow-sm  p-10 ">
         <h1 className="text-4xl text-white font-bold">Attendance</h1>
         <p className="text-zinc-400 text-lg">Track your work hours</p>
         </div>

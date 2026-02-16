@@ -151,21 +151,21 @@ export default function ProfileSettings() {
   return (
     <>
       <div className="">
-        <div className="p-6 bg-gradient-to-b  from-[#0D091E] to-[#0D091E] rounded-2xl m-10 mt-5">
+        <div className="p-6 bg-gradient-to-b  from-[#0D091E] to-[#0D091E] rounded-2xl m-10 mt-8 sticky top-0 z-50">
           <h1 className="font-playfair text-5xl font-bold text-white">My Profile</h1>
           <p className="text-xl mt-3 text-zinc-400">
             View and manage your profile and account settings
           </p>
         </div>
-        <Card className="m-15 max-w-7xl mx-auto rounded-2xl shadow-xl bg-zinc-200">
+        <Card className="flex justify-center w-350 mb-15 mx-auto rounded-2xl shadow-xl bg-zinc-200 border border-zinc-300">
           <CardContent className="p-10 space-y-14">
             <div className="flex flex-col lg:flex-row items-center gap-10">
-              <div className="relative w-40 h-40">
+              <div className="relative w-20 h-20">
                 {imagePreview ? (
                   <img
                     src={imagePreview}
                     alt="Profile Preview"
-                    className="rounded-full object-cover w-full h-full"
+                    className="rounded-full object-cover w-20 h-20"
                   />
                 ) : (
                   <Image
@@ -175,7 +175,7 @@ export default function ProfileSettings() {
                     className="rounded-full border-4 shadow"
                   />
                 )}
-                <label className="absolute bottom-2 right-2 w-9 h-9 rounded-full bg-primary flex items-center justify-center text-white cursor-pointer">
+                <label className="absolute bottom-0 right-0 w-5 h-5 rounded-full bg-primary flex items-center justify-center text-white cursor-pointer">
                   <Plus className="text-black" size={30} />
                   <input
                     type="file"
@@ -193,17 +193,17 @@ export default function ProfileSettings() {
               <div className="text-center lg:text-left space-y-2">
                 <h2 className="text-purple-950 text-3xl font-bold">{form.name}</h2>
                 {/* <p className="text-gray-500">{form.mobile || "N/A"}</p> */}
-                <span className="inline-block mt-2 px-5 py-1 rounded-full bg-purple-100 text-green-800 text-sm">
+                <span className="inline-block mt-2 px-5 py-1 rounded-full bg-zinc-100 text-green-800 text-sm">
                   {user.role}
                 </span>
               </div>
             </div>
 
-            <h3 className="text-zinc-600 text-3xl font-cursive font-semibold mb-6">
+            <h3 className="text-zinc-600 text-2xl mb-4">
               Contact Information
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="shadow-lg shadow-zinc-700 flex gap-4 p-5 rounded-xl border mt-1 w-full bg-zinc-100  border-zinc-400 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-600">
+              <div className="shadow-lg shadow-zinc-700 flex gap-4 p-0 py-3 rounded-xl border mt-1 w-full bg-zinc-100  border-zinc-400 px-4 focus:outline-none focus:ring-2 focus:ring-purple-600">
                 <Mail className="text-gray-400 mt-1" />
                 <div className="">
                   <p className="text-sm text-gray-500">Email</p>
@@ -227,12 +227,12 @@ export default function ProfileSettings() {
             </div>
 
             <div>
-              <h3 className="text-3xl font-semibold mb-6 text-zinc-600">
+              <h3 className="text-2xl  text-zinc-600">
                 Profile Details
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-zinc-700 m-5">
                 <div>
-                  <Label className="text-zinc-600 text-xl">Name</Label>
+                  <Label className="text-zinc-600 text-lg">Name</Label>
                   <Input
                     value={form.name}
                     onChange={(e) =>
@@ -242,11 +242,11 @@ export default function ProfileSettings() {
                   />
                 </div>
                 <div>
-                  <Label className="text-zinc-600 text-xl">Email</Label>
+                  <Label className="text-zinc-600 text-lg">Email</Label>
                   <Input value={user.email} disabled className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600' />
                 </div>
                 <div>
-                  <Label className="text-zinc-600 text-xl">Mobile</Label>
+                  <Label className="text-zinc-600 text-lg">Mobile</Label>
                   <Input
                     placeholder="mobile no."
                     value={form.mobile}
@@ -257,37 +257,37 @@ export default function ProfileSettings() {
                   />
                 </div>
                 <div>
-                  <Label className="text-zinc-600 text-xl">Role</Label>
+                  <Label className="text-zinc-600 text-lg">Role</Label>
                   <Input value={user.role} disabled
                     className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600' />
                 </div>
               </div>
 
-              <div className="flex justify-end mt-8">
+              <div className="flex justify-end mt-3">
                 <Button onClick={onSave} className="mt-10 px-10 py-6 text-base text-zinc-300 bg-[#2C1655]">
                   Save Profile Changes
                 </Button>
               </div>
             </div>
             <div>
-              <h3 className="text-3xl font-semibold mb-6 flex items-center gap-3 text-zinc-600">
+              <h3 className="text-2xl mb-3 flex items-center gap-3 text-zinc-600">
                 <Lock />
                 Account Settings
               </h3>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-zinc-600">
                 <div>
-                  <Label className="text-xl m-5">Current Password</Label>
+                  <Label className="text-lg m-5">Current Password</Label>
                   <Input value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} type="password" placeholder="Enter current password" className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600' />
                 </div>
 
                 <div>
-                  <Label className="text-xl m-5">New Password</Label>
+                  <Label className="text-lg m-5">New Password</Label>
                   <Input value={newPassword} onChange={(e) => setNewPassword(e.target.value)} type="password" placeholder="Enter new password" className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600' />
                 </div>
 
                 <div>
-                  <Label className="text-xl m-5">Confirm New Password</Label>
+                  <Label className="text-lg m-5">Confirm New Password</Label>
                   <Input
                     value={confirmNewPassword}
                     onChange={(e) => setConfirmNewPassword(e.target.value)}

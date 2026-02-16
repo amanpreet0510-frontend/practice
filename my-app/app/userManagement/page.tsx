@@ -87,12 +87,11 @@ const UserManagement = () => {
 
 
   return (
-    <div className='p-10 '>
-     
-      <div className='flex justify-between  bg-gradient-to-b w-full from-[#0D091E] to-[#54239B] shadow-white shadow-lg rounded-2xl p-5'>
-        <div className=''>
-          <h1 className='text-5xl font-bold text-zinc-100'>User Management</h1>
-          <h3 className='text-2xl pt-5 text-zinc-400'>Invite, manage, and control user access</h3>
+    <div className='p-10 mt-0 m-8'>
+      <div className='flex justify-between  bg-gradient-to-b w-full from-[#0D091E] to-[#54239B] shadow-white shadow-lg rounded-xl sticky top-0 z-50'>
+        <div className='p-10'>
+          <h1 className='text-4xl font-bold text-zinc-100'>User Management</h1>
+          <h3 className='text-md pt-2 text-zinc-400'>Invite, manage, and control user access</h3>
         </div>
         <div className='flex justify-end'>
           <Button className='bg-zinc-300 m-10 p-7 text-[#492087] font-bold text-lg' onClick={() => {
@@ -105,28 +104,28 @@ const UserManagement = () => {
             
         </div>
       </div>
-      <Card className='p-10 m-10 mt-20 bg-zinc-200 rounded-2xl h-min'>
-        <CardTitle className='text-4xl font-bold p-10 pt-5 pb-3 text-zinc-700 h-fit'>All Users</CardTitle>
-       <div className='m-5 mt-0 mb-2'><Input type='text' placeholder='Search.....' className='rounded-full h-15 bg-zinc-100 border border-zinc-400' value={search}
+      <Card className='p-10 pb-10 m-2 mt-10 bg-zinc-200 rounded-xl  border border-zinc-200 shadow-zinc-600 shadow-xl '>
+        <CardTitle className='text-2xl font-semibold p-10 ps-5 pt-5 pb-0 text-zinc-600'>All Users</CardTitle>
+       <div className='m-5 mt-5 mb-0 '><Input type='text' placeholder='Search.....' className='rounded-sm h-15 bg-zinc-100 border border-zinc-200 shadow-zinc-500 shadow-sm' value={search}
           onChange={(e) => setSearch(e.target.value)} /></div>
         <CardContent>
-        <div className="min-h-screen">
+        <div className=" mt-5">
         <Table>
             <TableHeader>
-              <TableRow className='text-zinc-600'>
-                <TableHead className='text-2xl'>Name</TableHead>
-                <TableHead className='text-2xl'>Role</TableHead>
-                <TableHead className='text-2xl'>Department</TableHead>
-                <TableHead className='text-2xl'>Status</TableHead>
-                <TableHead className='text-2xl'>Actions</TableHead>
+              <TableRow className='text-zinc-600 '>
+                <TableHead className='text-xl'>Name</TableHead>
+                <TableHead className='text-xl'>Role</TableHead>
+                <TableHead className='text-xl'>Department</TableHead>
+                <TableHead className='text-xl'>Status</TableHead>
+                <TableHead className='text-xl'>Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody className=''>
             {filteredUsers.map((item, id) =>
               <>
-                <TableRow key={item.id} className='border-b-0 text-zinc-600'>
+                <TableRow key={item.id} className='border-b-0 text-zinc-600 text-sm'>
                   <TableCell className='mt-10'>
-                    <div className='flex gap-5 text-xl'>
+                    <div className='flex gap-5 '>
                     <div>
                   <Avatar>
                   <AvatarImage alt={item.name ?? ""} src={item.image ?? undefined}/>
@@ -135,9 +134,9 @@ const UserManagement = () => {
                     <div>{item.name}</div>
                     </div>
                     </TableCell>
-                  <TableCell className='mt-10 text-xl'>{item?.role}</TableCell>
-                  <TableCell className='mt-10 text-xl'>{item?.email}</TableCell>
-                  <TableHead > <Button className='text-xl' >
+                  <TableCell className='mt-10'>{item?.role}</TableCell>
+                  <TableCell className='mt-10'>{item?.email}</TableCell>
+                  <TableHead > <Button className={`${item.is_active?"text-green-700":"text-red-700"}` } >
                     {item.is_active ? "active" : "Inactive"}
                   </Button></TableHead>
                   <div className='flex justify-around gap-2 mt-5 text-3xl'>

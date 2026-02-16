@@ -56,17 +56,17 @@ const Hierarchy = ({ userId, initialValues }: Props) => {
 
     return (
         <>
-            <Card className='bg-gradient-to-b  from-[#0D091E] to-[#54239B] shadow-white shadow-sm rounded-2xl p-5 m-10'>
-                <div className='p-10 flex justify-between'>
+            <Card className='bg-gradient-to-b  from-[#0D091E] to-[#54239B] shadow-white shadow-sm rounded-lg p-5 m-10 mb-0 sticky top-0 z-50'>
+                <div className='p-3 flex justify-between'>
                     <div>
-                        <h1 className='text-4xl font-bold text-white'>Organizational Hierarchy</h1>
-                        <h3 className='text-xl pt-5 text-zinc-400'>Manage reporting relationships and organizational structure</h3>
+                        <h1 className='text-3xl font-bold text-white'>Organizational Hierarchy</h1>
+                        <h3 className='text-md pt-2 text-zinc-400'>Manage reporting relationships and organizational structure</h3>
                     </div>
                 </div>
             </Card>
-            <Card className='mt-15 m-10 shadow-white shadow-sm rounded-2xl p-5'>
-                <div className='p-5 flex text-zinc-500'>
-                    <LucideBuilding size={40} color='white' /><h1 className='ps-5 text-4xl font-bold'>Company Structure</h1>
+            <Card className='mt-0 m-11 shadow-zinc-600  shadow-xl rounded-2xl p-5 border border-zinc-200 '>
+                <div className='pt-5 pb-0 flex text-zinc-500'>
+                    <LucideBuilding size={40} color='white' /><h1 className=' text-2xl font-bold'>Company Structure</h1>
                 </div>
                 <div>
                     {assignedUsers.map((user, index) => {
@@ -79,11 +79,11 @@ const Hierarchy = ({ userId, initialValues }: Props) => {
                                             console.log('clicked user.id', user.id)
                                             setSelectedUser(user)
                                         }}
-                                        className={`m-10 w-full text-left p-3 border rounded-2xl cursor-pointer mb-2 transition-colors
-      ${selectedUser?.id === user.id ? "bg-purple-100 border-purple-200" : "hover:bg-white"}
+                                        className={`m-10 mt-2 w-full text-left p-3 border border-zinc-200 rounded-2xl cursor-pointer mb-2 transition-colors
+      ${selectedUser?.id === user.id ? "bg-zinc-100 border-zinc-200" : "hover:bg-white"}
     `}
                                     >
-                                        <div className='flex'>
+                                        <div className='flex text-zinc-500'>
                                             <div className='ms-10 mt-10'>
                                                 {user.image && <Image
                                                     alt={user.name ?? 'user image'}
@@ -101,13 +101,13 @@ const Hierarchy = ({ userId, initialValues }: Props) => {
                                             </div>
                                         </div>
                                     </Card>
-                                    <div className='absolute right-0 -translate-x-18 translate-y-14 flex'>
+                                    <div className='absolute right-0 -translate-x-28 translate-y-0 flex'>
                                         <button className='p-7 m-8'
                                             disabled={!selectedUser}
                                             onClick={() => {
                                                 setopen(true)
                                             }
-                                            }><LucideSquarePen size={32} /></button>
+                                            }><LucideSquarePen size={32} className='text-zinc-400' /></button>
                                     </div>
                                 </div></>)
                     })}

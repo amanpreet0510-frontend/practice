@@ -91,7 +91,7 @@ function RoleBasedSidebar({ role }: { role?: string }) {
       <RoleBasedSidebar role={user?.role} />
       <div className="flex flex-col flex-1">
         <Navbar />
-        <main className="p-15">{children}</main>
+        <main className="p-10 2xl:p-15">{children}</main>
       </div>
     </div>
   );

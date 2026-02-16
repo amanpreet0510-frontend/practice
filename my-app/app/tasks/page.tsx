@@ -28,6 +28,8 @@ const TaskPage = () => {
   const { tasks, fetchTasks, updateTaskStatus, setStatusFilter } =
     useTaskStore();
 
+  console.log('tasks', tasks)
+
   const statusFilter = useTaskStore((state) => state.statusFilter);
 
 
@@ -70,12 +72,12 @@ const TaskPage = () => {
   return (
     <>
       <div className="font-bold sticky top-0 z-50 shadow-sm p-5">
-        <div className="font-bold  top-0 z-50 rounded-2xl  shadow-zinc-500 shadow-[5px_0px_15px_rgba(0,0,0,0.3)] p-10 flex gap-5 m-5 mb-0">
+        <div className="font-bold  top-0 z-50 rounded-2xl  shadow-zinc-500 shadow-[5px_0px_15px_rgba(0,0,0,0.3)] p-10 flex gap-5 m-12 mt-0 mb-0">
           {TaskStatus.map((item, id) => (
             <div
               key={id}
               onClick={() => setStatusFilter(item)}
-              className=" m-5 cursor-pointer"
+              className=" m-2 cursor-pointer"
             >
               <Card className="border-purple-200 text-zinc-600 p-5 bg-zinc-300 shadow-zinc-400 shadow-[5px_0px_10px_rgba(0,0,0,0.3)]" key={id}>
                 <h1>{item}</h1>
@@ -83,32 +85,37 @@ const TaskPage = () => {
             </div>
           ))}
         </div>
-        <div className="flex justify-between">
-          <div className="w-full m-5 p-5">
+        <div className="flex justify-between mt-2 ms-5 me-8">
+          <div className="w-full p-5">
             {filterTasks.map((item) => (
               <>
                 <Card className="bg-zinc-300 border-purple-200 p-5 m-5 text-zinc-700">
-                  <div key={item.id} className="text-2xl font-bold">
-                    <h1>Task : {item.title}</h1>
+                  <div key={item.id} className="">
+                    <h1 className="font-bold text-xl">Task : {item.title}</h1>
                   </div>
                   <div>
-                    <h1>Description :{item.description}</h1>
-                    <h1>Task Priority :{item.priority}</h1>
+                    <h1 className="text-zinc-500 text-md">Description :{item.description}</h1>
+                    <h1 className={`text-sm ${item.priority === "high"
+                      ? "text-red-600"
+                      : item.priority === "medium"
+                        ? "text-blue-400"
+                        : "text-green-800"
+                      }`}>Task Priority :{item.priority}</h1>
                   </div>
                 </Card>
               </>
             ))}
           </div>
           <div className="flex justify-between">
-            <Card className="bg-zinc-300 m-5 mt-15 w-80 max-w-auto right-0 max-h-fit border-purple-200">
+            <Card className="bg-zinc-300 m-7 mt-10 w-80 max-w-auto right-0 max-h-fit border-purple-200">
               <div className="flex flex-col gap-2 mt-5">
                 <div className="flex justify-around">
                   <div className="flex justify-around">
-                    <div className="text-zinc-700 text-2xl font-bold">Task</div>
+                    <div className="text-zinc-600 text-xl font-bold">Task</div>
                     <div className="text-zinc-700 ps-3 pt-1"><LucideListTodo /></div>
                   </div>
                   <div className="flex">
-                    <div><h1 className="text-zinc-700 text-2xl font-bold">Task status</h1></div>
+                    <div><h1 className="text-zinc-600 text-2xl font-bold">Task status</h1></div>
                     <div className="text-zinc-700 ps-2 pt-1"><LucideClock /></div>
                   </div>
                 </div>
@@ -129,7 +136,7 @@ const TaskPage = () => {
                         <button className="bg-zinc-100 p-2 rounded-2xl w-30"><p>{item.task_status}</p></button>
                       </button>
                       {openTaskId === item.id && (
-                        <div className="absolute right-2 top-8 z-50 bg-zinc-300 rounded-xl shadow-lg shadow-black ">
+                        <div className="absolute right-2 top-15 z-50 bg-zinc-300 rounded-xl shadow-lg shadow-black ">
                           <ul className="p-2 text-sm font-medium">
                             <MenuItem
                               label="Pending"
@@ -137,6 +144,7 @@ const TaskPage = () => {
                                 updateTaskStatus(item.id, "pending");
                                 setOpenTaskId(null);
                               }}
+
                             >
                               <LucideClock />
                             </MenuItem>
@@ -193,17 +201,20 @@ type MenuItemProps = {
 };
 
 function MenuItem({ label, children, onClick }: MenuItemProps) {
+  
   return (
-    <li>
-      <button
-        type="button"
-        onClick={onClick}
-        className="flex items-center gap-2 w-full p-2 rounded hover:bg-zinc-100"
-      >
-        {children}
-        <span>{label}</span>
-      </button>
-    </li>
+    <>
+      <li>
+        <button
+          type="button"
+          onClick={onClick}
+          className={`flex items-center gap-2 w-full p-2 rounded hover:bg-zinc-100 `}
+        >
+          {children}
+          <span>{label}</span>
+        </button>
+      </li>
+    </>
   );
 }
 

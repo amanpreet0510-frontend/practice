@@ -24,55 +24,55 @@ const Directory = () => {
     }, [dispatch]);
 
 
-
-
     return (
         <>
-            <div className='rounded-2xl p-5 '>
-                <div className='bg-gradient-to-b w-full from-[#0D091E] to-[#54239B] p-8 rounded-2xl '>
-                    <h1 className='text-5xl m-5 font-bold text-white'>Employee Directory</h1>
-                    <h2 className='text-xl text-zinc-500 m-5'>Browse and search employee profiles and contact information.</h2>
+            <div className='rounded-2xl p-15 pt-5 '>
+                <div className='p-8 bg-gradient-to-b sticky top-0 z-50 w-full from-[#0D091E] to-[#54239B]  rounded-2xl '>
+                    <h1 className='text-3xl m-5 ms-0 mb-0 font-bold text-white'>Employee Directory</h1>
+                    <h2 className='text-sm text-zinc-400 mt-2'>Browse and search employee profiles and contact information.</h2>
                 </div>
-                <Input placeholder='search' className='items-center justify-center  ps-2  mt-10 mb-10  bg-zinc-300 p-8 border border-zinc-200  focus:border-zinc-400 focus:border-2' />
-                <div className=''>
-                    <Card className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 bg-gradient-to-b w-full from-[#0D091E] to-[#54239B]  shadow-white shadow-lg'>
+                <div className='mt-8 mb-2 m-3'>
+                    <Input placeholder='search' className='items-center justify-center  ps-2  bg-zinc-100 shadow-zinc-500 shadow-md p-8 border border-zinc-100  focus:border-zinc-100' />
+                </div>
+                <div className='m-5 mt-10'>
+                    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20 border-zinc-100  shadow-white shadow-lg'>
                         {users.map((user) =>
                             <React.Fragment key={user.id}>
-                                <div className='ms-10 mt-10 pt-15 ps-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  border-2 border-gray-300 h-110 w-100 rounded-2xl bg-zinc-300 shadow-2xl shadow-zinc-600'>
-                                    {user.image && <Image src={user.image} alt='' height={10} width={10} className='rounded-full h-15 w-15' />}
-                                    <ul>
-                                        <li className='text-2xl text-black'>{user.name}</li>
-                                        <li className='w-full text-sm text-zinc-600'>{user.position}</li>
-
-                                        <div className='pt-15'>
-                                            <div className='flex justify-between gap-5 py-3'>
-                                                <div className='text-xl'>Department:</div>
-                                                <div><li>{user.department}</li></div>
-                                            </div>
-                                            <div className='flex justify-between gap-8 py-3'>
-                                                <div><LucideMail size={30} /></div>
-                                                <div><li>{user.email}</li></div>
-                                            </div>
-                                            <div className='flex justify-between gap-8 py-3'>
-                                                <div><LucidePhone size={30} /></div>
-                                                <div><li>{user.mobile}</li></div>
-                                            </div>
+                                <div className='pt-10 ps-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  border-2 border-zinc-200 h-90 w-100 rounded-2xl bg-zinc-200 shadow-2xl '>
+                                    <div className='flex justify-between gap-7'>
+                                        {user.image && <Image src={user.image} alt='' height={10} width={10} className='rounded-full h-15 w-15' />}
+                                        <p className='text-2xl text-zinc-600'>{user.name}</p>
+                                        <p className='w-full text-sm text-zinc-600'>{user.position}</p>
+                                    </div>
+                                    <div className='pt-25 -ms-20'>
+                                        <div className='flex justify-between gap-5 py-1'>
+                                            <div className='text-lg text-zinc-600'>Department:</div>
+                                            <div><p>{user.department}</p></div>
                                         </div>
-                                    </ul>
-                                    <div className='flex justify-center rounded-2xl bg-zinc-100 border border-zinc-200 h-10 w-40 m-auto mb-5 items-center right-0'>
+                                        <div className='flex justify-between gap-5 py-1'>
+                                            <div className='text-zinc-500 text-sm'><LucideMail size={25} /></div>
+                                            <div><p className='text-zinc-500 text-sm'>{user.email}</p></div>
+                                        </div>
+                                        <div className='flex justify-between gap-8 py-3'>
+                                            <div><LucidePhone size={25} className='text-zinc-600' /></div>
+                                            <div><p className='text-zinc-600'>{user.mobile}</p></div>
+                                        </div>
+                                    </div>
+
+                                    <div className=' flex justify-center m-auto rounded-2xl  border border-zinc-200 h-10 w-40   items-center left-0 -translate-x-25 mb-8'>
                                         <button
                                             onClick={() => {
                                                 setSelectedUserId(user.id);
                                                 setOpen(true);
                                             }}
-                                            className='flex justify-center rounded-2xl bg-zinc-100 border border-zinc-200 h-10 w-40 m-auto mb-5 items-center'
+                                            className='bg-[#331961] flex justify-center rounded-2xl  border border-zinc-200 h-10 w-40 m-auto mb-4 items-center'
                                         >
-                                            <p className='text-black'>View Profile</p>
+                                            <p className='text-zinc-300 '>View Profile</p>
                                         </button>
-                                        </div>
+                                    </div>
                                 </div>
                             </React.Fragment>)}
-                    </Card>
+                    </div>
                 </div>
             </div>
 

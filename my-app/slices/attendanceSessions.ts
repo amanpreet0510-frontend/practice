@@ -65,7 +65,7 @@ export const loginAttendance = createAsyncThunk<
     .select()
     .single();
 
-console.log('data12', data)
+
 
   if (error || !data) {
     return rejectWithValue(error?.message ?? 'Failed to create session');

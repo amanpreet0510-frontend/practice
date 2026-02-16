@@ -40,17 +40,17 @@ const Navbar = () => {
 ];
   return (
     <>
-      <nav className="sticky top-0 z-50 shadow-sm bg-zinc-200" >
+      <nav className="sticky top-0 z-50 shadow-sm bg-zinc-200 w-fit xl:w-full">
         <ul className="">
           {menu.map((item, id) => (
             <React.Fragment key={id}>
               <div className="flex justify-between">
                 <div className="p-10">
-                <li className="ps-5 mt-5 text-4xl font-cursive font-bold text-zinc-900  rounded-[50px]">{item.label}</li>
+                <li className="ps-5 mt-5 text-4xl font-cursive font-bold text-zinc-600  rounded-[50px]">{item.label}</li>
                 <p className="p-5 pt-3 pb-0 text-xl font-cursive  text-zinc-500  rounded-[50px]">Here's what's happening today</p>
                 </div>
                 <div className="flex justify-between p-10">
-                <LucideBell className="text-zinc-900 p-3 rounded-full mt-5 me-4 h-18 w-15"/>
+                <LucideBell className="text-zinc-700 p-3 rounded-full mt-5 me-4 h-18 w-15"/>
                 <Image
                     alt=""
                     height={10}

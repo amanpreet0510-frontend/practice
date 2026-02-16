@@ -6,6 +6,7 @@ import { getSupabaseClient } from "@/lib/supabaseClient";
 import { Card,CardHeader,CardTitle,CardContent } from "@/components/ui/Card";
 import { useUserStore } from "@/store/userStore";
 import { LucideUser, LucideUserRoundX, LucideUsers } from "lucide-react";
+import type { User } from "@/types/user.types";
 
 export default function AdminDashboard() {
   const { user } = useUserStore();
@@ -45,13 +46,16 @@ export default function AdminDashboard() {
       return;
     }
 
-    const total = users.length;
-    const admins = users.filter((u) => u.role === "admin").length;
-    const hr = users.filter((u) => u.role === "hr").length;
-    const employees = users.filter((u) => u.role === "employee").length;
+    const list: User[] = Array.isArray(users) ? (users as User[]) : [];
 
-    const activeUsers = users.filter((u) => u.is_active === true).length;
-    const inactiveUsers = users.filter((u) => u.is_active === false).length;
+    const total = list.length;
+    const admins = list.filter((u) => u.role === "admin").length;
+    const hr = list.filter((u) => u.role === "hr").length;
+    const employees = list.filter((u) => u.role === "employee").length;
+    
+    const activeUsers = list.filter((u) => Boolean(u.is_active)).length;
+    const inactiveUsers = list.filter((u) => u.is_active === false).length;
+    
 
  
     setStats({
@@ -71,12 +75,9 @@ export default function AdminDashboard() {
   if (loading) return <div className="p-6">Loading dashboard...</div>;
 
   return (
-    <div className="p-8 space-y-8">
-      <h1 className="text-3xl font-bold text-white">Admin Dashboard</h1>
-
-      
-      <div className="grid md:grid-cols-3 gap-6 text-zinc-600 text-2xl">
-        <Card className="bg-zinc-300">
+    <div className="pt-10  space-y-8">
+      <div className="grid md:grid-cols-3 gap-6 text-zinc-600 text-xl">
+        <Card className="bg-zinc-300 hover:bg-zinc-200 border border-zinc-200 shadow-zinc-600  shadow-xl">
           <CardHeader >
             <div className="flex justify-between">
               <div><CardTitle>Total Users</CardTitle></div>
@@ -88,7 +89,7 @@ export default function AdminDashboard() {
           </CardContent>
         </Card>
 
-        <Card className="bg-zinc-300">
+        <Card className="bg-zinc-300 hover:bg-zinc-200 border border-zinc-200 shadow-zinc-600  shadow-xl">
           <CardHeader>
           <div className="flex justify-between">
             <div><CardTitle>Active Users</CardTitle></div>
@@ -100,7 +101,7 @@ export default function AdminDashboard() {
           </CardContent>
         </Card>
 
-        <Card className="bg-zinc-300">
+        <Card className="bg-zinc-300 hover:bg-zinc-200 border border-zinc-200 shadow-zinc-600  shadow-xl">
           <CardHeader>
           <div className="flex justify-between">
            <div><CardTitle>Inactive Users</CardTitle></div> 
@@ -114,22 +115,22 @@ export default function AdminDashboard() {
       </div>
 
       
-      <div className="grid md:grid-cols-3 gap-6 text-zinc-600 text-2xl">
-        <Card className="bg-zinc-300">
+      <div className="grid md:grid-cols-3 gap-6 text-zinc-600 text-xl mt-20">
+        <Card className="bg-zinc-300 hover:bg-zinc-200 border border-zinc-200 shadow-zinc-600  shadow-xl">
           <CardHeader>
             <CardTitle>Admins</CardTitle>
           </CardHeader>
           <CardContent className="text-3xl font-bold">{stats.admins}</CardContent>
         </Card>
 
-        <Card className="bg-zinc-300">
+        <Card className="bg-zinc-300 hover:bg-zinc-200 border border-zinc-200 shadow-zinc-600  shadow-xl">
           <CardHeader>
             <CardTitle>HR</CardTitle>
           </CardHeader>
           <CardContent className="text-3xl font-bold">{stats.hr}</CardContent>
         </Card>
 
-        <Card className="bg-zinc-300">
+        <Card className="bg-zinc-300 hover:bg-zinc-200 border border-zinc-200 shadow-zinc-600  shadow-xl">
           <CardHeader>
             <CardTitle>Employees</CardTitle>
           </CardHeader>
@@ -140,7 +141,7 @@ export default function AdminDashboard() {
       </div>
 
       
-      <Card className="border-zinc-400 bg-zinc-300 ">
+      <Card className="bg-zinc-300 hover:bg-zinc-200 border border-zinc-200 shadow-zinc-600  shadow-xl mt-18 ">
         <CardHeader>
           <CardTitle className="text-zinc-600 text-2xl">Recently Invited Users</CardTitle>
         </CardHeader>
