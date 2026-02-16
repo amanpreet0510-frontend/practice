@@ -38,7 +38,7 @@ const HrSidebar = () => {
     <>
       <aside className="border-r border-zinc-600 bg-[#0F0E23] w-100 p-5 sticky top-0  lg:h-screen flex flex-col">
         <div className="flex justify-center items-center pt-10 gap-3">
-          <Image alt="logo" height={50} width={80} src={logo} className="h-10 w-15 lg:h-30 lg:w-30" />
+          <Image alt="logo" height={50} width={80} src={logo} className="h-10 w-15 lg:h-30 lg:w-30"/>
           <h1 className="text-2xl xl:text-5xl font-extrabold text-white">WorkFlow</h1>
         </div>
         <ul className="text-center ps-5 lg:ps-20 pt-1">

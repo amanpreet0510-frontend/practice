@@ -3,7 +3,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/Card";
 import { Button } from "./button";
 import { Calendar, Clock } from "lucide-react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import type { RootState } from "@/store";
 import { getSupabaseClient } from "@/lib/supabaseClient";
 
@@ -23,14 +23,12 @@ interface AttendanceSession {
 }
 
 export const AttenadanceCard = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const user = useUserStore((s) => s.user);
 
   useEffect(() => {
     if (!user?.id) return;
-  
     dispatch(fetchAttendanceSummary(user.id));
-  
   }, [dispatch, user?.id]);
   const { summary } = useAppSelector(
     (state) => state.summary
