@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { MenuItem } from "@/types/menu.types";
 import logo from '@/public/logo w 2.jpg'
@@ -11,7 +11,7 @@ import { Home, ListTodo, Settings, CalendarClock, Notebook } from "lucide-react"
 
 const menu: MenuItem[] = [
   { label: "Dashboard", href: "/roleBasedDashboard", icon: Home },
-  { label: "Employee Directory", href: "/userManagement", icon: Home },
+  { label: "Employee Directory", href: "/directory", icon: Home },
   { label: "Attendance", href: "/attendance", icon: CalendarClock },
   { label: "Leave Request", href: "/leaveRequest", icon: Notebook },
   { label: "Tasks", href: "/assignTask", icon: ListTodo },
@@ -21,7 +21,7 @@ const menu: MenuItem[] = [
 ];
 
 
-const HrSidebar = () => {
+const HrSidebar = (open) => {
   const router = useRouter();
 
   const user = useUserStore((s) => s.user);
@@ -34,14 +34,16 @@ const HrSidebar = () => {
     router.refresh();
   }
 
+  
+
   return (
     <>
-      <aside className="border-r border-zinc-600 bg-[#0F0E23] w-100 p-5 sticky top-0  lg:h-screen flex flex-col">
-        <div className="flex justify-center items-center pt-10 gap-3">
-          <Image alt="logo" height={50} width={80} src={logo} className="h-10 w-15 lg:h-30 lg:w-30" />
-          <h1 className="text-2xl xl:text-5xl font-extrabold text-white">WorkFlow</h1>
+      <aside className="border-r border-zinc-600 bg-[#0F0E23] w-70 xl:w-100 p-5 sticky top-0  md:h-screen flex flex-col">
+        <div className="flex xl:justify-center xl:items-center pt-10 gap-3">
+          <Image alt="logo" height={50} width={80} src={logo} className="h-10 w-15   xl:h-15 xl:w-20" />
+          <h1 className="text-3xl xl:text-5xl font-extrabold text-white">WorkFlow</h1>
         </div>
-        <ul className="text-center ps-5 lg:ps-20 pt-1">
+        <ul className="text-center ps-5 xl:ps-20 pt-1">
           {menu.map((item, id) => {
             const Icon = item.icon;
             return (
