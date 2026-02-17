@@ -7,6 +7,7 @@ import { useUserStore } from "@/store/userStore";
 import { useRouter, usePathname } from "next/navigation";
 import { getSupabaseClient } from "@/lib/supabaseClient";
 import HrSidebar from '@/components/layout/HrSidebar';
+import Navbar from "@/components/layout/Navbar";
 
 
 export default function DashboardLayout({
@@ -82,10 +83,11 @@ export default function DashboardLayout({
   }
 
   return (
-    <div className="flex min-h-screen">
-    <RoleBasedSidebar role={user?.role} />
-      <div className="flex flex-col flex-1">
-        <main className="">{children}</main>
+    <div className="flex min-h-screen overflow-x-hidden">
+    <div className="hidden md:block shrink-0"><RoleBasedSidebar role={user?.role} /></div>
+      <div className="flex flex-col flex-1 min-w-0 w-full">
+        <Navbar />
+        <main className="flex-1 min-w-0 overflow-x-hidden p-4 sm:p-6 md:p-8">{children}</main>
       </div>
     </div>
   );

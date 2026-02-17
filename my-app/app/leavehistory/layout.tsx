@@ -3,6 +3,7 @@ import Sidebar from "@/components/layout/Sidebar";
 import AdminSidebar from '@/components/layout/AdminSidebar'
 import HrSidebar from '@/components/layout/HrSidebar'
 import { useUserStore } from "@/store/userStore";
+import Navbar from "@/components/layout/Navbar";
 
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -16,12 +17,16 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   }
 
   return (
-    <div className="flex">
-      <RoleBasedSidebar role={user?.role} />
-      <div className="flex-1">
-        {/* <Navbar /> */}
-        <main className="">{children}</main>
-        </div>
+    <div className="flex min-h-screen overflow-x-hidden">
+      <div className="hidden md:block shrink-0">
+        <RoleBasedSidebar role={user?.role} />
+      </div>
+      <div className="flex-1 min-w-0 w-full flex flex-col overflow-x-hidden">
+        <Navbar />
+        <main className="flex-1 min-w-0 overflow-x-hidden p-3 sm:p-4 md:p-6 lg:p-8">
+          {children}
+        </main>
+      </div>
     </div>
   )
 }

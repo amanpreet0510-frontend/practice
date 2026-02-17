@@ -56,7 +56,7 @@ export default function RootLayout({
   return (
     // <html lang="en" className={`${inter.variable} ${roboto_mono.variable} ${cursive.variable}`}>
      <html lang="en" className={`${inter.variable} ${roboto_mono.variable} ${poppins.variable} ${playfair.variable} ${cursive.variable} ${inter.variable} ${manrope.variable} ${jakarta.variable}`}> 
-      <body>
+      <body className="min-w-0 overflow-x-hidden">
         {/* {children} */}
         <Providers>{children}<Toaster /></Providers>
       </body>

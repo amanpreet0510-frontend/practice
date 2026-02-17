@@ -114,9 +114,8 @@ export default function ApplyLeaveCard() {
   return (
     <>
       {/* <Toaster position="top-center" /> */}
-      <form onSubmit={handleApply} className=" text-black bg-zinc-100  h-fit backdrop-blur-xlborder
-    focus:outline-none focus:ring-2 focus:ring-purple-600  p-10 border-zinc-300 ps-10 pe-10 pt-8 pb-8 shadow-md shadow-zinc-500 z-20 rounded-2xl w-full">
-        <h2 className="text-xl font-bold mb-2 text-zinc-700">Apply Leave</h2>
+      <form onSubmit={handleApply} className="text-black bg-zinc-100 h-fit backdrop-blur-xl border focus:outline-none focus:ring-2 focus:ring-purple-600 p-4 sm:p-6 md:p-8 lg:p-10 border-zinc-300 shadow-md shadow-zinc-500 z-20 rounded-2xl w-full">
+        <h2 className="text-lg sm:text-xl font-bold mb-2 text-zinc-700">Apply Leave</h2>
         <p className="text-zinc-500">Fill out the form to submit a leave request</p>
         <div className="mt-5">
           <label className="font-semibold  text-zinc-700 text-md">Leave Type</label>
@@ -130,25 +129,24 @@ export default function ApplyLeaveCard() {
             <option>Sick Leave</option>
             <option>Casual Leave</option>
           </select>
-          <div className="flex justify-between mb-5 mt-2 text-lg font-semibold text-zinc-700">
-            <div>
-              <div className="pb-3">Start Date</div>
-              <span> <input
+          <div className="flex flex-col sm:flex-row sm:justify-between gap-4 sm:gap-6 mb-5 mt-2 text-base sm:text-lg font-semibold text-zinc-700">
+            <div className="w-full sm:w-auto">
+              <div className="pb-2 sm:pb-3">Start Date</div>
+              <input
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                className="border border-zinc-400 rounded-2xl px-4 py-3 w-160 text-zinc-500"
-              /></span>
+                className="border border-zinc-400 rounded-2xl px-4 py-3 w-full sm:min-w-[140px] text-zinc-500"
+              />
             </div>
-            <div>
-              <div className="pb-3">End Date</div>
-              <span><input
+            <div className="w-full sm:w-auto">
+              <div className="pb-2 sm:pb-3">End Date</div>
+              <input
                 type="date"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
-                className="border border-zinc-400 rounded-2xl px-4 py-3 w-160 text-zinc-500"
+                className="border border-zinc-400 rounded-2xl px-4 py-3 w-full sm:min-w-[140px] text-zinc-500"
               />
-              </span>
             </div>
           </div>
 

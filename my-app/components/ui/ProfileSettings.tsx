@@ -150,15 +150,15 @@ export default function ProfileSettings() {
 
   return (
     <>
-      <div className="">
-        <div className="p-6 bg-gradient-to-b  from-[#0D091E] to-[#0D091E] rounded-2xl m-10 mt-8 sticky top-0 z-50">
-          <h1 className="font-playfair text-5xl font-bold text-white">My Profile</h1>
-          <p className="text-xl mt-3 text-zinc-400">
+      <div className="w-full min-w-0 overflow-x-hidden px-2 sm:px-0">
+        <div className="p-4 sm:p-6 bg-gradient-to-b from-[#0D091E] to-[#0D091E] rounded-2xl m-2 sm:m-4 md:m-6 lg:m-10 mt-2 sm:mt-4 md:mt-6 sticky top-16 sm:top-20 z-40">
+          <h1 className="font-playfair text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white">My Profile</h1>
+          <p className="text-sm sm:text-base md:text-lg lg:text-xl mt-2 sm:mt-3 text-zinc-400">
             View and manage your profile and account settings
           </p>
         </div>
-        <Card className="flex justify-center w-350 mb-15 mx-auto rounded-2xl shadow-xl bg-zinc-200 border border-zinc-300">
-          <CardContent className="p-10 space-y-14">
+        <Card className="flex justify-center w-full max-w-[350px] sm:max-w-[400px] md:max-w-[450px] mb-10 sm:mb-15 mx-auto rounded-2xl shadow-xl bg-zinc-200 border border-zinc-300 overflow-hidden">
+          <CardContent className="p-4 sm:p-6 md:p-10 space-y-8 sm:space-y-10 md:space-y-14">
             <div className="flex flex-col lg:flex-row items-center gap-10">
               <div className="relative w-20 h-20">
                 {imagePreview ? (
@@ -207,7 +207,7 @@ export default function ProfileSettings() {
                 <Mail className="text-gray-400 mt-1" />
                 <div className="">
                   <p className="text-sm text-gray-500">Email</p>
-                  <p className="text-zinc-500 font-medium">{user.email}</p>
+                  <p className="text-zinc-500 font-medium break-all">{user.email}</p>
                 </div>
               </div>
               <div className="shadow-lg shadow-zinc-700 flex gap-4 p-5 rounded-xl border mt-1 w-full bg-zinc-100  border-zinc-400 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-600">

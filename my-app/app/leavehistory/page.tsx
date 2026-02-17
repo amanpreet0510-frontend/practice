@@ -28,27 +28,30 @@ const LeaveHistory = () => {
 
     return (
         <>
-            <div className=''>
-                <Card className='bg-gradient-to-b  from-[#0D091E] to-[#54239B] p-10 m-5'>
+            <div className='w-full min-w-0 overflow-x-hidden'>
+                <Card className='bg-gradient-to-b from-[#0D091E] to-[#54239B] p-4 sm:p-6 md:p-8 lg:p-10 m-2 sm:m-4 md:m-5 rounded-2xl sticky top-16 sm:top-20 z-40'>
                     <div>
-                        <h1 className='text-white text-4xl font-bold '>Leave History</h1>
-                        <p className='text-zinc-400 text-lg pt-4'>View all your past leave requests and their approval status.</p>
+                        <h1 className='text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold'>Leave History</h1>
+                        <p className='text-zinc-400 text-sm sm:text-base md:text-lg pt-2 sm:pt-4'>View all your past leave requests and their approval status.</p>
                     </div>
                 </Card>
                 {requests.map((item, index) =>
                     <>
-                        <Card className='m-10 mt-5 bg-zinc-100'>
-                            <div className='flex justify-between'>
-                                <div className='m-5'>
-                                    <p className='text-2xl font-bold text-zinc-600'>{item.leave_type}</p>
-                                    <div className='text-zinc-500 text-sm pt-2 flex justify-around gap-3'>
-                                    <p>{item.start_date} <span className='ps-3'>to</span></p>
-                                    <p>{item.end_date}</p>
-                                    <p className='text-blue-700'>({item.days}day)</p>
+                        <Card className='m-3 sm:m-5 md:m-8 lg:m-10 mt-4 sm:mt-5 bg-zinc-100 rounded-2xl'>
+                            <div className='flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-6 p-4 sm:p-5'>
+                                <div className='min-w-0'>
+                                    <p className='text-lg sm:text-xl md:text-2xl font-bold text-zinc-600'>{item.leave_type}</p>
+                                    <div className='text-zinc-500 text-xs sm:text-sm pt-2 flex flex-wrap gap-2 sm:gap-3'>
+                                      <p className="whitespace-nowrap">{item.start_date} <span className='px-2'>to</span> {item.end_date}</p>
+                                      <p className='text-blue-700 whitespace-nowrap'>({item.days} day)</p>
                                     </div>
-                                    <p className='text-zinc-600 text-sm pt-2'>Reason: <span className='text-blue-600'>{item.reason}</span></p>
+                                    <p className='text-zinc-600 text-xs sm:text-sm pt-2 break-words'>
+                                      Reason: <span className='text-blue-600'>{item.reason}</span>
+                                    </p>
                                 </div>
-                                    <span className={`m-10 px-4 py-1 rounded-2xl text-white ${item.status==='approved' ? 'bg-green-700' : item.status==='rejected' ? 'bg-red-700' : 'bg-yellow-200'}`}>{item.status}</span>
+                                <span className={`self-start sm:self-auto px-3 sm:px-4 py-1 rounded-2xl text-white text-xs sm:text-sm capitalize ${item.status==='approved' ? 'bg-green-700' : item.status==='rejected' ? 'bg-red-700' : 'bg-yellow-500'}`}>
+                                  {item.status}
+                                </span>
                             </div>
                         </Card>
                     </>)}

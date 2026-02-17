@@ -85,13 +85,14 @@ function RoleBasedSidebar({ role }: { role?: string }) {
 
 
   return (
-    <div className="flex min-h-screen bg-zinc-200">
-    
+    <div className="flex min-h-screen bg-zinc-200 overflow-x-hidden">
       {/* {user?.role === "admin" ? <AdminSidebar /> : <Sidebar />} */}
+      <div className="hidden md:block shrink-0">
       <RoleBasedSidebar role={user?.role} />
-      <div className="flex flex-col flex-1">
+      </div>
+      <div className="flex flex-col flex-1 min-w-0 w-full">
         <Navbar />
-        <main className="p-10 2xl:p-15">{children}</main>
+        <main className="p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 2xl:p-15 w-full max-w-full overflow-x-hidden">{children}</main>
       </div>
     </div>
   );
