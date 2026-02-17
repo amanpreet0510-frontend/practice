@@ -7,12 +7,12 @@ import { getSupabaseClient } from "@/lib/supabaseClient";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
 import { useUserStore } from "@/store/userStore";
 import { User } from "@/types/user.types";
-import { LucideCalendar, LucideCircleAlert, LucideUser, LucideUserRoundX, LucideUsers } from "lucide-react";
+import { LucideCalendar, LucideCircleAlert, LucideUser, LucideUserRoundX, LucideUsers,LucideArrowUpRight } from "lucide-react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "@/app/hooks";
 import { RootState } from "@/store";
 import { fetchUsersOnLeave } from "@/slices/showLeaveRequest";
-
+import Link from "next/link"
 export default function HrDashboard() {
 
   const dispatch = useAppDispatch();
@@ -156,7 +156,6 @@ export default function HrDashboard() {
             <div className="flex m-10 gap-3">
           <div className="text-4xl"><p>{pendingCount}</p></div>
           <div className=""><LucideUsers className="w-10 h-10"/></div>
-          </div>
           </div>
         </Card>
       </div>
