@@ -53,7 +53,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="sticky top-0 z-[100] shadow-sm bg-[#0F0E23] md:bg-zinc-200 w-full min-w-0">
+      <nav className="sticky top-0 z-50 shadow-sm bg-[#0F0E23] md:bg-zinc-200 w-full min-w-0">
         <ul className="">
           {menu.map((item, id) => (
             <React.Fragment key={id}>

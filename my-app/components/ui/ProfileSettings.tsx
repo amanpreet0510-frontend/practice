@@ -151,160 +151,162 @@ export default function ProfileSettings() {
   return (
     <>
       <div className="w-full min-w-0 overflow-x-hidden px-2 sm:px-0">
-        <div className="p-4 sm:p-6 bg-gradient-to-b from-[#0D091E] to-[#0D091E] rounded-2xl m-2 sm:m-4 md:m-6 lg:m-10 mt-2 sm:mt-4 md:mt-6 sticky top-16 sm:top-20 z-40">
-          <h1 className="font-playfair text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white">My Profile</h1>
-          <p className="text-sm sm:text-base md:text-lg lg:text-xl mt-2 sm:mt-3 text-zinc-400">
+        <div className="p-4 sm:p-6 bg-gradient-to-b from-[#0D091E] to-[#0D091E] rounded-2xl m-2 sm:m-4 md:m-6 lg:m-10 mt-2 sm:mt-4 md:mt-6 sticky top-5 sm:top-0 z-40">
+          <h1 className="text-xl sm:text-3xl md:text-2xl lg:text-2xl font-bold text-white">My Profile</h1>
+          <p className="text-[14px] lg:text-sm mt-2 sm:mt-1 text-zinc-400">
             View and manage your profile and account settings
           </p>
         </div>
-        <Card className="flex justify-center w-full max-w-[350px] sm:max-w-[400px] md:max-w-[450px] mb-10 sm:mb-15 mx-auto rounded-2xl shadow-xl bg-zinc-200 border border-zinc-300 overflow-hidden">
-          <CardContent className="p-4 sm:p-6 md:p-10 space-y-8 sm:space-y-10 md:space-y-14">
-            <div className="flex flex-col lg:flex-row items-center gap-10">
-              <div className="relative w-20 h-20">
-                {imagePreview ? (
-                  <img
-                    src={imagePreview}
-                    alt="Profile Preview"
-                    className="rounded-full object-cover w-20 h-20"
-                  />
-                ) : (
-                  <Image
-                    src={form.image || "/logo.png"}
-                    alt="Profile Image"
-                    fill
-                    className="rounded-full border-4 shadow"
-                  />
-                )}
-                <label className="absolute bottom-0 right-0 w-5 h-5 rounded-full bg-primary flex items-center justify-center text-white cursor-pointer">
-                  <Plus className="text-black" size={30} />
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (!file) return
-                      setImagePreview(URL.createObjectURL(file))
-                      setImageFile(file)
-                    }}
-                  />
-                </label>
+        <div className="m-4 sm:m-8 lg:m-12 mt-10 sm:mt-5">
+          <Card className="flex justify-center w-full max-w-[350px] sm:max-w-[400px] md:max-w-full mb-10 sm:mb-15 mx-auto  rounded-2xl shadow-xl bg-zinc-200 border border-zinc-300 overflow-hidden">
+            <CardContent className="p-4 sm:p-6 md:p-10 space-y-8 sm:space-y-10 md:space-y-14">
+              <div className="flex flex-col md:flex-row items-center md:items-start gap-4 sm:gap-10">
+                <div className="relative w-20 h-20">
+                  {imagePreview ? (
+                    <img
+                      src={imagePreview}
+                      alt="Profile Preview"
+                      className="rounded-full object-cover w-20 h-20"
+                    />
+                  ) : (
+                    <Image
+                      src={form.image || "/logo.png"}
+                      alt="Profile Image"
+                      fill
+                      className="rounded-full border-4 shadow"
+                    />
+                  )}
+                  <label className="absolute bottom-0 right-0 w-5 h-5 rounded-full bg-primary flex items-center justify-center text-white cursor-pointer">
+                    <Plus className="text-black" size={30} />
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return
+                        setImagePreview(URL.createObjectURL(file))
+                        setImageFile(file)
+                      }}
+                    />
+                  </label>
+                </div>
+                <div className="text-center lg:text-left space-y-0 sm:space-y-2">
+                  <h2 className="text-purple-950 text-3xl font-bold">{form.name}</h2>
+                  {/* <p className="text-gray-500">{form.mobile || "N/A"}</p> */}
+                  <span className="inline-block mt-2 px-5 py-1 rounded-full bg-zinc-100 text-green-800 text-sm">
+                    {user.role}
+                  </span>
+                </div>
               </div>
-              <div className="text-center lg:text-left space-y-2">
-                <h2 className="text-purple-950 text-3xl font-bold">{form.name}</h2>
-                {/* <p className="text-gray-500">{form.mobile || "N/A"}</p> */}
-                <span className="inline-block mt-2 px-5 py-1 rounded-full bg-zinc-100 text-green-800 text-sm">
-                  {user.role}
-                </span>
-              </div>
-            </div>
 
-            <h3 className="text-zinc-600 text-2xl mb-4">
-              Contact Information
-            </h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="shadow-lg shadow-zinc-700 flex gap-4 p-0 py-3 rounded-xl border mt-1 w-full bg-zinc-100  border-zinc-400 px-4 focus:outline-none focus:ring-2 focus:ring-purple-600">
-                <Mail className="text-gray-400 mt-1" />
-                <div className="">
-                  <p className="text-sm text-gray-500">Email</p>
-                  <p className="text-zinc-500 font-medium break-all">{user.email}</p>
-                </div>
-              </div>
-              <div className="shadow-lg shadow-zinc-700 flex gap-4 p-5 rounded-xl border mt-1 w-full bg-zinc-100  border-zinc-400 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-600">
-                <Phone className="text-gray-400 mt-1" />
-                <div>
-                  <p className="text-sm text-gray-500">Phone</p>
-                  <p className="text-zinc-500 font-medium">{form.mobile || "N/A"}</p>
-                </div>
-              </div>
-              <div className="shadow-lg shadow-zinc-700 flex gap-4 p-5 rounded-xl border mt-1 w-full bg-zinc-100  border-zinc-400 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-600">
-                <MapPin className="text-gray-400 mt-1" />
-                <div>
-                  <p className="text-sm text-gray-500">Location</p>
-                  <p className="text-zinc-500 font-medium">N/A</p>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-2xl  text-zinc-600">
-                Profile Details
+              <h3 className="text-zinc-600 text-2xl mb-4">
+                Contact Information
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-zinc-700 m-5">
-                <div>
-                  <Label className="text-zinc-600 text-lg">Name</Label>
-                  <Input
-                    value={form.name}
-                    onChange={(e) =>
-                      setForm({ ...form, name: e.target.value })
-                    }
-                    className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600'
-                  />
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5  md:gap-2 lg:gap-6">
+                <div className="shadow-lg shadow-zinc-700 flex gap-4 p-0 py-3 rounded-xl border mt-1 w-full bg-zinc-100  border-zinc-400 px-4 focus:outline-none focus:ring-2 focus:ring-purple-600">
+                  <Mail className="text-gray-400 mt-1" />
+                  <div className="">
+                    <p className="text-[10px] md:text-sm text-gray-500">Email</p>
+                    <p className="text-zinc-500 font-medium break-all text-[1px] md:text-[10px]">{user.email}</p>
+                  </div>
                 </div>
-                <div>
-                  <Label className="text-zinc-600 text-lg">Email</Label>
-                  <Input value={user.email} disabled className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600' />
+                <div className="shadow-lg shadow-zinc-700 flex gap-4 p-5 rounded-xl border mt-1 w-full bg-zinc-100  border-zinc-400 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-600">
+                  <Phone className="text-gray-400 mt-1" />
+                  <div>
+                    <p className="text-[10px] md:text-sm text-gray-500">Phone</p>
+                    <p className="text-zinc-500 font-medium break-all text-[1px] md:text-[10px]">{form.mobile || "N/A"}</p>
+                  </div>
                 </div>
-                <div>
-                  <Label className="text-zinc-600 text-lg">Mobile</Label>
-                  <Input
-                    placeholder="mobile no."
-                    value={form.mobile}
-                    onChange={(e) =>
-                      setForm({ ...form, mobile: e.target.value })
-                    }
-                    className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600'
-                  />
-                </div>
-                <div>
-                  <Label className="text-zinc-600 text-lg">Role</Label>
-                  <Input value={user.role} disabled
-                    className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600' />
+                <div className="shadow-lg shadow-zinc-700 flex gap-4 p-5 rounded-xl border mt-1 w-full bg-zinc-100  border-zinc-400 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-600">
+                  <MapPin className="text-gray-400 mt-1" />
+                  <div>
+                    <p className="text-[10px] md:text-sm text-gray-500">Location</p>
+                    <p className="text-zinc-500 font-medium break-all text-[1px] md:text-[10px]">N/A</p>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex justify-end mt-3">
-                <Button onClick={onSave} className="mt-10 px-10 py-6 text-base text-zinc-300 bg-[#2C1655]">
-                  Save Profile Changes
-                </Button>
-              </div>
-            </div>
-            <div>
-              <h3 className="text-2xl mb-3 flex items-center gap-3 text-zinc-600">
-                <Lock />
-                Account Settings
-              </h3>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-zinc-600">
-                <div>
-                  <Label className="text-lg m-5">Current Password</Label>
-                  <Input value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} type="password" placeholder="Enter current password" className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600' />
+              <div>
+                <h3 className="text-2xl  text-zinc-600">
+                  Profile Details
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 text-zinc-700 m-5">
+                  <div>
+                    <Label className="text-zinc-600 text-lg">Name</Label>
+                    <Input
+                      value={form.name}
+                      onChange={(e) =>
+                        setForm({ ...form, name: e.target.value })
+                      }
+                      className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600'
+                    />
+                  </div>
+                  <div>
+                    <Label className="text-zinc-600 text-lg">Email</Label>
+                    <Input value={user.email} disabled className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600' />
+                  </div>
+                  <div>
+                    <Label className="text-zinc-600 text-lg">Mobile</Label>
+                    <Input
+                      placeholder="mobile no."
+                      value={form.mobile}
+                      onChange={(e) =>
+                        setForm({ ...form, mobile: e.target.value })
+                      }
+                      className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600'
+                    />
+                  </div>
+                  <div>
+                    <Label className="text-zinc-600 text-lg">Role</Label>
+                    <Input value={user.role} disabled
+                      className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600' />
+                  </div>
                 </div>
 
-                <div>
-                  <Label className="text-lg m-5">New Password</Label>
-                  <Input value={newPassword} onChange={(e) => setNewPassword(e.target.value)} type="password" placeholder="Enter new password" className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600' />
+                <div className="flex justify-center sm:justify-end mt-3">
+                  <Button onClick={onSave} className="mt-10 px-10 py-6 text-base text-zinc-300 bg-[#2C1655]">
+                    Save Profile Changes
+                  </Button>
                 </div>
+              </div>
+              <div>
+                <h3 className="text-2xl mb-3 flex items-center gap-3 text-zinc-600">
+                  <Lock />
+                  Account Settings
+                </h3>
 
-                <div>
-                  <Label className="text-lg m-5">Confirm New Password</Label>
-                  <Input
-                    value={confirmNewPassword}
-                    onChange={(e) => setConfirmNewPassword(e.target.value)}
-                    type="password"
-                    placeholder="Confirm new password"
-                    className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600'
-                  />
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-0 sm:gap-6 text-zinc-600">
+                  <div>
+                    <Label className="text-[11px] xl:text-lg m-5">Current Password</Label>
+                    <Input value={oldPassword} onChange={(e) => setOldPassword(e.target.value)} type="password" placeholder="Enter current password" className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600' />
+                  </div>
+
+                  <div>
+                    <Label className="text-[11px] xl:text-lg m-5">New Password</Label>
+                    <Input value={newPassword} onChange={(e) => setNewPassword(e.target.value)} type="password" placeholder="Enter new password" className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600' />
+                  </div>
+
+                  <div>
+                    <Label className="text-[11px] xl:text-lg m-5">Confirm New Password</Label>
+                    <Input
+                      value={confirmNewPassword}
+                      onChange={(e) => setConfirmNewPassword(e.target.value)}
+                      type="password"
+                      placeholder="Confirm new password"
+                      className='mt-5 shadow-lg shadow-zinc-700 flex gap-4 rounded-xl border p-[30px] w-full bg-zinc-100  border-zinc-400 focus:outline-none focus:ring-2 focus:ring-purple-600'
+                    />
+                  </div>
+                </div>
+                <div className="flex justify-center sm:justify-end mt-8">
+                  <Button className="mt-10  px-10 py-6 text-base text-zinc-300 bg-[#2C1655]" onClick={(handleSubmit)}>
+                    Update Password
+                  </Button>
                 </div>
               </div>
-              <div className="flex justify-end mt-8">
-                <Button className="mt-10  px-10 py-6 text-base text-zinc-300 bg-[#2C1655]" onClick={(handleSubmit)}>
-                  Update Password
-                </Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </div>
       </div>
 
     </>

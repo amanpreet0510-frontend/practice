@@ -19,14 +19,13 @@ const HRDashboard = () => {
     fetchUser();
   }, [fetchPendingLeaves, fetchUser]);
 
-
   return (
     <>
-    <div className='w-full min-w-0 overflow-x-hidden'>
+    <div className='w-full overflow-x-hidden'>
       <HrDashboard/>
-    <div className="p-4 sm:p-6 md:p-8 2xl:p-6 text-zinc-100 pt-6 sm:pt-8 md:pt-10 ps-0 w-full">
+    <div className="p-1 sm:p-6 md:p-8 2xl:p-0 text-zinc-100 pt-6 sm:pt-8 md:pt-10">
       <div>
-        <h2 className="text-xl md:text-3xl font-bold text-zinc-600">
+        <h2 className="text-lg md:text-3xl font-bold text-zinc-600">
           Pending Leave Requests
         </h2>
         <p className="text-[12px] md:text-md text-zinc-500 mt-1">
@@ -34,9 +33,9 @@ const HRDashboard = () => {
         </p>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-md overflow-x-auto mt-6 sm:mt-8 md:mt-10 2xl:m-6">
-        <div className="min-w-[500px]">
-          <table className="w-full">
+      <div className="bg-white rounded-md shadow-md overflow-x-auto mt-6 sm:mt-8 md:mt-10 2xl:mt-5">
+        <div className="">
+          <table className="">
           <thead>
             <tr className="bg-gray-50 text-left text-xs sm:text-sm text-gray-600">
               <th className="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap">User</th>
@@ -80,7 +79,7 @@ const HRDashboard = () => {
                   <td className="px-3 sm:px-4 py-3 sm:py-6 text-xs sm:text-sm">
                     {leave.leave_type}
                   </td>
-                  <td className="px-3 sm:px-4 py-3 sm:py-6 text-xs sm:text-sm max-w-[120px] sm:max-w-none truncate sm:whitespace-normal">
+                  <td className="px-3 sm:px-4 py-3 sm:py-6 text-xs sm:text-sm">
                     {leave.reason}
                   </td>
                   <td className="px-3 sm:px-4 py-2 text-gray-600 text-xs sm:text-sm">

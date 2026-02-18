@@ -9,7 +9,7 @@ export default function LeaveDetailsCard() {
   const yearlyUsed = leaves.reduce((sum, l) => sum + l.used, 0);
 
   return (
-    <div className="border-zinc-300 p-4 sm:p-6 md:ps-10 md:pe-10 pt-6 sm:pt-8 pb-6 sm:pb-8 shadow-md shadow-zinc-500 z-20 rounded-2xl w-full">
+    <div className="bg-zinc-100 border-zinc-300 p-4 sm:p-6 md:ps-10 md:pe-10 pt-6 sm:pt-8 pb-6 sm:pb-8 shadow-md shadow-zinc-500 z-20 rounded-2xl w-full">
       <h2 className="text-lg sm:text-xl font-semibold mb-6 sm:mb-8 ms-2 mt-2 text-zinc-700">Leave Details</h2>
       {loading ? (
         <p>Loading...</p>

@@ -40,8 +40,8 @@ const Documents = () => {
         <>
             <div className="w-full min-w-0 overflow-x-hidden px-1 sm:px-0">
                 <Toaster position="top-center" />
-                <Card className='border-2 border-zinc-300 m-2 sm:m-4 md:m-6 lg:m-10 overflow-hidden'>
-                    <div className='bg-gradient-to-b from-[#0D091E] to-[#54239B] p-4 sm:p-5 md:p-6 rounded-2xl m-3 sm:m-5'>
+                <Card className='border-transparent lg:border-2 lg:border-zinc-300  m-0 sm:m-4 md:m-6 lg:m-10 overflow-hidden'>
+                    <div className='bg-gradient-to-b from-[#0D091E] to-[#54239B] p-4 sm:p-5 md:p-6 rounded-2xl m-2 sm:m-5'>
                         <h2 className='text-white text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold'>Documents</h2>
                         <p className='text-zinc-400 text-sm sm:text-base md:text-lg'>Access company documents and resources</p>
                     </div>
@@ -49,7 +49,7 @@ const Documents = () => {
                       <Input
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
-                        className='border border-zinc-300 p-4 sm:p-5 md:p-6 rounded-2xl placeholder:text-zinc-500 bg-zinc-100 w-full'
+                        className='border border-zinc-300 p-4 sm:p-5 md:p-6 rounded-xl lg:rounded-2xl placeholder:text-zinc-500 bg-zinc-100 w-full'
                         placeholder='Search documents...'
                       />
                     </div>

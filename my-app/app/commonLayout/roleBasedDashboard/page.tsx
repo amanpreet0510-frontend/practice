@@ -1,9 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import AdminDashboard from "../roleBasedDashboard/adminDashboard";
-import HrDashboard from "../roleBasedDashboard/hrDashboard";
+import AdminDashboard from "./adminDashboard";
+import HrDashboard from "./hrDashboard";
 import { useUserStore } from "@/store/userStore";
-import EmployeeDashboard from "../roleBasedDashboard/employeeDashboard";
+import EmployeeDashboard from "./employeeDashboard";
 
 const RolebasedDashboard = () => {
   const user = useUserStore((state) => state.user);

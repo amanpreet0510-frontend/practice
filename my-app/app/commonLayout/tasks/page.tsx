@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useRef, useEffect } from "react";
 import { Card } from "@/components/ui/Card";
-import { useTaskStore } from "../../store/taskStore";
+import { useTaskStore } from "../../../store/taskStore";
 import { useUserStore } from "@/store/userStore";
 import { TaskStatus } from "@/types/task.types";
 import { TaskStatus as TaskStatusType } from "@/store/taskStore";

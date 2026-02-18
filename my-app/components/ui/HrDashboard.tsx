@@ -94,10 +94,10 @@ export default function HrDashboard() {
 
   return (
     <>
-    <div className="">
-      <div className="grid grid-cols-1 lg:grid-cols-2  xl:grid-cols-4 gap-5 md:gap-20 xl:gap-10 2xl:gap-1  md:pt-2 md:p-10 2xl:pe-15 ">
+    <div className="mt-10 sm:mt-0">
+      <div className="grid grid-cols-1 lg:grid-cols-2  xl:grid-cols-4 gap-5 md:gap-10 xl:gap-10 2xl:gap-10  md:pt-2">
       <div className="text-zinc-400">
-        <Card className="h-50 w-full xl:h-50 xl:w-50 2xl:h-50 2xl:w-70 bg-zinc-300 border border-zinc-300 shadow-zinc-500 shadow-xl p-5 pt-10 md:p-10 2xl:p-10">
+        <Card className="h-50 w-full xl:h-50 2xl:h-50 bg-zinc-300 border border-zinc-300 shadow-zinc-500 shadow-sm p-5 pt-10 md:p-10 2xl:p-10">
           <div className="">
             <div className="flex justify-between text-md 2xl:text-xl ">
               <div className="text-blue-600 w-20 md:w-full">On leave Today</div>
@@ -112,7 +112,7 @@ export default function HrDashboard() {
       </div>
 
       <div className="text-zinc-300 ">
-        <Card className="h-50 w-full xl:h-50 xl:w-50 2xl:h-50 2xl:w-70 bg-zinc-300 border-zinc-300 shadow-zinc-500 shadow-xl">
+        <Card className="h-50 w-full xl:h-50  2xl:h-50 bg-zinc-300 border-zinc-300 shadow-zinc-500 shadow-sm">
           <div className=" text-zinc-600">
             <div className="text-red-700 flex justify-between text-md  2xl:text-xl px-5 py-2 2xl:px-5 2xl:py-5">
               <div className="w-5 2xl:w-full">Pending Requests</div>
@@ -126,18 +126,18 @@ export default function HrDashboard() {
         </Card>
       </div>
       <div className="text-zinc-300">
-        <Card className="h-50 w-full xl:h-50 xl:w-50 2xl:h-50 2xl:w-70 bg-zinc-300 border-zinc-300 shadow-zinc-500 shadow-xl">
+        <Card className="h-50 w-full xl:h-50  2xl:h-50 bg-zinc-300 border-zinc-300 shadow-zinc-500 shadow-sm">
           <div className=" text-zinc-600">
-            <div className="flex justify-between text-sm p-5 md:w-35 ps-5 2xl:p-5 2xl:pb-0  2xl:w-full 2xl:text-xl text-[#312d77]">
+            <div className="flex justify-between  text-sm p-5  ps-5 2xl:p-5 2xl:pb-0  2xl:w-full 2xl:text-xl text-[#312d77]">
               <div><p>Team Directory</p>
               <span className="text-[10px] w-full md:text-sm">Browse team members</span></div>
               
               <div><LucideUsers/></div>
               </div>
             </div>
-            <div className="flex justify-center m-auto text-zinc-600">
+            <div className="flex justify-center  m-auto text-zinc-600">
           <div className="flex justify-around gap-1 border border-zinc-500 p-1 2xl:p-3 text-center rounded-2xl">
-            <div><button className="rounded-xl "><Link href="/userManagement" className=" text-sm 2xl:text-md text-blue-900">View Directory</Link></button></div>
+            <div><button className="rounded-xl "><Link href="/userManagement" className="text-sm 2xl:text-md text-blue-900">View Directory</Link></button></div>
             <div><LucideArrowUpRight/></div>
             </div>
           </div>
@@ -145,22 +145,24 @@ export default function HrDashboard() {
         </Card>
       </div>
       <div className="text-zinc-300">
-        <Card className="h-50 w-full xl:h-50 xl:w-50 2xl:h-50 2xl:w-70 bg-zinc-300 border-zinc-300 shadow-zinc-500 shadow-xl">
+        <Card className="h-50 w-full xl:h-50 2xl:h-50 bg-zinc-300 border-zinc-300 shadow-zinc-500 shadow-sm">
           <div className=" ">
-            <div className="flex justify-between text-sm p-5 md:w-35 ps-5 2xl:p-5 2xl:pb-0  2xl:w-full 2xl:text-xl text-[#312d77]">
+            <div className="flex justify-between text-sm p-5  ps-5 2xl:p-5 2xl:pb-0  2xl:w-full 2xl:text-xl text-[#312d77]">
               <div><p>Documents</p>
               <span className="text-[10px] w-full md:text-sm">View company documents</span></div>
               <div><LucideUsers className="text-black"/></div>
               </div>
             </div>
-            <div className="flex m-10 gap-3">
-          <div className="text-4xl"><p>{pendingCount}</p></div>
-          <div className=""><LucideUsers className="w-10 h-10"/></div>
+          <div className="flex justify-center  m-auto text-zinc-600">
+          <div className="flex justify-around gap-1 border border-zinc-500 p-1 2xl:p-3 text-center rounded-2xl">
+            <div><button className="rounded-xl "><Link href="/documents" className=" text-sm 2xl:text-md text-blue-900">View Documents</Link></button></div>
+            <div><LucideArrowUpRight/></div>
+            </div>
           </div>
         </Card>
       </div>
       </div>
-      <div className="mt-15 2xl:me-25 grid grid-cols-1 lg:grid-cols-2 lg:grid-cols-3 gap-10">
+      <div className="mt-15  grid grid-cols-1 lg:grid-cols-2 lg:grid-cols-3 gap-10">
      
         <Card className="bg-zinc-300 border-zinc-300 shadow-zinc-500 shadow-xl w-full lg:w-full">
           <CardHeader >
@@ -228,7 +230,8 @@ export default function HrDashboard() {
 
       
     </div>
-    <Card className="bg-zinc-300 border-zinc-300 shadow-zinc-500 shadow-xl  mt-15 me-0 2xl:me-25 lg:mb-10 w-full lg:w-full">
+    <div className="m-auto">
+    <Card className="bg-zinc-300 border-zinc-300 shadow-zinc-500 shadow-sm  mt-15   lg:mb-10 ">
         <CardHeader>
           <CardTitle className="text-zinc-600 md:text-2xl">Recently Invited Users</CardTitle>
         </CardHeader>
@@ -253,6 +256,7 @@ export default function HrDashboard() {
 
         </CardContent>
       </Card>
+      </div>
     </div>
     </>
   );

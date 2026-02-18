@@ -3,7 +3,7 @@ import { Card } from '@/components/ui/Card'
 import { LucideBuilding, LucideSquarePen } from 'lucide-react'
 import React, { useState, useEffect } from 'react'
 import { useAppDispatch } from "@/app/hooks";
-import { fetchAllUsers } from "../../slices/profileSlice";
+import { fetchAllUsers } from "../../../slices/profileSlice";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import AddPosition from '@/components/ui/AddPosition';

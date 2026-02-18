@@ -223,8 +223,8 @@ export const AttenadanceCard = () => {
 
   return (
     <>
-      <div className="m-3 sm:m-4 md:m-5 lg:p-6 xl:p-10 pt-0 rounded-2xl w-full min-w-0 overflow-x-hidden">
-        <Card className="p-4 sm:p-5 md:p-6 md:mt-6 lg:mt-10 md:mb-5 rounded-2xl bg-zinc-100 border-zinc-300 text-zinc-600">
+      <div className="m-3 sm:m-4 md:m-5 lg:p-0 xl:p-0 pt-0 rounded-2xl  min-w-0 overflow-x-hidden">
+        <Card className="p-4 sm:p-5 md:p-6 md:mt-0 lg:mt-0 md:mb-5 rounded-2xl bg-zinc-100 border-zinc-300 text-zinc-600">
           <div className="flex flex-col sm:flex-row sm:justify-between gap-4 sm:gap-6">
             <div>
               <CardHeader className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold">
@@ -339,13 +339,13 @@ export const AttenadanceCard = () => {
             </div>
           </Card>
         </div>
-        <div className="mt-6 sm:mt-8 md:mt-10 lg:mt-13 mb-10 sm:mb-15 overflow-x-auto">
+        <div className="mt-6 sm:mt-8 md:mt-10 lg:mt-13 mb-10 sm:mb-15 overflow-x-hidden">
           <Card className='bg-zinc-200 border-zinc-300 min-h-[200px] sm:min-h-[250px]' >
             <h1 className="text-lg sm:text-xl md:text-2xl font-semibold ps-4 sm:ps-6 md:ps-10 pt-4 sm:pt-5 text-zinc-600">Attendance History</h1>
             <div className="overflow-x-auto">
               <div>
-            <div className="ps-0 ms-3 sm:ms-5 me-3 sm:me-5 border-zinc-300 border-2 min-w-[400px] sm:min-w-0">
-              <div className="flex ms-2 sm:ms-5 md:ms-0 gap-2 sm:gap-4 lg:gap-6 justify-around text-[10px] sm:text-xs md:text-sm lg:text-base xl:text-xl text-zinc-500 font-bold">
+            <div className="ps-0 ms-3 sm:ms-5 me-3 sm:me-5 border-zinc-300 border-2  sm:min-w-0">
+              <div className="flex  ms-2 sm:ms-5 md:ms-0 gap-2 sm:gap-4 lg:gap-6 justify-around text-[10px] sm:text-xs md:text-sm lg:text-base xl:text-xl text-zinc-500 font-bold">
                 <h2>Date</h2>
                 <h2>Check In</h2>
                 <h2>Check Out</h2>
@@ -359,7 +359,7 @@ export const AttenadanceCard = () => {
                 {sessions.map((session) => (
                   <div
                     key={session.id}
-                    className="flex flex-wrap sm:flex-nowrap justify-between gap-2 sm:gap-4 text-xs sm:text-sm p-2 sm:p-3 hover:bg-gray-50 min-w-[350px] sm:min-w-0"
+                    className="flex flex-wrap sm:flex-nowrap justify-between  sm:gap-4 text-xs sm:text-sm p-2 sm:p-3 hover:bg-gray-50  sm:min-w-0"
                   >
                     <span className="text-[10px] sm:text-xs">
                       {new Date(session.login_time).toLocaleDateString()}

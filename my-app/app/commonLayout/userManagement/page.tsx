@@ -9,7 +9,7 @@ import { LucideSquarePen, LucideToggleRight, LucideTrash, LucideUserPlus } from 
 import { useUserStore } from "@/store/userStore";
 import { User } from "@/types/user.types";
 import { getSupabaseClient } from '@/lib/supabaseClient'
-import { fetchAllUsers } from "../../slices/profileSlice";
+import { fetchAllUsers } from "../../../slices/profileSlice";
 import { RootState, AppDispatch } from "@/store";
 import EditRole from '@/components/ui/EditRole';
 import { deleteUserProfile, updateUserStatus } from '@/supabaseApi/supabaseApi';

@@ -2,13 +2,12 @@
 
 import { useEffect, useState } from "react";
 import Sidebar from "@/components/layout/Sidebar";
-import AdminSidebar from "@/components/layout/AdminSidebar";
-import { useUserStore } from "@/store/userStore";
-import { useRouter, usePathname } from "next/navigation";
-import { getSupabaseClient } from "@/lib/supabaseClient";
-import HrSidebar from '@/components/layout/HrSidebar';
 import Navbar from "@/components/layout/Navbar";
-
+import AdminSidebar from "@/components/layout/AdminSidebar";
+import HrSidebar from "@/components/layout/HrSidebar";
+import { useUserStore } from "@/store/userStore";
+import { useRouter, usePathname } from "next/navigation"; 
+import { getSupabaseClient } from "@/lib/supabaseClient"; 
 
 export default function DashboardLayout({
   children,
@@ -16,25 +15,24 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  const pathname = usePathname();
+  const pathname = usePathname(); 
   const { user, setUser } = useUserStore();
   const [isLoading, setIsLoading] = useState(true);
-
-
 
   useEffect(() => {
     const syncUser = async () => {
       const supabase = getSupabaseClient();
-
-
+      
+      
       const { data: { user: authUser } } = await supabase.auth.getUser();
+      
 
       if (!authUser) {
         router.replace("/login");
         return;
       }
 
-
+    
       const { data: profile } = await supabase
         .from("profiles")
         .select("*")
@@ -42,32 +40,32 @@ export default function DashboardLayout({
         .single();
 
       if (profile) {
-
+        
         setUser({
           id: profile.id,
           email: profile.email,
           name: profile.name,
-          role: profile.role,
+          role: profile.role, 
           first_time: profile.first_time,
           image: profile.image,
           mobile: profile.mobile,
           is_active: profile.is_active
         });
 
-
+        
         if (profile.first_time) {
           router.replace("/createProfile");
-        }
-
+        } 
+       
       }
-
+      
       setIsLoading(false);
     };
 
     syncUser();
   }, [setUser, router]);
 
-
+  
   if (isLoading) {
     return (
       <div className="flex h-screen items-center justify-center bg-zinc-900 text-white">
@@ -76,18 +74,25 @@ export default function DashboardLayout({
     );
   }
 
-  function RoleBasedSidebar({ role }: { role?: string }) {
-    if (role === "admin") return <AdminSidebar />;
-    if (role === "hr") return <HrSidebar />;
-    return <Sidebar />;
-  }
+ 
+
+function RoleBasedSidebar({ role }: { role?: string }) {
+  if (role === "admin") return <AdminSidebar />;
+  if (role === "hr") return <HrSidebar />;
+  return <Sidebar />;
+}
+
+
 
   return (
-    <div className="flex min-h-screen overflow-x-hidden">
-    <div className="hidden md:block shrink-0"><RoleBasedSidebar role={user?.role} /></div>
-      <div className="flex flex-col flex-1 min-w-0 w-full">
+    <div className="flex min-h-screen bg-zinc-200 overflow-x-hidden">
+      {/* {user?.role === "admin" ? <AdminSidebar /> : <Sidebar />} */}
+      <div className="hidden md:block shrink-0 sm:w-[25%] ">
+      <RoleBasedSidebar role={user?.role} />
+      </div>
+      <div className="flex flex-col w-[100%] sm:w-[75%]">
         <Navbar />
-        <main className="flex-1 min-w-0 overflow-x-hidden p-4 sm:p-6 md:p-8">{children}</main>
+        <main className="p-4 sm:p-6 md:p-8 lg:p-10 xl:p-12 2xl:p-10 w-full max-w-full overflow-x-hidden">{children}</main>
       </div>
     </div>
   );
