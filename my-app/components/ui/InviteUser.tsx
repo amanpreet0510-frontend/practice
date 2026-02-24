@@ -50,8 +50,8 @@ const InviteUser = ({ open,
 
   return (
     <>
-      {open && <Card className='fixed inset-0 z-50 flex items-center justify-center bg-black/50 '>
-        <div className='bg-zinc-300  w-[600px]  h-135 rounded-xl p-10 shadow-xl border-purple-100 border-2'>
+      {open && <Card className='fixed  inset-0 z-100  top-0  flex items-center justify-center bg-black/50 '>
+        <div className='bg-zinc-300 m-5 max-w-[10px] h-100 lg:w-[600px]  lg:h-135 rounded-xl p-10 shadow-xl border-purple-100 border-2'>
           <div className='flex justify-between mb-5 pb-5'>
             <div>
               <h3 className='text-2xl font-bold text-zinc-800 '>Invite New User</h3>

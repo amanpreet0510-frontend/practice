@@ -42,8 +42,8 @@ const ViewProfile = ({ userId, onClose, open }: GlobalPopupProps) => {
 
     return (
         <>
-            {open && <Card className='fixed inset-0 z-50 flex items-center justify-center bg-black/40 text-zinc-700 p-4'>
-                <div className='bg-zinc-200 rounded-xl p-4 sm:p-6 shadow-xl max-h-[90vh] w-full max-w-[95vw] sm:max-w-[400px] md:max-w-[440px] lg:w-[440px] lg:max-w-none overflow-y-auto shadow-zinc-500 border-2 border-zinc-400'>
+            {open && <Card className='fixed inset-0 z-100 flex items-center justify-center bg-black/40 text-zinc-700 p-4'>
+                <div className='bg-zinc-200 rounded-xl p-4 sm:p-6 shadow-xl max-h-[90vh] w-full max-w-[95vw] sm:max-w-[400px] md:max-w-[440px] lg:w-[440px] lg:max-w-none overflow-y-auto  border-2 border-zinc-400'>
                     <div className='flex justify-between p-2 pt-4 sm:pt-6 md:pt-10'>
                         <div>
                             <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-zinc-700'>Employee Profile</h3>

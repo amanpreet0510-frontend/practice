@@ -102,7 +102,7 @@ const CreateProfile = () => {
 
     setUser(nextUser);
 
-    router.replace("/roleBasedDashboard");
+    router.replace("/commonLayout/roleBasedDashboard");
 
     setLoading(false);
   };

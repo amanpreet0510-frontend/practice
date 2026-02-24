@@ -54,8 +54,8 @@ const AddPosition = ({ open,
 
     return (
         <>
-            {open && <Card className='fixed inset-0 z-50 flex items-center justify-center bg-black/50   '>
-                <div className='bg-zinc-200  w-[600px]  h-150 rounded-xl p-6 shadow-xl'>
+            {open && <Card className='fixed inset-0 z-100 flex items-center justify-center bg-black/50   '>
+                <div className='bg-zinc-200 rounded-xl w-auto max-w-[600px] p-8 md:p-10 border-2 border-zinc-400'>
                     <div className='flex justify-between m-5 mb-0  pb-5'>
                         <div>
                             <h3 className='text-2xl font-bold text-zinc-700'>Edit Position</h3>

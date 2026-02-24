@@ -151,13 +151,13 @@ export default function ProfileSettings() {
   return (
     <>
       <div className="w-full min-w-0 overflow-x-hidden px-2 sm:px-0">
-        <div className="p-4 sm:p-6 bg-gradient-to-b from-[#0D091E] to-[#0D091E] rounded-2xl m-2 sm:m-4 md:m-6 lg:m-10 mt-2 sm:mt-4 md:mt-6 sticky top-5 sm:top-0 z-40">
+        <div className="p-4 sm:p-6 bg-gradient-to-b from-[#0D091E] to-[#0D091E] rounded-2xl z-40">
           <h1 className="text-xl sm:text-3xl md:text-2xl lg:text-2xl font-bold text-white">My Profile</h1>
           <p className="text-[14px] lg:text-sm mt-2 sm:mt-1 text-zinc-400">
             View and manage your profile and account settings
           </p>
         </div>
-        <div className="m-4 sm:m-8 lg:m-12 mt-10 sm:mt-5">
+        <div className="mt-10 border border-zinc-400 rounded-2xl">
           <Card className="flex justify-center w-full max-w-[350px] sm:max-w-[400px] md:max-w-full mb-10 sm:mb-15 mx-auto  rounded-2xl shadow-xl bg-zinc-200 border border-zinc-300 overflow-hidden">
             <CardContent className="p-4 sm:p-6 md:p-10 space-y-8 sm:space-y-10 md:space-y-14">
               <div className="flex flex-col md:flex-row items-center md:items-start gap-4 sm:gap-10">

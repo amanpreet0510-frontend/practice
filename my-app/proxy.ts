@@ -36,7 +36,7 @@ export async function proxy(request: NextRequest) {
 
   // If no user → redirect to login
   if (!user) {
-    if (request.nextUrl.pathname.startsWith("/roleBasedDashboard")) {
+    if (request.nextUrl.pathname.startsWith("/commonLayout/roleBasedDashboard")) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
     return response;
@@ -49,27 +49,27 @@ export async function proxy(request: NextRequest) {
     .eq("id", user.id)
     .single();
 
-    const protectedRoutes = ["/roleBasedDashboard"];
+    const protectedRoutes = ["/commonLayout/roleBasedDashboard"];
     const isProtected = protectedRoutes.some((r) =>
       request.nextUrl.pathname.startsWith(r)
     );
 
   // If user has no profile → first-time login → redirect to createProfile
   // If user has no profile → first-time login
-if ((!profile || profile.first_time) && request.nextUrl.pathname.startsWith("/roleBasedDashboard") && isProtected) {
+if ((!profile || profile.first_time) && request.nextUrl.pathname.startsWith("/commonLayout/roleBasedDashboard") && isProtected) {
   return NextResponse.redirect(new URL("/createProfile", request.url));
 }
 
 
   // If user is inactive → redirect to login
  // Only block protected routes
-if (!profile?.is_active && request.nextUrl.pathname.startsWith("/roleBasedDashboard") && isProtected) {
+if (!profile?.is_active && request.nextUrl.pathname.startsWith("/commonLayout/roleBasedDashboard") && isProtected) {
   return NextResponse.redirect(new URL("/login", request.url));
 }
 
 
   // If user has a role → allow access to roleBasedDashboard
-  if (request.nextUrl.pathname.startsWith("/roleBasedDashboard")&& isProtected) {
+  if (request.nextUrl.pathname.startsWith("/commonLayout/roleBasedDashboard")&& isProtected) {
     return response; // user allowed
   }
 

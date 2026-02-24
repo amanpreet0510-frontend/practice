@@ -58,18 +58,17 @@ const SetPassword = () => {
       <div className='min-h-screen bg-black text-white flex flex-col  items-center justify-center'>
 
        
-          <div className="flex gap-2 m-10">
-            <img src="/logo w 2.jpg" alt="logo" className="w-25 h-20 rounded-2xl" />
-            <h1 className="font-cursive text-6xl font-bold mt-5">WorkFlow</h1>
-            <img src='/reset-password.png' className="h-25 w-25" />
+          <div className="flex gap-2 ms-20 me-20 lg:ms-10 m-10">
+            <img src="/logo w 2.jpg" alt="logo" className="w-10 h-8 md:w-15 md:h-15 lg:w-25 lg:h-20 rounded-2xl" />
+            <h1 className="font-cursive text-4xl lg:text-6xl font-bold md:mt-5">WorkFlow</h1>
+            <img src='/reset-password.png' className="w-10 h-8 md:h-15 md:w-15 lg:h-25 lg:w-25" />
           </div>
           <Card className='relative
   bg-zinc-900/70
   backdrop-blur-xl
   rounded-3xl
   border
-  border-purple-500/30  w-[600px]  max-h-screen p-6 shadow-xl '>
-            
+  border-purple-500/30 max-h-[90vh] w-full max-w-[95vw] sm:max-w-[400px] md:max-w-[440px] lg:w-[440px] lg:max-w-none  p-6 shadow-xl'>
               <div>
                 <h3 className='text-4xl font-bold text-purple-100 text-center mt-5 mb-10'>SetPassword</h3>
               </div>
@@ -105,7 +104,7 @@ const SetPassword = () => {
                 variant="ghost"
                 size="icon"
                 onClick={() => setShow(!show)}
-                className="absolute  translate-y-92  translate-x-125 h-7 w-7"
+                className="absolute right-2 top-1/2 translate-y-2 h-7 w-7"
               >
                 {show ? <EyeOff size={16} /> : <Eye size={16} />}
               </Button>

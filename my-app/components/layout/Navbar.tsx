@@ -41,7 +41,7 @@ const Navbar = () => {
   ];
 
   const mobileMenu: MenuItem[] = [
-    { label: "Dashboard", href: "/roleBasedDashboard", icon: Home },
+    { label: "Dashboard", href: "/commonLayout/roleBasedDashboard", icon: Home },
     { label: "Employee Directory", href: "/userManagement", icon: Home },
     { label: "Attendance", href: "/attendance", icon: CalendarClock },
     { label: "Leave Request", href: "/leaveRequest", icon: Notebook },
@@ -53,7 +53,7 @@ const Navbar = () => {
 
   return (
     <>
-      <nav className="sticky top-0 z-50 shadow-sm bg-[#0F0E23] md:bg-zinc-200 w-full min-w-0">
+      <nav className="sticky top-0 z-0 shadow-sm bg-[#0F0E23] md:bg-zinc-200 w-full min-w-0">
         <ul className="">
           {menu.map((item, id) => (
             <React.Fragment key={id}>
