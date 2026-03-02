@@ -58,7 +58,7 @@ export const fetchAllUsers = createAsyncThunk(
 
 
 
-    return data.map((profile): User => {
+    return data.map((profile:any): User => {
       const mapped = {
         id: profile.id,
         email: profile.email,

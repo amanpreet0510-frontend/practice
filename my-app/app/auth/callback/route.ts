@@ -14,6 +14,5 @@ export async function GET(request: Request) {
     }
   }
 
-  // No code or exchange failed - redirect to login
   return NextResponse.redirect(new URL("/login", request.url));
 }

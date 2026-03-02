@@ -9,7 +9,7 @@ import { LucideSquarePen, LucideToggleRight, LucideTrash, LucideUserPlus } from 
 import { useUserStore } from "@/store/userStore";
 import { User } from "@/types/user.types";
 import { getSupabaseClient } from '@/lib/supabaseClient'
-import { fetchAllUsers } from "../../slices/profileSlice";
+import { fetchAllUsers } from "../../../slices/profileSlice";
 import { RootState, AppDispatch } from "@/store";
 import EditRole from '@/components/ui/EditRole';
 import { deleteUserProfile, updateUserStatus } from '@/supabaseApi/supabaseApi';
@@ -87,46 +87,45 @@ const UserManagement = () => {
 
 
   return (
-    <div className='p-10 '>
-     
-      <div className='flex justify-between  bg-gradient-to-b w-full from-[#0D091E] to-[#54239B] shadow-white shadow-lg rounded-2xl p-5'>
-        <div className=''>
-          <h1 className='text-5xl font-bold text-zinc-100'>User Management</h1>
-          <h3 className='text-2xl pt-5 text-zinc-400'>Invite, manage, and control user access</h3>
+    <div className='p-3 sm:p-6 md:p-8 lg:p-10 mt-0 m-1 sm:m-4 md:m-6 w-full min-w-0 overflow-x-hidden'>
+      <div className='flex flex-col sm:flex-row sm:justify-between gap-4 sm:gap-6 bg-gradient-to-b w-full from-[#0D091E] to-[#54239B] shadow-white shadow-lg rounded-xl sticky top-16 sm:top-20 z-40 p-4 sm:p-6 md:p-8 lg:p-10'>
+        <div className='min-w-0'>
+          <h1 className='text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-zinc-100'>User Management</h1>
+          <h3 className='text-sm sm:text-base pt-1 sm:pt-2 text-zinc-400'>Invite, manage, and control user access</h3>
         </div>
-        <div className='flex justify-end'>
-          <Button className='bg-zinc-300 m-10 p-7 text-[#492087] font-bold text-lg' onClick={() => {
+        <div className='flex justify-start sm:justify-end shrink-0'>
+          <Button className='bg-zinc-300 m-2 sm:m-4 md:m-10 p-4 sm:p-5 md:p-7 text-[#492087] font-bold text-sm sm:text-base lg:text-lg' onClick={() => {
             setopenn(true)
           }
-          } ><LucideUserPlus  className='w-20 h-20'/>Invite User</Button>
+          } ><LucideUserPlus className='w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7'/>Invite User</Button>
           
           <InviteUser open={openn}
             onClose={() => setopenn(false)}/>
             
         </div>
       </div>
-      <Card className='p-10 m-10 mt-20 bg-zinc-200 rounded-2xl h-min'>
-        <CardTitle className='text-4xl font-bold p-10 pt-5 pb-3 text-zinc-700 h-fit'>All Users</CardTitle>
-       <div className='m-5 mt-0 mb-2'><Input type='text' placeholder='Search.....' className='rounded-full h-15 bg-zinc-100 border border-zinc-400' value={search}
+      <Card className='p-4 sm:p-6 md:p-8 lg:p-10 pb-6 sm:pb-10 m-2 mt-6 sm:mt-10 bg-zinc-200 rounded-xl border border-zinc-200 shadow-zinc-600 shadow-xl overflow-x-auto'>
+        <CardTitle className='text-lg sm:text-xl md:text-2xl font-semibold p-4 sm:p-6 md:p-10 ps-3 sm:ps-5 pt-3 sm:pt-5 pb-0 text-zinc-600'>All Users</CardTitle>
+       <div className='m-3 sm:m-5 mt-3 sm:mt-5 mb-0'><Input type='text' placeholder='Search.....' className='rounded-sm h-10 sm:h-12 md:h-14 w-full bg-zinc-100 border border-zinc-200 shadow-zinc-500 shadow-sm' value={search}
           onChange={(e) => setSearch(e.target.value)} /></div>
         <CardContent>
-        <div className="min-h-screen">
+        <div className="mt-4 sm:mt-5 overflow-x-auto">
         <Table>
             <TableHeader>
               <TableRow className='text-zinc-600'>
-                <TableHead className='text-2xl'>Name</TableHead>
-                <TableHead className='text-2xl'>Role</TableHead>
-                <TableHead className='text-2xl'>Department</TableHead>
-                <TableHead className='text-2xl'>Status</TableHead>
-                <TableHead className='text-2xl'>Actions</TableHead>
+                <TableHead className='text-sm sm:text-base md:text-lg lg:text-xl'>Name</TableHead>
+                <TableHead className='text-sm sm:text-base md:text-lg lg:text-xl'>Role</TableHead>
+                <TableHead className='text-sm sm:text-base md:text-lg lg:text-xl'>Department</TableHead>
+                <TableHead className='text-sm sm:text-base md:text-lg lg:text-xl'>Status</TableHead>
+                <TableHead className='text-sm sm:text-base md:text-lg lg:text-xl'>Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody className=''>
             {filteredUsers.map((item, id) =>
               <>
-                <TableRow key={item.id} className='border-b-0 text-zinc-600'>
-                  <TableCell className='mt-10'>
-                    <div className='flex gap-5 text-xl'>
+                <TableRow key={item.id} className='border-b-0 text-zinc-600 text-xs sm:text-sm'>
+                  <TableCell className='mt-4 sm:mt-6 md:mt-10 py-2 sm:py-4'>
+                    <div className='flex gap-2 sm:gap-5 items-center'>
                     <div>
                   <Avatar>
                   <AvatarImage alt={item.name ?? ""} src={item.image ?? undefined}/>
@@ -135,12 +134,13 @@ const UserManagement = () => {
                     <div>{item.name}</div>
                     </div>
                     </TableCell>
-                  <TableCell className='mt-10 text-xl'>{item?.role}</TableCell>
-                  <TableCell className='mt-10 text-xl'>{item?.email}</TableCell>
-                  <TableHead > <Button className='text-xl' >
+                  <TableCell className='mt-4 sm:mt-6 md:mt-10 py-2 sm:py-4'>{item?.role}</TableCell>
+                  <TableCell className='mt-4 sm:mt-6 md:mt-10 py-2 sm:py-4 truncate max-w-[120px] sm:max-w-[150px] md:max-w-[200px]'>{item?.email}</TableCell>
+                  <TableCell className='mt-4 sm:mt-6 md:mt-10 py-2 sm:py-4'><Button className={`text-xs sm:text-sm ${item.is_active?"text-green-700":"text-red-700"}`} >
                     {item.is_active ? "active" : "Inactive"}
-                  </Button></TableHead>
-                  <div className='flex justify-around gap-2 mt-5 text-3xl'>
+                  </Button></TableCell>
+                  <TableCell className='mt-4 sm:mt-6 md:mt-10 py-2 sm:py-4'>
+                  <div className='flex justify-around gap-1 sm:gap-2'>
                     <Button
                       onClick={() => {
                         setSelectedUser(item)
@@ -164,6 +164,7 @@ const UserManagement = () => {
                       onClick={() => handleDelete(item.id)}
                     />
                   </div>
+                  </TableCell>
                 </TableRow>
               </>
             )}

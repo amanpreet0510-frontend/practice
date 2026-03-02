@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useLeaveApprovalStore } from '@/store/leaveApproval';
 import HrDashboard from '@/components/ui/HrDashboard';
 import { useUserStore } from '@/store/userStore';
+import AssignTask from '@/components/ui/AssignTask';
 
 
 const HRDashboard = () => {
@@ -18,42 +19,38 @@ const HRDashboard = () => {
     fetchUser();
   }, [fetchPendingLeaves, fetchUser]);
 
-
-  console.log('requests', requests);
-
   return (
     <>
-    <div>
+    <div className='w-full overflow-x-hidden'>
       <HrDashboard/>
-    </div>
-    
-    <div className="p-6 space-y-6 text-zinc-100">
+    <div className="p-1 sm:p-6 md:p-8 2xl:p-0 text-zinc-100 pt-6 sm:pt-8 md:pt-10">
       <div>
-        <h2 className="text-3xl font-bold text-white">
+        <h2 className="text-lg md:text-3xl font-bold text-zinc-600">
           Pending Leave Requests
         </h2>
-        <p className="text-gray-500 mt-1">
+        <p className="text-[12px] md:text-md text-zinc-500 mt-1">
           Review and approve employee leave requests
         </p>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-md overflow-hidden">
-        <table className="w-full border-collapse">
+      <div className="bg-white rounded-md shadow-md overflow-x-auto mt-6 sm:mt-8 md:mt-10 2xl:mt-5">
+        <div className="">
+          <table className="">
           <thead>
-            <tr className="bg-gray-50 text-left text-sm text-gray-600">
-              <th className="px-6 py-4">User</th>
-              <th className="px-6 py-4">Leave Type</th>
-              <th className="px-6 py-4">Reason</th>
-              <th className="px-6 py-4">From</th>
-              <th className="px-6 py-4">To</th>
-              <th className="px-6 py-4">Days</th>
-              <th className="px-6 py-4 text-center">
+            <tr className="bg-gray-50 text-left text-xs sm:text-sm text-gray-600">
+              <th className="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap">User</th>
+              <th className="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap">Leave Type</th>
+              <th className="px-3 sm:px-6 py-3 sm:py-4 whitespace-nowrap">Reason</th>
+              <th className="px-3 sm:px-6 py-3 sm:py-4">From</th>
+              <th className="px-3 sm:px-6 py-3 sm:py-4">To</th>
+              <th className="px-3 sm:px-6 py-3 sm:py-4">Days</th>
+              <th className="px-3 sm:px-6 py-3 sm:py-4 text-center">
                 Action
               </th>
             </tr>
           </thead>
-
           <tbody>
+            
             {requests.length === 0 ? (
               <tr>
                 <td
@@ -67,9 +64,9 @@ const HRDashboard = () => {
               requests.map((leave) => (
                 <tr
                   key={leave.id}
-                  className="border-t hover:bg-gray-50 transition text-zinc-600"
+                  className="border-t hover:bg-gray-50 transition text-zinc-600 font-medium"
                 >
-                  <td className="px-6 py-4">
+                  <td className="px-3 sm:px-6 py-2 text-xs sm:text-sm">
                     {(() => {
                       const person = users.find((u) => u.id === leave.user_id);
                       return (
@@ -79,28 +76,28 @@ const HRDashboard = () => {
                       );
                     })()}
                   </td>
-                  <td className="px-6 py-4 font-medium">
+                  <td className="px-3 sm:px-4 py-3 sm:py-6 text-xs sm:text-sm">
                     {leave.leave_type}
                   </td>
-                  <td className="px-6 py-4 font-medium">
+                  <td className="px-3 sm:px-4 py-3 sm:py-6 text-xs sm:text-sm">
                     {leave.reason}
                   </td>
-                  <td className="px-6 py-4 text-gray-600">
+                  <td className="px-3 sm:px-4 py-2 text-gray-600 text-xs sm:text-sm">
                     {leave.start_date}
                   </td>
 
-                  <td className="px-6 py-4 text-gray-600">
+                  <td className="px-3 sm:px-4 py-3 sm:py-4 text-gray-600 text-xs sm:text-sm">
                     {leave.end_date}
                   </td>
 
-                  <td className="px-6 py-4">
+                  <td className="px-3 sm:px-4 py-3 text-xs sm:text-sm">
                     <span className="inline-block px-3 py-1 text-sm rounded-full bg-blue-100 text-blue-700">
                       {leave.days} days
                     </span>
                   </td>
 
-                  <td className="px-6 py-4">
-                    <div className="flex justify-center gap-3">
+                  <td className="p-3 sm:p-5 md:px-6 md:py-4">
+                    <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
                       <button
                         onClick={() =>
                           updateLeaveStatus(
@@ -108,7 +105,7 @@ const HRDashboard = () => {
                             'approved'
                           )
                         }
-                        className="px-4 py-1.5 rounded-lg bg-green-600 text-white text-sm hover:bg-green-700 transition"
+                        className="p-1 md:px-4 md:py-1.5 rounded-lg bg-green-600 text-white text-[12px] md:text-sm hover:bg-green-700 transition"
                       >
                         Approve
                       </button>
@@ -120,7 +117,7 @@ const HRDashboard = () => {
                             'rejected'
                           )
                         }
-                        className="px-4 py-1.5 rounded-lg bg-red-600 text-white text-sm hover:bg-red-700 transition"
+                        className="p-1 md:px-4 md:py-1.5 rounded-lg bg-red-600 text-white text-[12px] md:text-sm hover:bg-red-700 transition"
                       >
                         Reject
                       </button>
@@ -130,8 +127,10 @@ const HRDashboard = () => {
               ))
             )}
           </tbody>
-        </table>
+          </table>
+        </div>
       </div>
+    </div>
     </div>
     </>
   );

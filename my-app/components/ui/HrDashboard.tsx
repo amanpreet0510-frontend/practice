@@ -6,13 +6,13 @@ import { getSupabaseClient } from "@/lib/supabaseClient";
 
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
 import { useUserStore } from "@/store/userStore";
-import { LucideAArrowUp, LucideArrowBigUp, LucideArrowUpRight, LucideCalendar, LucideCircleAlert, LucideUser, LucideUserRoundX, LucideUsers } from "lucide-react";
+import { User } from "@/types/user.types";
+import { LucideCalendar, LucideCircleAlert, LucideUser, LucideUserRoundX, LucideUsers,LucideArrowUpRight } from "lucide-react";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "@/app/hooks";
 import { RootState } from "@/store";
 import { fetchUsersOnLeave } from "@/slices/showLeaveRequest";
-import Link from "next/link";
-
+import Link from "next/link"
 export default function HrDashboard() {
 
   const dispatch = useAppDispatch();
@@ -22,6 +22,9 @@ export default function HrDashboard() {
   );
   
   const onLeaveCount=onLeave.length;
+
+//console.log('leaves', onLeave);
+
 
   useEffect(() => {
     dispatch(fetchUsersOnLeave());
@@ -64,12 +67,13 @@ export default function HrDashboard() {
       return;
     }
 
-    const total = users.length;
-    const admins = users.filter((u) => u.role === "admin").length;
-    const hr = users.filter((u) => u.role === "hr").length;
-    const employees = users.filter((u) => u.role === "employee").length;
-    const activeUsers = users.filter((u) => u.is_active === true).length;
-    const inactiveUsers = users.filter((u) => u.is_active === false).length;
+    const typedUsers = (users ?? []) as User[];
+    const total = typedUsers.length;
+    const admins = typedUsers.filter((u: User) => u.role === "admin").length;
+    const hr = typedUsers.filter((u: User) => u.role === "hr").length;
+    const employees = typedUsers.filter((u: User) => u.role === "employee").length;
+    const activeUsers = typedUsers.filter((u: User) => u.is_active === true).length;
+    const inactiveUsers = typedUsers.filter((u: User) => u.is_active === false).length;
 
 
     setStats({
@@ -90,50 +94,50 @@ export default function HrDashboard() {
 
   return (
     <>
-    <div className="p-8 space-y-8">
-      <div className="grid grid-cols-4">
-      <div className="text-zinc-300">
-        <Card className="h-50 w-70">
-          <div className=" ">
-            <div className="flex justify-around text-xl">
-              <div>On leave Today</div>
-              <div><LucideCalendar/></div>
+    <div className="mt-10 sm:mt-0">
+      <div className="grid grid-cols-1 lg:grid-cols-2  xl:grid-cols-4 gap-5 md:gap-10 xl:gap-10 2xl:gap-10  md:pt-2">
+      <div className="text-zinc-400">
+        <Card className="h-50 w-full xl:h-50 2xl:h-50 bg-zinc-300 border border-zinc-300 shadow-zinc-500 shadow-sm p-5 pt-10 md:p-10 2xl:p-10">
+          <div className="">
+            <div className="flex justify-between text-md 2xl:text-xl ">
+              <div className="text-blue-600 w-20 md:w-full">On leave Today</div>
+              <div className="text-blue-600"><LucideCalendar/></div>
             </div>
-            <div className="flex m-10 gap-3">
-          <div className="text-4xl"><p>{onLeaveCount}</p></div>
-          <div className=""><LucideUsers className="w-10 h-10"/></div>
+            <div className="flex m-5 md:m-10 gap-3">
+          <div className="md:text-2xl 2xl:text-4xl text-zinc-600"><p>{onLeaveCount}</p></div>
+          <div className="text-zinc-600"><LucideUsers className="md:w-8 md:h-8 2xl:w-10 2xl:h-10"/></div>
           </div>
           </div>
         </Card>
       </div>
 
-      <div className="text-zinc-300">
-        <Card className="h-50 w-70">
-          <div className=" ">
-            <div className="flex justify-around text-xl">
-              <div>Pending Requests</div>
-              <div><LucideCircleAlert/></div>
+      <div className="text-zinc-300 ">
+        <Card className="h-50 w-full xl:h-50  2xl:h-50 bg-zinc-300 border-zinc-300 shadow-zinc-500 shadow-sm">
+          <div className=" text-zinc-600">
+            <div className="text-red-700 flex justify-between text-md  2xl:text-xl px-5 py-2 2xl:px-5 2xl:py-5">
+              <div className="w-5 2xl:w-full">Pending Requests</div>
+              <div><LucideCircleAlert className="w-8 h-8 2xl:w-10 2xl:h-10"/></div>
             </div>
-            <div className="flex m-10 gap-3">
-          <div className="text-4xl"><p>{pendingCount}</p></div>
-          <div className=""><LucideUsers className="w-10 h-10"/></div>
-          </div>
+            <div className="flex m-10 mt-5 gap-3">
+          <div className="md:text-4xl"><p>{pendingCount}</p></div>
+          <div className=""><LucideUsers className="md:w-8 md:h-8 2xl:w-10 2xl:h-10"/></div>
+          </div>  
           </div>
         </Card>
       </div>
       <div className="text-zinc-300">
-        <Card className="h-50 w-70">
-          <div className=" ">
-            <div className="flex justify-around text-xl">
+        <Card className="h-50 w-full xl:h-50  2xl:h-50 bg-zinc-300 border-zinc-300 shadow-zinc-500 shadow-sm">
+          <div className=" text-zinc-600">
+            <div className="flex justify-between  text-sm p-5  ps-5 2xl:p-5 2xl:pb-0  2xl:w-full 2xl:text-xl text-[#312d77]">
               <div><p>Team Directory</p>
-              <span className="text-sm">Browse team members</span></div>
+              <span className="text-[10px] w-full md:text-sm">Browse team members</span></div>
               
               <div><LucideUsers/></div>
               </div>
             </div>
-            <div className="flex justify-center m-auto">
-          <div className="flex justify-around gap-1 border border-zinc-300 p-3 text-center rounded-2xl">
-            <div><button className="rounded-2xl"><Link href="/userManagement">View Directory</Link></button></div>
+            <div className="flex justify-center  m-auto text-zinc-600">
+          <div className="flex justify-around gap-1 border border-zinc-500 p-1 2xl:p-3 text-center rounded-2xl">
+            <div><button className="rounded-xl "><Link href="/userManagement" className="text-sm 2xl:text-md text-blue-900">View Directory</Link></button></div>
             <div><LucideArrowUpRight/></div>
             </div>
           </div>
@@ -141,26 +145,26 @@ export default function HrDashboard() {
         </Card>
       </div>
       <div className="text-zinc-300">
-        <Card className="h-50 w-70">
+        <Card className="h-50 w-full xl:h-50 2xl:h-50 bg-zinc-300 border-zinc-300 shadow-zinc-500 shadow-sm">
           <div className=" ">
-            <div className="flex justify-around text-xl">
+            <div className="flex justify-between text-sm p-5  ps-5 2xl:p-5 2xl:pb-0  2xl:w-full 2xl:text-xl text-[#312d77]">
               <div><p>Documents</p>
-              <span className="text-sm">View company documents</span></div>
-              <div><LucideUsers/></div>
+              <span className="text-[10px] w-full md:text-sm">View company documents</span></div>
+              <div><LucideUsers className="text-black"/></div>
               </div>
             </div>
-            <div className="flex justify-center m-auto">
-          <div className="flex justify-around gap-1 border border-zinc-300 p-3 text-center rounded-2xl">
-            <div><button className="rounded-2xl"><Link href="/documents">View Documents</Link></button></div>
+          <div className="flex justify-center  m-auto text-zinc-600">
+          <div className="flex justify-around gap-1 border border-zinc-500 p-1 2xl:p-3 text-center rounded-2xl">
+            <div><button className="rounded-xl "><Link href="/documents" className=" text-sm 2xl:text-md text-blue-900">View Documents</Link></button></div>
             <div><LucideArrowUpRight/></div>
             </div>
           </div>
-          
         </Card>
       </div>
       </div>
-      <div className="grid md:grid-cols-3 gap-6 text-zinc-600 text-2xl">
-        <Card className="bg-zinc-300">
+      <div className="mt-15  grid grid-cols-1 lg:grid-cols-2 lg:grid-cols-3 gap-10">
+     
+        <Card className="bg-zinc-300 border-zinc-300 shadow-zinc-500 shadow-xl w-full lg:w-full">
           <CardHeader >
             <div className="flex justify-between">
               <div><CardTitle>Total Users</CardTitle></div>
@@ -172,7 +176,7 @@ export default function HrDashboard() {
           </CardContent>
         </Card>
 
-        <Card className="bg-zinc-300">
+        <Card className="bg-zinc-300 border-zinc-300 shadow-zinc-500 shadow-xl w-full lg:w-full">
           <CardHeader>
             <div className="flex justify-between">
               <div><CardTitle>Active Users</CardTitle></div>
@@ -184,7 +188,7 @@ export default function HrDashboard() {
           </CardContent>
         </Card>
 
-        <Card className="bg-zinc-300">
+        <Card className="bg-zinc-300 border-zinc-300 shadow-zinc-500 shadow-xl w-full lg:w-full">
           <CardHeader>
             <div className="flex justify-between">
               <div><CardTitle>Inactive Users</CardTitle></div>
@@ -195,25 +199,25 @@ export default function HrDashboard() {
             {stats.inactiveUsers}
           </CardContent>
         </Card>
-      </div>
+      
 
 
-      <div className="grid md:grid-cols-3 gap-6 text-zinc-600 text-2xl">
-        <Card className="bg-zinc-300">
+     
+        <Card className="bg-zinc-300 border-zinc-300 shadow-zinc-500 shadow-xl w-full lg:w-full">
           <CardHeader>
             <CardTitle>Admins</CardTitle>
           </CardHeader>
           <CardContent className="text-3xl font-bold">{stats.admins}</CardContent>
         </Card>
 
-        <Card className="bg-zinc-300">
+        <Card className="bg-zinc-300 border-zinc-300 shadow-zinc-500 shadow-xl w-full lg:w-full">
           <CardHeader>
             <CardTitle>HR</CardTitle>
           </CardHeader>
           <CardContent className="text-3xl font-bold">{stats.hr}</CardContent>
         </Card>
 
-        <Card className="bg-zinc-300">
+        <Card className="bg-zinc-300 border-zinc-300 shadow-zinc-500 shadow-xl w-full lg:w-full">
           <CardHeader>
             <CardTitle>Employees</CardTitle>
           </CardHeader>
@@ -221,16 +225,38 @@ export default function HrDashboard() {
             {stats.employees}
           </CardContent>
         </Card>
-      </div>
+      
+      
 
-
-      <Card className="border-zinc-400 bg-zinc-300 ">
+      
+    </div>
+    <div className="m-auto">
+    <Card className="bg-zinc-300 border-zinc-300 shadow-zinc-500 shadow-sm  mt-15   lg:mb-10 ">
         <CardHeader>
-          <CardTitle className="text-zinc-600 text-2xl">Recently Invited Users</CardTitle>
+          <CardTitle className="text-zinc-600 md:text-2xl">Recently Invited Users</CardTitle>
         </CardHeader>
         <CardContent>
+          {/* <ul className="space-y-3">
+            {recentInvites.map((u:any) => (
+              <li
+                key={u.id}
+                className="p-3 border rounded-lg flex justify-between items-center"
+              >
+                <div>
+                  <p className="font-semibold">{u.name}</p>
+                  <p className="text-sm text-gray-500">{u.email}</p>
+                </div>
+
+                <span className="text-xs px-2 py-1 rounded bg-gray-200">
+                  {u.role}
+                </span>
+              </li>
+            ))}
+          </ul> */}
+
         </CardContent>
       </Card>
+      </div>
     </div>
     </>
   );

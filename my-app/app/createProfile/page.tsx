@@ -154,7 +154,7 @@ const CreateProfile = () => {
         
         <div className="flex gap-2"><img src="/logo w 2.jpg" alt="logo" className="w-25 h-20 rounded-2xl" />
           <h1 className="font-cursive text-6xl font-bold mt-5">WorkFlow</h1>
-          <img src='/image.png' className="h-20 w-20"/>
+          {/* <img src='/image.png' className="h-20 w-20"/> */}
           </div>
         <Card className="relative
   bg-zinc-900/70

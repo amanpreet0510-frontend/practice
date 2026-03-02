@@ -8,6 +8,7 @@ export type TaskStatus = "pending" | "in_progress" | "completed" | "cancelled";
 export type Priority = "low" | "medium" | "high";
 export interface AssignTaskPayload {
   title: string;
+  userId:string;
   description: string;
   employeeId: string;
   dueDate: string;
@@ -102,20 +103,25 @@ export const useTaskStore = create<TaskStore>((set) => ({
   },
 
   
-  assignTaskToEmployee: async (payload) => {
+  assignTaskToEmployee: async (payload: AssignTaskPayload) => {
     set({ loading: true, error: null });
     try {
       const supabase = getSupabaseClient();
-      const { data: userData } = await supabase.auth.getUser();
-      const userId = userData?.user?.id;
+      const { data: sessionData } = await supabase.auth.getSession();
+      console.log("Session:", sessionData.session);
+      
 
-      if (!userId) throw new Error("User not authenticated");
+      //const { data: userData } = await supabase.auth.getUser();
+      //const userId = userData?.user?.id;
+      console.log('payload.userId)', payload.userId)
+
+      if (!payload.userId) throw new Error("User not authenticated");
 
       const { data, error } = await supabase.from("tasks").insert({
         title: payload.title,
         description: payload.description,
         assigned_to: payload.employeeId,
-        assigned_by: userId,
+        assigned_by: payload.userId,
         due_date: payload.dueDate,
         task_status: "pending", 
         priority: payload.priority,

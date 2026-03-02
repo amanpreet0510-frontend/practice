@@ -13,17 +13,11 @@ export default function CalendarPage() {
   }, [fetchEvents]);
 
   return (
-    <div className="m-8 p-10 text-zinc-400 relative
-  bg-zinc-900/70
-  backdrop-blur-xl
-  rounded-3xl
-  border
-  border-purple-500/30
-   mt-1 focus:outline-none focus:ring-2 focus:ring-purple-600  ">
-      <Card className=" bg-zinc-900/70
+    
+      <Card className="hover:bg-zinc-200 border-zinc-300 ps-10 pe-10 pt-8 mt-20 shadow-md shadow-zinc-500 z-20 
   backdrop-blur-xl text-zinc-400">
         <CardHeader>
-          <CardTitle className="text-4xl font-bold">Public Holidays & Events</CardTitle>
+          <CardTitle className="text-2xl font-semibold text-zinc-700">Public Holidays & Events</CardTitle>
         </CardHeader>
         <CardContent>
           {loading && <p className="text-gray-500">Loading events...</p>}
@@ -38,16 +32,16 @@ export default function CalendarPage() {
                 {CalendarEvent.map((item) => (
                   <li
                     key={item.id}
-                    className="p-4 border rounded-md hover:shadow-md transition"
+                    className="p-4 border bg-zinc-100 border-zinc-300 rounded-md hover:shadow-md transition"
                   >
-                    <div className="flex justify-between items-center">
-                      <p className="font-semibold text-lg">{item.title}</p>
+                    <div className="flex justify-between items-center ">
+                      <p className="font-semibold text-lg text-zinc-700">{item.title}</p>
                       <span className="text-gray-500">
                         {new Date(item.date).toLocaleDateString()}
                       </span>
                     </div>
                     {item.description && (
-                      <p className="text-gray-600 mt-1">{item.description}</p>
+                      <p className="text-zinc-400 text-sm mt-1">{item.description}</p>
                     )}
                     <span
                       className={`inline-block mt-2 px-2 py-1 text-xs font-medium rounded ${
@@ -67,6 +61,6 @@ export default function CalendarPage() {
           )}
         </CardContent>
       </Card>
-    </div>
+
   );
 }

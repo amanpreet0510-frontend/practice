@@ -86,32 +86,25 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white flex  items-center justify-center">
+    <div className="min-h-screen bg-black text-white flex items-center justify-center py-6 sm:py-8 overflow-x-hidden">
 
-      <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-10 px-6">
-        <div className="flex flex-col justify-center">
-          <div className="flex gap-2"><img src="/logo w 2.jpg" alt="logo" className="w-25 h-20 rounded-2xl" />
-
-            <h1 className="font-cursive text-6xl font-bold mt-5">WorkFlow</h1></div>
-          <div className="flex items-center gap-2 mb-10">
-            <div>
-              <h1 className="text-3xl font-bold mb-2 pt-10">Sign In to Workflow</h1>
-              <p className="text-gray-400  max-w-md">
+      <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-10 px-4 sm:px-6">
+        <div className="flex flex-col justify-center w-full min-w-0">
+          <div className="flex gap-2 items-center"><img src="/logo w 2.jpg" alt="logo" className="w-16 h-14 sm:w-20 sm:h-16 md:w-24 md:h-20 rounded-2xl shrink-0 object-cover" />
+            <h1 className="font-cursive text-4xl sm:text-5xl md:text-6xl font-bold mt-2 sm:mt-5">WorkFlow</h1></div>
+          <div className="flex items-center gap-2 mb-6 sm:mb-10">
+            <div className="min-w-0">
+              <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 pt-6 sm:pt-10">Sign In to Workflow</h1>
+              <p className="text-gray-400 text-sm sm:text-base max-w-md">
                 Manage your team, track productivity, and streamline workflows with ease.
               </p>
             </div>
           </div>
           <form
             onSubmit={handleSubmit}
-            className="relative
-  bg-zinc-900/70
-  backdrop-blur-xl
-  rounded-3xl
-  border
-  border-purple-500/30
-   mt-1 w-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-600 p-6  max-w-sm"
+            className="relative bg-zinc-900/70 backdrop-blur-xl rounded-3xl border border-purple-500/30 mt-1 w-full px-4 sm:px-6 py-4 sm:py-6 focus:outline-none focus:ring-2 focus:ring-purple-600 max-w-sm"
           >
-            <h1 className="text-2xl font-semibold pb-5">Email Address</h1>
+            <h1 className="text-lg sm:text-xl md:text-2xl font-semibold pb-4 sm:pb-5">Email Address</h1>
             <input
               type="email"
               placeholder="Enter email"
@@ -178,7 +171,7 @@ export default function LoginPage() {
               </div>
             </button>
           </form>
-          <p className="text-lg text-gray-400 ps-15  pt-10">
+          <p className="text-sm sm:text-base lg:text-lg text-gray-400 ps-0 sm:ps-4 pt-6 sm:pt-10">
             Don’t have an account?{" "}
             <span className="text-purple-400 hover:underline cursor-pointer"><Link href="/signup">Sign up</Link></span>
           </p>
@@ -190,9 +183,9 @@ export default function LoginPage() {
           <div className="absolute rounded-2xl  inset-0 bg-[radial-gradient(circle_at_center,_rgba(168,85,247,0.55),_transparent_150%)]" />
 
 
-          <div className="relative bg-zinc-900/70 backdrop-blur-xl border border-zinc-800 rounded-3xl p-8 max-w-xl shadow-2xl">
-            <h2 className="text-4xl font-semibold mb-2 ">Boost Employee Productivity</h2>
-            <p className="text-gray-400 mb-10 pt-5">
+          <div className="relative bg-zinc-900/70 backdrop-blur-xl border border-zinc-800 rounded-3xl p-6 sm:p-8 max-w-xl shadow-2xl">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold mb-2">Boost Employee Productivity</h2>
+            <p className="text-gray-400 text-sm sm:text-base mb-6 sm:mb-10 pt-4 sm:pt-5">
               Optimize your team’s performance and efficiency with our all‑in‑one
               employee management platform.
             </p>

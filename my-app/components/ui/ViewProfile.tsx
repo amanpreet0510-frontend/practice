@@ -22,7 +22,7 @@ const ViewProfile = ({ userId, onClose, open }: GlobalPopupProps) => {
     const { users, error } = useSelector(
         (state: RootState) => state.users
     );
-    console.log('first', users)
+    
 
     useEffect(() => {
         dispatch(fetchAllUsers());
@@ -36,62 +36,61 @@ const ViewProfile = ({ userId, onClose, open }: GlobalPopupProps) => {
 
     const user = users.find((u) => u.id === userId);
 
-    console.log('user.is_active', user?.is_active)
+    
+
     if (!user) return null;
-
-
-
 
     return (
         <>
-            {open && <Card className='fixed inset-0 z-50 flex items-center justify-center bg-black/40 text-zinc-700'>
-                <div className='bg-zinc-300  rounded-xl p-6 shadow-xl h-170 w-110 shadow-2xl shadow-zinc-500 border-3 border-zinc-400'>
-                    <div className='flex justify-between p-5'>
+            {open && <Card className='fixed inset-0 z-50 flex items-center justify-center bg-black/40 text-zinc-700 p-4'>
+                <div className='bg-zinc-200 rounded-xl p-4 sm:p-6 shadow-xl max-h-[90vh] w-full max-w-[95vw] sm:max-w-[400px] md:max-w-[440px] lg:w-[440px] lg:max-w-none overflow-y-auto shadow-zinc-500 border-2 border-zinc-400'>
+                    <div className='flex justify-between p-2 pt-4 sm:pt-6 md:pt-10'>
                         <div>
-                            <h3 className='text-2xl'>Employee Profile</h3>
+                            <h3 className='text-lg sm:text-xl md:text-2xl font-semibold text-zinc-700'>Employee Profile</h3>
                         </div>
                         <div>
-                            <Button onClick={onClose}><X /></Button>
+                            <Button onClick={onClose} ><X /></Button>
                         </div>
                     </div>
-
-                    <div className='flex gap-5 ms-8'>
-                        <div>
+                    <div className='ps-3 sm:ps-5'>
+                    <div className='flex gap-3 sm:gap-5 ms-1 mt-1'>
+                        <div className='shrink-0'>
                             {user.image && (
-                                <Image alt='' height={10} width={10} src={user.image} className='w-20 h-20 rounded-full' />
+                                <Image alt='' height={80} width={80} src={user.image} className='w-16 h-16 sm:w-20 sm:h-20 rounded-full object-cover'/>
                             )}
                         </div>
-                        <div>
-                            <h1 className='text-2xl'>{user.name}</h1>
-                            <h1 className='text-sm text-purple-900'>{user.position}</h1>
+                        <div className='min-w-0'>
+                            <h1 className='text-lg sm:text-xl md:text-2xl pt-2 sm:pt-5 truncate'>{user.name}</h1>
+                            <h1 className='text-xs sm:text-sm text-purple-900 truncate'>{user.position}</h1>
                         </div>
                     </div>
-                    <div>
-                        <h4 className='text-zinc-500 m-8 text-xl'>Contact Information</h4>
-                        <div className='flex gap-5 ms-8'>
+                    <div className='ms-1 m-4 sm:m-6 md:m-8'>
+                        <h4 className='text-zinc-600 text-base sm:text-lg md:text-xl'>Contact Information</h4>
+                        <div className='flex gap-5 mt-3'>
                             <div><Mail /></div>
                             <div className='text-purple-900'>{user.email}</div>
                         </div>
-                        <div className='flex gap-5 ms-8 mt-3'>
+                        <div className='flex gap-5 mt-3'>
                             <div><Phone /></div>
                             <div className='text-purple-900'>{user.mobile}</div>
                         </div>
                     </div>
-                    <div>
-                        <h4 className='text-zinc-500 m-8 text-xl'>Professional Deatils</h4>
-                        <div className='flex gap-5 ms-8'>
+                    <div className='ms-1 m-4 sm:m-6 md:m-8'>
+                        <h4 className='text-zinc-600 text-base sm:text-lg md:text-xl'>Professional Details</h4>
+                        <div className='flex gap-5 mt-3 text-zinc-500'>
                             <div><LucideBriefcase /></div>
-                            <div className='text-zinc-950 text-lg'>
+                            <div className='text-md'>
                                 <p>Department</p>
                                 <p className='text-sm text-purple-900'>{user.department}</p>
                             </div>
                         </div>
                     </div>
-                    <div className='ms-8 mt-5 text-zinc-500 text-xl'><h3>Reports to</h3>{user.reports_to}</div>
-                    <div className='ms-8 mt-3'><h2>Location</h2></div>
-                    <div className='ms-8 mt-3 gap-5 flex '>
+                    <div className='mt-4 sm:mt-5 text-zinc-600 text-base sm:text-lg md:text-xl'><h3>Reports to</h3><span className='break-words'>{user.reports_to}</span></div>
+                    <div className='mt-3'><h2>Location</h2></div>
+                    <div className='mt-3 gap-5 flex '>
                         <div><h2>Status</h2></div>
-                        <div><button className={`rounded-2xl text-sm text-zinc-700  px-5 ${user?.is_active ? "bg-green-200" : "bg-red-300"}`}>{user?.is_active ? "active" : "Inactive"}</button></div>
+                        <div><button className={`rounded-2xl text-sm text-zinc-300  px-5 ${user?.is_active ? "bg-green-800" : "bg-red-700"}`}>{user?.is_active ? "active" : "Inactive"}</button></div>
+                    </div>
                     </div>
                 </div>
             </Card>}
