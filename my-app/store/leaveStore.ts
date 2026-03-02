@@ -44,7 +44,7 @@ export const useLeaveStore = create<LeaveStore>((set) => ({
     { leave_type: string; total: number; used: number; remaining: number }
   > = {};
 
-  policies?.forEach((p) => {
+  policies?.forEach((p: { leave_type: string; yearly_quota: string }) => {
     const quota = Number(p.yearly_quota); 
 
     map[p.leave_type] = {
@@ -56,7 +56,7 @@ export const useLeaveStore = create<LeaveStore>((set) => ({
   });
 
  
-  usedLeaves?.forEach((u) => {
+  usedLeaves?.forEach((u: { leave_type: string; days: string }) => {
     if (!map[u.leave_type]) return;
 
     const days = Number(u.days);
