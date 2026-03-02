@@ -87,14 +87,14 @@ const UserManagement = () => {
 
 
   return (
-    <div className='p-3 sm:p-6 md:p-8 lg:p-10 mt-0 m-1 sm:m-4 md:m-6 w-full min-w-0 overflow-x-hidden'>
-      <div className='flex flex-col sm:flex-row sm:justify-between gap-4 sm:gap-6 bg-gradient-to-b w-full from-[#0D091E] to-[#54239B] shadow-white shadow-lg rounded-xl sticky top-16 sm:top-20 z-40 p-4 sm:p-6 md:p-8 lg:p-10'>
+    <div className=' w-full min-w-0 overflow-x-hidden'>
+      <div className='flex flex-col sm:flex-row sm:justify-between gap-4 sm:gap-6 p-5 md:p-10   bg-gradient-to-b w-full from-[#0D091E] to-[#54239B] shadow-white shadow-lg rounded-xl '>
         <div className='min-w-0'>
-          <h1 className='text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-zinc-100'>User Management</h1>
+          <h1 className='text-xl sm:text-2xl md:text-3xl lg:text-2xl font-bold text-zinc-100'>User Management</h1>
           <h3 className='text-sm sm:text-base pt-1 sm:pt-2 text-zinc-400'>Invite, manage, and control user access</h3>
         </div>
         <div className='flex justify-start sm:justify-end shrink-0'>
-          <Button className='bg-zinc-300 m-2 sm:m-4 md:m-10 p-4 sm:p-5 md:p-7 text-[#492087] font-bold text-sm sm:text-base lg:text-lg' onClick={() => {
+          <Button className='bg-zinc-300 m-2 sm:m-4 md:m-1 p-4 sm:p-5 md:p-7 text-[#492087] font-bold text-sm sm:text-base lg:text-lg' onClick={() => {
             setopenn(true)
           }
           } ><LucideUserPlus className='w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7'/>Invite User</Button>
@@ -104,12 +104,12 @@ const UserManagement = () => {
             
         </div>
       </div>
-      <Card className='p-4 sm:p-6 md:p-8 lg:p-10 pb-6 sm:pb-10 m-2 mt-6 sm:mt-10 bg-zinc-200 rounded-xl border border-zinc-200 shadow-zinc-600 shadow-xl overflow-x-auto'>
-        <CardTitle className='text-lg sm:text-xl md:text-2xl font-semibold p-4 sm:p-6 md:p-10 ps-3 sm:ps-5 pt-3 sm:pt-5 pb-0 text-zinc-600'>All Users</CardTitle>
-       <div className='m-3 sm:m-5 mt-3 sm:mt-5 mb-0'><Input type='text' placeholder='Search.....' className='rounded-sm h-10 sm:h-12 md:h-14 w-full bg-zinc-100 border border-zinc-200 shadow-zinc-500 shadow-sm' value={search}
+      <Card className='p-4 sm:p-6 md:p-8 lg:p-10 pb-6 sm:pb-10 m-2 mt-6 sm:mt-10 bg-zinc-200 rounded-xl border border-zinc-400 shadow-zinc-600 shadow-sm overflow-x-auto'>
+        <CardTitle className='text-lg sm:text-xl md:text-2xl font-semibold sm:p-6 md:p-0 xl:p-10 ps-3 sm:ps-5  sm:pt-5 pb-0 text-zinc-600'>All Users</CardTitle>
+       <div className=''><Input type='text' placeholder='Search.....' className='rounded-sm h-10 sm:h-12 md:h-14 w-full bg-zinc-100 border border-zinc-200 shadow-zinc-500 shadow-sm' value={search}
           onChange={(e) => setSearch(e.target.value)} /></div>
         <CardContent>
-        <div className="mt-4 sm:mt-5 overflow-x-auto">
+        <div className="mt-0 sm:mt-5 overflow-x-auto">
         <Table>
             <TableHeader>
               <TableRow className='text-zinc-600'>

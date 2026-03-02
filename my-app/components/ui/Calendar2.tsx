@@ -14,7 +14,7 @@ export default function CalendarPage() {
 
   return (
     
-      <Card className="hover:bg-zinc-200 border-zinc-300 ps-10 pe-10 pt-8 mt-20 shadow-md shadow-zinc-500 z-20 
+      <Card className="hover:bg-zinc-200 border-zinc-300 ps-10 pe-10 pt-8 mt-10 md:mt-20 shadow-md shadow-zinc-500 z-20 
   backdrop-blur-xl text-zinc-400">
         <CardHeader>
           <CardTitle className="text-2xl font-semibold text-zinc-700">Public Holidays & Events</CardTitle>

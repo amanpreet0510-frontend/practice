@@ -72,7 +72,7 @@ export default function SignupPage() {
 
     console.log('profile.first_time', profile.first_time)
     setUser(user);
-    router.replace("/roleBasedDashboard");
+    router.replace("/commonLayout/roleBasedDashboard");
 
   };
 

@@ -32,7 +32,6 @@ const EmployeeLeaveDashboard = () => {
   useEffect(() => {
     if (!user?.id) return;
     dispatch(fetchAttendanceSessions(user.id));
-    dispatch(loginAttendance(user.id));
     dispatch(fetchTodayLogin(user?.id));
 
   }, [dispatch, user?.id]);
@@ -52,7 +51,7 @@ const EmployeeLeaveDashboard = () => {
   return (
     <>
       <div className=" rounded-2xl z-20 ">
-        <div className="pt-5 gap-6 grid grid-cols-4 ">
+      <div className="grid grid-cols-1 lg:grid-cols-2  xl:grid-cols-4 gap-5 md:gap-10 xl:gap-10 2xl:gap-10  md:pt-2">
           <Card className="hover:bg-zinc-300 border-zinc-300 ps-10 pe-10 pt-8 shadow-md shadow-zinc-500 z-20">
             <h3 className="text-purple-900 font-bold font-playfair text-xl">Attendance Today</h3>
             <h2 className={`font-bold text-3xl ${login_time ? 'text-green-700':'text-red-700'}`}>{login_time?'Present':'Absent'}</h2>
@@ -73,7 +72,7 @@ const EmployeeLeaveDashboard = () => {
           <TaskCard/>
         </div>
         <QuickActions/>
-        <Calendar2 />
+        <Calendar2/>
       </div>
     </>
   );

@@ -64,7 +64,7 @@ const EditRole = ( {open,
     <>
     {open &&
       <Card className='fixed inset-0 z-50 flex items-center justify-center bg-black/5'>
-        <div className='bg-zinc-300 w-[400px] rounded-xl shadow-xl p-10'>
+        <div className='bg-zinc-300 w-[200px] md:w-[500px] rounded-xl shadow-xl p-10'>
           <div className='flex justify-between'>
             <div>
               <h3 className='text-xl text-zinc-700 font-bold'>Edit User Role</h3>

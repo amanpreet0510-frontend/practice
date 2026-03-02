@@ -3,9 +3,6 @@ import { getSupabaseClient } from "@/lib/supabaseClient";
 
 import { LeaveBalance } from "@/types/leaves.types";
 
-type PolicyRow = { leave_type: string; yearly_quota: number | string };
-type UsedLeaveRow = { leave_type: string; days: number | string };
-
 interface LeaveStore {
   leaves: LeaveBalance[];
   totalRemaining: number;
@@ -47,8 +44,7 @@ export const useLeaveStore = create<LeaveStore>((set) => ({
     { leave_type: string; total: number; used: number; remaining: number }
   > = {};
 
-  const policyRows = (policies ?? []) as PolicyRow[];
-  policyRows.forEach((p) => {
+  policies?.forEach((p: { leave_type: string; yearly_quota: string }) => {
     const quota = Number(p.yearly_quota); 
 
     map[p.leave_type] = {
@@ -59,8 +55,8 @@ export const useLeaveStore = create<LeaveStore>((set) => ({
     };
   });
 
-  const usedRows = (usedLeaves ?? []) as UsedLeaveRow[];
-  usedRows.forEach((u) => {
+ 
+  usedLeaves?.forEach((u: { leave_type: string; days: string }) => {
     if (!map[u.leave_type]) return;
 
     const days = Number(u.days);

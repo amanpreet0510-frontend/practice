@@ -234,7 +234,7 @@ export const AttenadanceCard = () => {
                 <p className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-2xl font-bold break-words">{formattedDate}</p>
               </CardContent>
               {currentSession ? (
-                <div className="p-6">
+                <div className="p-4">
                   <p className="text-sm md:text-xl font-semibold text-green-600">
                     Checked in at:{" "}
                     {new Date(currentSession.login_time).toLocaleTimeString()}
@@ -244,7 +244,7 @@ export const AttenadanceCard = () => {
                   </p>
                 </div>
               ) : (
-                <p className="text-[12px] lg:text-xl font-semibold p-6">
+                <p className="text-[12px] lg:text-xl font-semibold p-4">
                   You haven't checked in yet today.
                 </p>
               )}
@@ -254,7 +254,7 @@ export const AttenadanceCard = () => {
                 <Button
                   onClick={handleLogout}
                   disabled={loading}
-                  className="bg-zinc-700 text-zinc-300 text-sm sm:text-base md:text-lg xl:text-xl hover:bg-red-600 m-3 sm:m-5 md:m-10 w-full sm:w-auto min-w-[120px] sm:min-w-[140px] md:h-12 md:min-w-[160px]"
+                  className="bg-zinc-700 text-zinc-300 text-sm sm:text-base md:text-lg xl:text-xl hover:bg-red-600 m-3 sm:m-5 md:m-10 w-fit xl:w-full "
                 >
                   {loading ? "Logging out..." : "Logout"}
                   <svg

@@ -30,9 +30,9 @@ const Hierarchy = ({ userId, initialValues }: Props) => {
     const { users, error } = useSelector(
         (state: RootState) => state.users
     );
-    useEffect(() => {
-        console.log('fetched users12:', users.map(u => ({ name: u.name, id: u.id, reportsTo: u.reports_to, department: u.department })))
-    }, [users])
+    // useEffect(() => {
+    //     console.log('fetched users12:', users.map(u => ({ name: u.name, id: u.id, reportsTo: u.reports_to, department: u.department })))
+    // }, [users])
 
     const assignedUsers = users
     useEffect(() => {
@@ -56,7 +56,8 @@ const Hierarchy = ({ userId, initialValues }: Props) => {
 
     return (
         <>
-            <Card className='bg-gradient-to-b  from-[#0D091E] to-[#54239B] shadow-white shadow-sm rounded-lg p-5 m-10 mb-0 sticky top-0 z-50'>
+        <div className=''>
+            <Card className='bg-gradient-to-b  from-[#0D091E] to-[#54239B] shadow-white shadow-sm rounded-lg p-1 lg:p-5 2xl:m-10 mb-0 sticky top-0 z-50'>
                 <div className='p-3 flex justify-between'>
                     <div>
                         <h1 className='text-3xl font-bold text-white'>Organizational Hierarchy</h1>
@@ -64,9 +65,9 @@ const Hierarchy = ({ userId, initialValues }: Props) => {
                     </div>
                 </div>
             </Card>
-            <Card className='mt-0 m-11 shadow-zinc-600  shadow-xl rounded-2xl p-5 border border-zinc-200 '>
+            <Card className='mt-5 md:mt-0 md:m-11 shadow-zinc-600   shadow-xl rounded-2xl p-5 border border-zinc-400 '>
                 <div className='pt-5 pb-0 flex text-zinc-500'>
-                    <LucideBuilding size={40} color='white' /><h1 className=' text-2xl font-bold'>Company Structure</h1>
+                    <LucideBuilding size={40} /><h1 className='text-zinc-500 ps-2 text-xl lg:text-2xl font-bold'>Company Structure</h1>
                 </div>
                 <div>
                     {assignedUsers.map((user, index) => {
@@ -79,12 +80,14 @@ const Hierarchy = ({ userId, initialValues }: Props) => {
                                             console.log('clicked user.id', user.id)
                                             setSelectedUser(user)
                                         }}
-                                        className={`m-10 mt-2 w-full text-left p-3 border border-zinc-200 rounded-2xl cursor-pointer mb-2 transition-colors
+                                        className={`lg:m-10 mt-2 md:mt-1 lg:mt-0 w-full text-left p-3 border border-zinc-300 rounded-2xl cursor-pointer mb-2 transition-colors
       ${selectedUser?.id === user.id ? "bg-zinc-100 border-zinc-200" : "hover:bg-white"}
     `}
                                     >
-                                        <div className='flex text-zinc-500'>
-                                            <div className='ms-10 mt-10'>
+                                        <div className='flex justify-between'>
+                                        <div>
+                                        <div className='flex flex-col md:flex-row text-zinc-500'>
+                                            <div className='ms-5 md:ms-10 mt-10'>
                                                 {user.image && <Image
                                                     alt={user.name ?? 'user image'}
                                                     src={user.image}
@@ -100,15 +103,18 @@ const Hierarchy = ({ userId, initialValues }: Props) => {
                                                 <p>reportsTo: {user.reports_to}</p>
                                             </div>
                                         </div>
-                                    </Card>
-                                    <div className='absolute right-0 -translate-x-28 translate-y-0 flex'>
-                                        <button className='p-7 m-8'
+                                        </div>
+                                        <div className='right-0 translate-x-0 translate-y-0  lg:translate-x-0 lg:translate-y-0 flex'>
+                                        <button className='m-10  2xl:m-10'
                                             disabled={!selectedUser}
                                             onClick={() => {
                                                 setopen(true)
                                             }
                                             }><LucideSquarePen size={32} className='text-zinc-400' /></button>
                                     </div>
+                                    </div>
+                                    </Card>
+                                   
                                 </div></>)
                     })}
                     {open && selectedUser && <AddPosition
@@ -129,7 +135,7 @@ const Hierarchy = ({ userId, initialValues }: Props) => {
 
             </Card>
 
-
+            </div>
         </>
     )
 }

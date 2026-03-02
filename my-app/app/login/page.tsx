@@ -67,7 +67,7 @@ export default function LoginPage() {
       router.replace("/createProfile");
     }
     else {
-      router.replace("/roleBasedDashboard");
+      router.replace("/commonLayout/roleBasedDashboard");
     }
     //router.replace("/roleBasedDashboard");
   };

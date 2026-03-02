@@ -11,11 +11,11 @@ import { titleValues } from "@/types/menu.types";
 import { Home, ListTodo, Settings, CalendarClock, Notebook } from "lucide-react";
 
 const menu: MenuItem[] = [
-  { label: "Dashboard", href: "/roleBasedDashboard", icon: Home },
-  { label: "Attendance", href: "/attendance", icon: CalendarClock },
-  { label: "Leave Request", href: "/leaveRequest", icon: Notebook },
-  { label: "Tasks", href: "/tasks", icon: ListTodo },
-  { label: "Settings", href: "/settings", icon: Settings },
+  { label: "Dashboard", href: "/commonLayout/roleBasedDashboard", icon: Home },
+  { label: "Attendance", href: "/commonLayout/attendance", icon: CalendarClock },
+  { label: "Leave Request", href: "/commonLayout/leaveRequest", icon: Notebook },
+  { label: "Tasks", href: "/commonLayout/tasks", icon: ListTodo },
+  { label: "Settings", href: "/commonLayout/settings", icon: Settings },
 ];
 
 
@@ -35,18 +35,18 @@ const Sidebar = () => {
 
   return (
     <>
-      <aside className="flex flex-col border-r border-zinc-600 bg-[#0F0E23] w-56 md:w-60 lg:w-80 xl:w-96 p-3 md:p-5 sticky top-0 min-h-screen h-screen shrink-0">
+      <aside className="border-r border-zinc-600 bg-[#0F0E23] max-w-[25%] w-full p-3 md:p-5 z-60 top-0 h-screen fixed flex flex-col">
         <div className="flex justify-center items-center pt-6 md:pt-10 gap-2 md:gap-3 shrink-0">
           <Image alt="logo" height={50} width={80} src={logo} className="h-8 w-12 md:h-10 md:w-14 shrink-0" />
-          <h1 className="text-xl md:text-2xl lg:text-4xl xl:text-5xl font-extrabold text-white truncate">WorkFlow</h1>
+          <h1 className="text-xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-extrabold text-white truncate">WorkFlow</h1>
         </div>
         <nav className="flex-1 min-h-0 overflow-y-auto py-4">
-          <ul className="text-center ps-5 md:ps-10 lg:ps-16 xl:ps-20 space-y-2 md:space-y-4">
+          <ul className="text-center ps-3 md:ps-5 xl:ps-10 space-y-2 md:space-y-4 mt-5">
             {menu.map((item, id) => {
               const Icon = item.icon;
               return (
                 <Link href={item.href} key={id}>
-                  <li className="w-max flex items-center gap-2 md:gap-3 text-sm md:text-base lg:text-lg xl:text-xl text-zinc-300 hover:text-white hover:scale-105 transition-all duration-300">
+                  <li className="w-max flex items-center gap-2 mt-10 md:gap-3 text-sm md:text-base lg:text-lg xl:text-xl text-zinc-400 hover:text-white hover:scale-105 transition-all duration-300">
                     {Icon && <Icon className="w-5 h-5 md:w-6 md:h-6 shrink-0" />}
                     <span className="truncate">{item.label}</span>
                   </li>
