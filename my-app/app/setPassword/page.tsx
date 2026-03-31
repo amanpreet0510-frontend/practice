@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { EyeOff, Eye } from 'lucide-react';
 import { useSearchParams, useRouter } from "next/navigation";
 import { getSupabaseClient } from '@/lib/supabaseClient';
+import { toast } from "sonner";
 
 
 const SetPassword = () => {
@@ -19,38 +20,42 @@ const SetPassword = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSubmit = async () => {
-    if (!token) return;
-    if (password !== confirmPassword) {
-      alert("Passwords do not match.");
+    if (!token) {
+      toast.error("Invite token is missing.");
       return;
     }
-
+  
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match.");
+      return;
+    }
+  
     const supabase = getSupabaseClient();
-
-
+  
     const { error: verifyError } = await supabase.auth.verifyOtp({
       token_hash: token as string,
-      type: 'invite',
+      type: "invite",
     });
-
+  
     if (verifyError) {
-      console.error(verifyError.message);
-      alert("The recovery link is invalid or has expired.");
+      toast.error("The invite link is invalid or expired.");
       return;
     }
-
+  
     const { error: updateError } = await supabase.auth.updateUser({
       password,
     });
-
+  
     if (updateError) {
-      console.error(updateError.message);
-      alert("Failed to update password. Please try again.");
+      toast.error("Failed to update password.");
       return;
     }
-
-    alert("Password set successfully!");
-    router.push("/login");
+  
+    toast.success("Password set successfully!");
+  
+    setTimeout(() => {
+      router.push("/login");
+    }, 1500);
   };
 
   return (

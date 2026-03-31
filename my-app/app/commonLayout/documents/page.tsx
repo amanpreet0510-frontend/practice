@@ -99,7 +99,7 @@ const Documents = () => {
                                       className="h-9 w-9 p-0"
                                       aria-label="Share document"
                                     >
-                                      <LucideShare className='w-4 h-4' />
+                                      <LucideShare className='w-4 h-4'/>
                                     </Button>
                                     <Button
                                       onClick={() => downloadDocument(item.file_path, `${item.name}.pdf`)}

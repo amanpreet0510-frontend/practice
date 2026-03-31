@@ -158,7 +158,7 @@ export const AttenadanceCard = () => {
         .select()
         .single();
 
-      console.log('profile.user.id', profile.user.id)
+      
 
 
       if (err2) {

@@ -23,7 +23,6 @@ export default function HrDashboard() {
   
   const onLeaveCount=onLeave.length;
 
-//console.log('leaves', onLeave);
 
 
   useEffect(() => {

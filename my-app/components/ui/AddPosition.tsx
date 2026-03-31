@@ -4,13 +4,15 @@ import { Button } from '@/components/ui/button'
 import { X } from "lucide-react";
 import { Input } from './input';
 import { useAppDispatch } from "@/app/hooks";
-import { addUserHierarchy,updateUserHierarchy } from "@/slices/profileSlice";
+import { addUserHierarchy, updateUserHierarchy } from "@/slices/profileSlice";
+import { toast } from "sonner";
+import { useAppSelector } from '@/app/hooks';
 
 interface FormValues {
-    name:string;
+    name: string;
     position: string;
     department: string;
-    reports_to: string;
+    reports_to: string | null;
 }
 
 type AddPositionProps = {
@@ -20,16 +22,17 @@ type AddPositionProps = {
     initialValues: FormValues;
 }
 
-
 const AddPosition = ({ open,
     onClose,
     userId,
     initialValues
 }: AddPositionProps) => {
     const dispatch = useAppDispatch();
-   
+
     const [role, setRole] = useState("")
     const [values, setValues] = useState<FormValues>(initialValues)
+
+    const users = useAppSelector((state) => state.users.users);
 
 
     const handleSubmit = async () => {
@@ -37,7 +40,7 @@ const AddPosition = ({ open,
             await dispatch(
                 updateUserHierarchy({
                     userId,
-                    name:values.name || null,
+                    name: values.name || null,
                     position: values.position || null,
                     department: values.department || null,
                     reports_to: values.reports_to || null,
@@ -45,10 +48,10 @@ const AddPosition = ({ open,
             ).unwrap()
 
 
-           onClose()
-            console.log("Hierarchy updated successfully")
+            onClose()
+            toast.success("Hierarchy updated successfully.");
         } catch (err) {
-            console.log("Failed to update hierarchy")
+            toast.error("Failed to update hierarchy.");
         }
     }
 
@@ -67,34 +70,43 @@ const AddPosition = ({ open,
                         </div>
                     </div>
                     <div className='ms-10 me-10 text-zinc-500'>
-                    <CardTitle className='mt-2 text-lg'>Name</CardTitle>
-                    <Input placeholder='name' className="border p-2 mt-3 rounded w-full" value={values.name}
-                        onChange={(e) =>
-                            setValues({ ...values, name: e.target.value })
-                        }  ></Input>
-                    <CardTitle className='mt-2 text-lg'>Position</CardTitle>
-                    <Input placeholder='Position' className="border p-2 mt-3 rounded w-full" value={values.position}
-                        onChange={(e) =>
-                            setValues({ ...values, position: e.target.value })
-                        }></Input>
-                    <CardTitle className='mt-2 text-lg'>Department</CardTitle>
-                    <Input placeholder='Department' className="border p-2 mt-3 rounded w-full" value={values.department}
-                        onChange={(e) =>
-                            setValues({ ...values, department: e.target.value })
-                        }></Input>
-                    <CardTitle className='mt-3 text-lg'>Reports To</CardTitle>
-                    <div className='flex flex-col'>
-                        <select
-                            value={values.reports_to}
+                        <CardTitle className='mt-2 text-lg'>Name</CardTitle>
+                        <Input placeholder='name' className="border p-2 mt-3 rounded w-full" value={values.name}
                             onChange={(e) =>
-                                setValues({ ...values, reports_to: e.target.value })}
-                            className="border p-2 rounded mt-3 w-full">
-                            <option value="admin">Admin</option>
-                            <option value="employee">Employee</option>
-                            <option value="hr">HR</option>
-                        </select>
-                        <Button className='mt-10 mb-0 text-lg p-6 bg-[#0F0E23] text-zinc-300' onClick={handleSubmit}>Update</Button>
-                    </div>
+                                setValues({ ...values, name: e.target.value })
+                            }  ></Input>
+                        <CardTitle className='mt-2 text-lg'>Position</CardTitle>
+                        <Input placeholder='Position' className="border p-2 mt-3 rounded w-full" value={values.position}
+                            onChange={(e) =>
+                                setValues({ ...values, position: e.target.value })
+                            }></Input>
+                        <CardTitle className='mt-2 text-lg'>Department</CardTitle>
+                        <Input placeholder='Department' className="border p-2 mt-3 rounded w-full" value={values.department}
+                            onChange={(e) =>
+                                setValues({ ...values, department: e.target.value })
+                            }></Input>
+                        <CardTitle className='mt-3 text-lg'>Reports To</CardTitle>
+                        <div className='flex flex-col'>
+                            <select
+                                value={values.reports_to ?? ""}
+                                onChange={(e) =>
+                                    setValues({
+                                        ...values,
+                                        reports_to: e.target.value || null,
+                                    })
+                                }
+                                className="border p-2 rounded mt-3 w-full"
+                            >
+                                <option value="">Select Manager</option>
+
+                                {users.map((user) => (
+                                    <option key={user.id} value={user.id}>
+                                        {user.name}
+                                    </option>
+                                ))}
+                            </select>
+                            <Button className='mt-10 mb-0 text-lg p-6 bg-[#0F0E23] text-zinc-300' onClick={handleSubmit}>Update</Button>
+                        </div>
                     </div>
                 </div>
             </Card>}

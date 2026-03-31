@@ -2,27 +2,20 @@ import { inviteUser } from "./profileSlice";
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { User } from '../types/user.types'
 
-// interface user {
-//     id: string;
-//     name: string;
-//     email: string;
-//     role: string;
-//     is_active: boolean;
-//   }
 
-interface UserState {
+interface UserSliceState {
     list: User[]; 
     loading: boolean;
     error: string | null;
   }
 
-  const initialState: UserState = {
+  const initialState: UserSliceState = {
     list: [], 
     loading: false,
     error: null,
   };
 
-const userSlice = createSlice({
+const userSliceState = createSlice({
     name: "users",
     initialState,
     reducers: {
@@ -59,7 +52,7 @@ const userSlice = createSlice({
     },
   });
   
-  export const { fetchUsersStart, fetchUsersSuccess, fetchUsersFailure } = userSlice.actions;
+  export const { fetchUsersStart, fetchUsersSuccess, fetchUsersFailure } = userSliceState.actions;
   
-  export default userSlice.reducer;
+  export default userSliceState.reducer;
   

@@ -6,7 +6,6 @@ const { data:authUser } = await supabase.auth.getUser();
  const user = authUser;
 
 
-console.log('authUser', authUser?.user?.id)
 
 
 export const { data:authProfile, error } = await supabase
@@ -15,7 +14,7 @@ export const { data:authProfile, error } = await supabase
   .eq("id", authUser?.user?.id)
   .single();
   
-  console.log('authProfile', authProfile)
+  
 
 if (error) {
   console.error("Error fetching profile:", error);

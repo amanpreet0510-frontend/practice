@@ -22,7 +22,7 @@ const AssignTask = () => {
     fetchUser(), fetchTasks();
   }, [fetchUser]);
 
-  console.log("tasks123", tasks);
+  
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [dueDate, setDueDate] = useState("");
@@ -31,8 +31,6 @@ const AssignTask = () => {
 
   const handleSubmit = async () => {
     try {
-      console.log("Type:", typeof assignTaskToEmployee);
-
       await assignTaskToEmployee({
         userId: user?.id || "",
         title,

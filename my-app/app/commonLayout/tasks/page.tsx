@@ -28,7 +28,6 @@ const TaskPage = () => {
   const { tasks, fetchTasks, updateTaskStatus, setStatusFilter } =
     useTaskStore();
 
-  console.log('tasks', tasks)
 
   const statusFilter = useTaskStore((state) => state.statusFilter);
 

@@ -41,7 +41,6 @@ const UserManagement = () => {
   }, [dispatch]);
 
   const handleToggleStatus = async (userId: string, currentStatus: boolean) => {
-    console.log('userId123', userId)
     try {
       setLoading(true)
       await updateUserStatus(userId, !currentStatus)
@@ -83,7 +82,7 @@ const UserManagement = () => {
       user.role?.toLowerCase().includes(query)
     );
   })
-    .sort((a, b) => a.name.localeCompare(b.name));
+  .sort((a, b) => (a.name || "").localeCompare(b.name || ""));
 
 
   return (

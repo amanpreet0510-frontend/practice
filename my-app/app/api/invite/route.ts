@@ -6,35 +6,95 @@ const supabaseAdmin = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
-export async function POST(req: Request) {
-  try {
-    const { email } = await req.json();
-    console.log('email', email)
-    if (!email) return NextResponse.json({ error: "Email is required" }, { status: 400 });
+export async function inviteUserWithProfile(payload: {
+  name: string;
+  email: string;
+  role: string;
+  position?: string | null;
+  department?: string | null;
+  reports_to?: string | null;
+}) {
+  console.log("🔥 LIB CALLED");
 
-    const { data, error } =
+  const { name, email, role, position, department, reports_to } = payload;
+
+
+
+    const {  data: inviteData, error: inviteError  } =
   await supabaseAdmin.auth.admin.inviteUserByEmail(email,{redirectTo: "https://practice-qug7exrpy-amanpreet-frontends-projects.vercel.app/setPassword"});
 
+  
 
-if (error) {
-  throw error;
+  if (inviteError) throw inviteError;
+
+  const userId = inviteData.user?.id;
+
+  const { data: existingUser } = await supabaseAdmin
+  .from("profiles")
+  .select("id")
+  .eq("id", userId)
+  .maybeSingle();
+
+// if(existingUser){ console.log("user exist")
+//   return existingUser;
+// };
+if (existingUser) {
+  return {
+    "success": true,
+    "data": {
+      "message": "User already invited",
+      "alreadyExists": true
+    }
+  };
 }
 
-    // if (users?.users?.length) {
-    //   const userId = users.users[0].id;
-    //   await supabaseAdmin.auth.admin.deleteUser(userId);
-    // }
+  const { data, error } = await supabaseAdmin
+  
+    .from("profiles")
+    .insert([
+      {
+        id: userId, 
+        name,
+        email,
+        role,
+        position,
+        department,
+        reports_to: reports_to || null,
+        first_time: true,
+        is_active: true,
+      },
+    ])
+    .select()
+    .single();
 
-    // Create new user → this will send the invite email via SMTP
-    // const { error: createError } = await supabaseAdmin.auth.admin.createUser({
-    //   email,
-    //   email_confirm: true,
-    // });
+  if (error) throw error;
 
-    // if (createError) return NextResponse.json({ error: createError.message }, { status: 400 });
-
-    return NextResponse.json({ success: true, message: "User invited successfully" });
-  } catch (err: any) {
-    return NextResponse.json({ error: err.message || "Internal Server Error" }, { status: 500 });
+  return data;
   }
-}
+
+
+  export async function POST(req: Request) {
+    try {
+      console.log("🔥 API HIT");
+  
+      const body = await req.json();
+  
+      const result = await inviteUserWithProfile(body);
+  
+      return NextResponse.json({
+        success: true,
+        data: result,
+      });
+    } catch (err: any) {
+      return NextResponse.json(
+        { error: err.message || "Internal Server Error" },
+        { status: 500 }
+      );
+    }
+  }
+
+  //   return NextResponse.json({ success: true, message: "User invited successfully" });
+  // } catch (err: any) {
+  //   return NextResponse.json({ error: err.message || "Internal Server Error" }, { status: 500 });
+  // }
+

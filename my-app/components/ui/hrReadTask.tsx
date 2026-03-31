@@ -16,7 +16,6 @@ import {
 const HrReadTask = () => {
   const { tasks, fetchTasks } = useHrTaskStore();
 
-  console.log("tasks", tasks[0]);
 
   useEffect(() => {
     fetchTasks();

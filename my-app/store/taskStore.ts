@@ -83,7 +83,6 @@ export const useTaskStore = create<TaskStore>((set) => ({
         .eq("id", id)
         .select();
 
-       console.log('Updated data', status)
 
       if (error) throw error;
 
@@ -108,12 +107,12 @@ export const useTaskStore = create<TaskStore>((set) => ({
     try {
       const supabase = getSupabaseClient();
       const { data: sessionData } = await supabase.auth.getSession();
-      console.log("Session:", sessionData.session);
+      
       
 
       //const { data: userData } = await supabase.auth.getUser();
       //const userId = userData?.user?.id;
-      console.log('payload.userId)', payload.userId)
+      
 
       if (!payload.userId) throw new Error("User not authenticated");
 
@@ -135,7 +134,6 @@ export const useTaskStore = create<TaskStore>((set) => ({
         loading: false,
       }));
 
-      console.log("Task assigned:", data);
     } catch (err: any) {
       set({ error: err.message, loading: false });
       console.error("assignTaskToEmployee error:", err);

@@ -60,7 +60,6 @@ export default function LoginPage() {
     };
 
 
-    console.log('profile.first_time', profile.first_time)
 
     setUser(user);
     if (profile?.first_time) {

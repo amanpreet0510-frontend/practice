@@ -21,7 +21,6 @@ fetchdocsProps,
       .from('documents')
       .select('*');
       
-      console.log('data', data)
 
     
 

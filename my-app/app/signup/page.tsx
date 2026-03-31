@@ -70,7 +70,6 @@ export default function SignupPage() {
       is_active: profile.is_active
     };
 
-    console.log('profile.first_time', profile.first_time)
     setUser(user);
     router.replace("/commonLayout/roleBasedDashboard");
 
